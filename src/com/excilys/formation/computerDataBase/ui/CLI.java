@@ -24,19 +24,43 @@ public class CLI {
 			System.out.println("list des commande : ");
 			System.out.println("  --listComputer ");
 			System.out.println("  --listCompany ");
+			System.out.println("  --showComputerDetail Id");
 			
-		}else if (args.length == 1) {
+		}else if (args.length >= 1) {
 			switch(args[0]) {
+				
 				case "--listComputer": 		
 					for(Computer c : computerCollection) {
 						System.out.println(c);
 					}
 					break;
+				
 				case "--listCompany":
 					for(Company c : companyCollection) {
 						System.out.println(c);
 					}
 					break;
+				
+				case "--showComputerDetail":
+					
+						if (args.length != 2 ) {
+							System.out.println("Bad argument");
+						}
+						else {
+							String result = null;
+							for(Computer c : computerCollection) {
+								if ( c.getId() == Integer.valueOf(args[1]) ) {
+									result = c.toString();
+								}
+							}
+							if (result !=null) {
+								System.out.println(result);
+							}else {
+								System.out.println("This computer doesn't exist.");
+							}
+						}
+						break;
+						
 				default: 
 					System.out.println("Bad argument");
 					break;
