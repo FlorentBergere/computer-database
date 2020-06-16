@@ -1,5 +1,6 @@
 package com.excilys.formation.computerDataBase.ui;
 
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
@@ -59,6 +60,28 @@ public class CLI {
 					}else {
 						System.out.printf("No match found for computer with id n°: %d\n",entry);
 					}
+					break;
+					
+				case 4:
+					System.out.println("Enter the computer Id : ");
+					System.out.print(">");
+					int id = in.nextInt();
+					System.out.println("Enter the computer name : ");
+					System.out.print(">");
+					in.next();
+					String name = in.nextLine();
+					System.out.println("Ceci est la valeur de name : " + name);
+					System.out.println("Enter the date of the computer was introduce yyyy-mm-dd or (null): ");
+					System.out.print(">");
+					Date introduced = Date.valueOf(in.next());
+					System.out.println("Enter the date of the computer was discontinued yyyy-mm-dd or (null): ");
+					System.out.print(">");
+					Date discontinued = Date.valueOf(in.next());
+					System.out.println("Enter the compagny Id : ");
+					System.out.print(">");
+					int compagnyId = in.nextInt();
+					computerDAO.addComputer(id,name,introduced,discontinued,compagnyId);
+					
 					break;
 				case 7:
 					System.out.println("Closing application.");

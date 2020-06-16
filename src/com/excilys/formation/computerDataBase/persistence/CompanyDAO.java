@@ -32,6 +32,8 @@ public class CompanyDAO {
 			companyCollection.add(company);
 		}
 		
+		con.close();
+		
     }
     
     public List<Company> getCompanyCollection (){

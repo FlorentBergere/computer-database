@@ -1,7 +1,9 @@
 package com.excilys.formation.computerDataBase.persistence;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,9 +39,30 @@ public class ComputerDAO {
 			computerCollection.add(computer);
 		}
 		
+		con.close();
+		
+    }
+    
+    public void addComputer (int id, String name, Date introduced, Date discontinued, int compagnyId) throws SQLException {
+    	Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+    
+    	String query = "insert into computer (id, name, introduced, discontinued, company_id)"
+    	        + " values (?, ?, ?, ?, ?)";
+    	PreparedStatement stmt = con.prepareStatement(query);
+    	stmt.setInt(1, id);
+    	stmt.setString(2, name);
+    	stmt.setDate(3, introduced);
+    	stmt.setDate(4, discontinued);
+    	stmt.setInt(5, compagnyId);
+    	
+    	stmt.execute();
+    	
+    	con.close();
     }
     
     public List<Computer> getComputerCollection (){
     	return ComputerDAO.computerCollection;
     }
+    
+    
 }
