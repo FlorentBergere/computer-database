@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 
 public class ComputerDAO {
