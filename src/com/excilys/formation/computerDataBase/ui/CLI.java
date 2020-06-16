@@ -11,6 +11,7 @@ import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 
 public class CLI {
 	public static void main(String[] args) throws SQLException {
+		
 		CompanyDAO companyDAO = new CompanyDAO();
 		companyDAO.findCompany();
 		List<Company> companyCollection = companyDAO.getCompanyCollection();
@@ -19,13 +20,34 @@ public class CLI {
 		computerDAO.findComputer();
 		List<Computer> computerCollection = computerDAO.getComputerCollection();
 		
-		for(Company c : companyCollection) {
-			System.out.println(c);
+		if(args.length == 0) {
+			System.out.println("list des commande : ");
+			System.out.println("  --listComputer ");
+			System.out.println("  --listCompany ");
+			
+		}else if (args.length == 1) {
+			switch(args[0]) {
+				case "--listComputer": 		
+					for(Computer c : computerCollection) {
+						System.out.println(c);
+					}
+					break;
+				case "--listCompany":
+					for(Company c : companyCollection) {
+						System.out.println(c);
+					}
+					break;
+				default: 
+					System.out.println("Bad argument");
+					break;
+			}
 		}
-		for(Computer c : computerCollection) {
-			System.out.println(c);
+		else {
+			System.out.println("Bad argument");
 		}
-		
-		
+	
 	}
 }
+
+
+
