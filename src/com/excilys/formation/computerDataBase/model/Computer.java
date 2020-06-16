@@ -71,5 +71,13 @@ public class Computer {
 		this.compagnyId = compagnyId;
 	}
 	
+	@Override
+	public String toString() {
+		return 	"Id : " + String.valueOf(this.id) + 
+				" Company : " + this.name +
+				"introduced : " + String.valueOf(this.introduced) +
+				"discontinued : " + String.valueOf(this.discontinued) +
+				"compagny ID : " + String.valueOf(this.compagnyId);
+	}
 
 }

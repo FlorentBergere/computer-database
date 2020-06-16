@@ -5,9 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.excilys.formation.computerDataBase.collection.ComputerCollection;
+
+import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 
 public class ComputerDAO {
@@ -16,12 +18,16 @@ public class ComputerDAO {
     private static String PASSWORD = "azerty1234";
     private final static String QUERY_FIND_COMPUTER = "SELECT * FROM computer";
     
-    public ComputerCollection findComputer () throws SQLException{
+    private static List<Computer> computerCollection;
+    
+    public ComputerDAO() {
+    	computerCollection = new ArrayList<Computer>();
+    }
+    
+    public void findComputer () throws SQLException{
 	    Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
 		Statement stmt = con.createStatement();
 		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPUTER);
-		
-		ComputerCollection computers = new ComputerCollection();
 		
 		while(rset.next()) {
 			Computer computer= new Computer(	rset.getInt("id"),
@@ -29,9 +35,12 @@ public class ComputerDAO {
 												rset.getDate("introduced"),
 												rset.getDate("discontinued"),
 												rset.getInt("company_id") );
-			computers.addComputer(computer);
+			computerCollection.add(computer);
 		}
 		
-		return computers;
+    }
+    
+    public List<Computer> getComputerCollection (){
+    	return ComputerDAO.computerCollection;
     }
 }

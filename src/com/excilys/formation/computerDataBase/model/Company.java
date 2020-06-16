@@ -33,6 +33,6 @@ public final class Company {
 	
 	@Override
 	public String toString() {
-		return "Id : " + String.valueOf(id) + " Company : " + name + "\n";
+		return "Id : " + String.valueOf(id) + " Company : " + name;
 	}
 }

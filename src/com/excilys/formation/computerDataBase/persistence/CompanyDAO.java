@@ -5,8 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.excilys.formation.computerDataBase.collection.CompanyCollection;
 import com.excilys.formation.computerDataBase.model.Company;
 
 public class CompanyDAO {
@@ -15,18 +16,25 @@ public class CompanyDAO {
     private static String PASSWORD = "azerty1234";
     private final static String QUERY_FIND_COMPANY = "SELECT * FROM company";
     
-    public CompanyCollection findCompany () throws SQLException{
+    private static List<Company> companyCollection;
+    
+    public CompanyDAO() {
+    	companyCollection = new ArrayList<Company>();
+    }
+    
+    public void findCompany () throws SQLException{
 	    Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
 		Statement stmt = con.createStatement();
 		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPANY);
 		
-		CompanyCollection companys = new CompanyCollection();
-		
 		while(rset.next()) {
 			Company company = new Company(rset.getInt("id"),rset.getString("name"));
-			companys.addCompany(company);
+			companyCollection.add(company);
 		}
 		
-		return companys;
+    }
+    
+    public List<Company> getCompanyCollection (){
+    	return CompanyDAO.companyCollection;
     }
 }
