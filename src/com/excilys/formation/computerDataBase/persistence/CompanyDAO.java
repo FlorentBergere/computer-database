@@ -1,6 +1,5 @@
 package com.excilys.formation.computerDataBase.persistence;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,11 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.formation.computerDataBase.model.Company;
+import com.excilys.formation.computerDataBase.service.Connection;
 
 public class CompanyDAO {
-	private static String URL = "jdbc:mysql://localhost:3306/computer-database-db?serverTimezone=UTC";
-    private static String LOGIN = "admincdb";
-    private static String PASSWORD = "azerty1234";
+	Connection con = new Connection();
     private final static String QUERY_FIND_COMPANY = "SELECT * FROM company";
     
     private static List<Company> companyCollection;
@@ -23,8 +21,7 @@ public class CompanyDAO {
     }
     
     public void findCompany () throws SQLException{
-	    Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
-		Statement stmt = con.createStatement();
+    	Statement stmt = con.getConnection().createStatement();
 		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPANY);
 		
 		while(rset.next()) {
@@ -32,7 +29,7 @@ public class CompanyDAO {
 			companyCollection.add(company);
 		}
 		
-		con.close();
+		
 		
     }
     

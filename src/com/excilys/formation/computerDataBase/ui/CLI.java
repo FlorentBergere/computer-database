@@ -9,12 +9,14 @@ import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.persistence.CompanyDAO;
 import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
+import com.excilys.formation.computerDataBase.service.Connection;
 
 public class CLI {
 	public static void main(String[] args) throws SQLException {
 		boolean quit = false;
 		int entry;
 		Scanner in = new Scanner(System.in);
+		Connection con = new Connection();
 		
 		CompanyDAO companyDAO = new CompanyDAO();
 		companyDAO.findCompany();
@@ -63,13 +65,9 @@ public class CLI {
 					break;
 					
 				case 4:
-					System.out.println("Enter the computer Id : ");
-					System.out.print(">");
-					int id = in.nextInt();
 					System.out.println("Enter the computer name : ");
 					System.out.print(">");
-					in.next();
-					String name = in.nextLine();
+					String name = in.next() + in.nextLine();
 					System.out.println("Ceci est la valeur de name : " + name);
 					System.out.println("Enter the date of the computer was introduce yyyy-mm-dd or (null): ");
 					System.out.print(">");
@@ -80,7 +78,7 @@ public class CLI {
 					System.out.println("Enter the compagny Id : ");
 					System.out.print(">");
 					int compagnyId = in.nextInt();
-					computerDAO.addComputer(id,name,introduced,discontinued,compagnyId);
+					computerDAO.addComputer(name,introduced,discontinued,compagnyId);
 					
 					break;
 				case 7:
@@ -93,7 +91,7 @@ public class CLI {
 			}
 		}
 		
-		in.close();
+		con.closeConnection();
 		
 	}
 	

@@ -1,8 +1,6 @@
 package com.excilys.formation.computerDataBase.persistence;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,11 +10,10 @@ import java.util.List;
 
 
 import com.excilys.formation.computerDataBase.model.Computer;
+import com.excilys.formation.computerDataBase.service.Connection;
 
 public class ComputerDAO {
-	private static String URL = "jdbc:mysql://localhost:3306/computer-database-db?serverTimezone=UTC";
-    private static String LOGIN = "admincdb";
-    private static String PASSWORD = "azerty1234";
+	Connection con = new Connection();
     private final static String QUERY_FIND_COMPUTER = "SELECT * FROM computer";
     
     private static List<Computer> computerCollection;
@@ -26,8 +23,7 @@ public class ComputerDAO {
     }
     
     public void findComputer () throws SQLException{
-	    Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
-		Statement stmt = con.createStatement();
+		Statement stmt = con.getConnection().createStatement();
 		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPUTER);
 		
 		while(rset.next()) {
@@ -39,25 +35,21 @@ public class ComputerDAO {
 			computerCollection.add(computer);
 		}
 		
-		con.close();
 		
     }
     
-    public void addComputer (int id, String name, Date introduced, Date discontinued, int compagnyId) throws SQLException {
-    	Connection con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
+    public void addComputer (String name, Date introduced, Date discontinued, int compagnyId) throws SQLException {
     
-    	String query = "insert into computer (id, name, introduced, discontinued, company_id)"
-    	        + " values (?, ?, ?, ?, ?)";
-    	PreparedStatement stmt = con.prepareStatement(query);
-    	stmt.setInt(1, id);
-    	stmt.setString(2, name);
-    	stmt.setDate(3, introduced);
-    	stmt.setDate(4, discontinued);
-    	stmt.setInt(5, compagnyId);
+    	String query = "insert into computer (name, introduced, discontinued, company_id)"
+    	        + " values (?, ?, ?, ?)";
+    	PreparedStatement stmt = con.getConnection().prepareStatement(query);
+    	stmt.setString(1, name);
+    	stmt.setDate(2, introduced);
+    	stmt.setDate(3, discontinued);
+    	stmt.setInt(4, compagnyId);
     	
     	stmt.execute();
     	
-    	con.close();
     }
     
     public List<Computer> getComputerCollection (){
