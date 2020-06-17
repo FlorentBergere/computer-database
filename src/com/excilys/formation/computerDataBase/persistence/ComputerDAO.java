@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.service.Connection;
 import com.mysql.cj.protocol.Resultset;
@@ -27,14 +27,13 @@ public class ComputerDAO {
     	try {
     		Statement stmt = con.getConnection().createStatement();
     		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPUTER);
-    		
     		while(rset.next()) {
-    			result.add(rsetToComputer(rset));
+    			result.add(ComputerMapper.rsetToComputer(rset));
     		}
     	}catch (Exception e) {
 			// TODO: handle exception
 		}
-		
+    	
 		return result;
 		
     }
@@ -48,7 +47,7 @@ public class ComputerDAO {
 	    	ResultSet rset = stmt.executeQuery();
 	    	
 	    	while (rset.next()) {
-	    		result.add(rsetToComputer(rset));
+	    		result.add(ComputerMapper.rsetToComputer(rset));
 	    	}
 	    }catch (Exception e) {
 			// TODO: handle exception
@@ -56,31 +55,23 @@ public class ComputerDAO {
     	return result;
     }
     
-    public void add (String name, Date introduced, Date discontinued, int compagnyId) { 	
+    public void add (Computer c) { 	
     	try {
     		PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_INSERT);
-        	stmt.setString(1, name);
-        	stmt.setDate(2, introduced);
-        	stmt.setDate(3, discontinued);
-        	stmt.setInt(4, compagnyId);
-        	
+        	ComputerMapper.toStatementAdd(stmt, c);
         	stmt.execute();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
     	
     	
     }
     
-    public void update (int id, String name, Date introduced, Date discontinued, int compagnyId) {
+    public void update (Computer c) {
     	try {
         	PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_UPDATE);
-        	stmt.setString(1, name);
-        	stmt.setDate(2, introduced);
-        	stmt.setDate(3, discontinued);
-        	stmt.setInt(4, compagnyId);
-        	stmt.setInt(5, id);
-        	
+        	ComputerMapper.toStatementUpdate(stmt, c);
         	stmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -95,16 +86,10 @@ public class ComputerDAO {
 			stmt.execute();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
     }
     
     
-    private Computer rsetToComputer (ResultSet rset) throws SQLException {
-    	return new Computer(rset.getInt("id"),
-							rset.getString("name"),
-							rset.getDate("introduced"),
-							rset.getDate("discontinued"),
-							rset.getInt("company_id") );
-    }
     
 }

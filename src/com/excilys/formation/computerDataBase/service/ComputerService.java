@@ -20,7 +20,7 @@ public class ComputerService {
 		//TODO changer pour que findComputer retourne directement une liste
 		List<Computer> computerCollection = computerDAO.findAll();
 		for(Computer c : computerCollection) {
-			result.add(ComputerMapper.printAll(c));
+			result.add(c.toString());
 			
 			//TODO utiliser un mapper plutot que le ToString;
 		}
@@ -41,12 +41,14 @@ public class ComputerService {
 	}
 	
 	public void add (String name, Date introduced, Date discontinued, int compagnyId) {
-		computerDAO.add(name, introduced, discontinued, compagnyId);
+		Computer c = new Computer(0, name, introduced, discontinued, compagnyId);
+		computerDAO.add(c);
 		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
 	
 	public void update (int id, String name, Date introduced, Date discontinued, int compagnyId) {
-		computerDAO.update(id, name, introduced, discontinued, compagnyId);
+		Computer c = new Computer(id, name, introduced, discontinued, compagnyId);
+		computerDAO.update(c);
 		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
 	

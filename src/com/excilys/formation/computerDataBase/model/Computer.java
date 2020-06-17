@@ -73,11 +73,13 @@ public class Computer {
 	
 	@Override
 	public String toString() {
-		return 	"Id : " + String.valueOf(this.id) + 
-				" Company : " + this.name +
-				"introduced : " + String.valueOf(this.introduced) +
-				"discontinued : " + String.valueOf(this.discontinued) +
-				"compagny ID : " + String.valueOf(this.compagnyId);
+		return String.format("| %3d | Name : %-65s | Intro : %10s | Disco : %10s | Comp_ID %3d",
+			this.getId(),
+			this.name,
+			String.valueOf(this.introduced),
+			String.valueOf(this.discontinued),
+			this.compagnyId);
+		
 	}
 
 }
