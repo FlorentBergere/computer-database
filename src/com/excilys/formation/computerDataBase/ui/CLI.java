@@ -2,13 +2,9 @@ package com.excilys.formation.computerDataBase.ui;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
-import com.excilys.formation.computerDataBase.model.Company;
-import com.excilys.formation.computerDataBase.model.Computer;
-import com.excilys.formation.computerDataBase.persistence.CompanyDAO;
-import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
+
 import com.excilys.formation.computerDataBase.service.Connection;
 import com.excilys.formation.computerDataBase.service.CompanyService;
 import com.excilys.formation.computerDataBase.service.ComputerService;
@@ -53,7 +49,6 @@ public class CLI {
 					break;
 				
 				case 3:
-					//TODO utiliser le computerService
 					System.out.println("Enter the ID of the computer : ");
 					System.out.print(">");
 					entry = in.nextInt();
@@ -97,6 +92,12 @@ public class CLI {
 					compagnyId = in.nextInt();
 					computerService.update(id,name,introduced,discontinued,compagnyId);
 					
+					break;
+				case 6:
+					System.out.println("Enter the computer ID : ");
+					System.out.print(">");
+					id = in.nextInt();
+					computerService.delete(id);
 					break;
 				case 7:
 					System.out.println("Closing application.");

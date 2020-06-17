@@ -46,4 +46,8 @@ public class ComputerService {
 		computerDAO.update(id, name, introduced, discontinued, compagnyId);
 		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
+	
+	public void delete(int id) {
+		computerDAO.delete(id);
+	}
 }

@@ -16,9 +16,10 @@ import com.mysql.cj.protocol.Resultset;
 public class ComputerDAO {
 	Connection con = new Connection();
     private final static String QUERY_FIND_COMPUTER = "SELECT * FROM computer";
-    private final static String QUERY_FINDBYID = "SELECT  * FROM computer where id = ?";
-    private final static String QUERY_INSERT = "insert into computer (name, introduced, discontinued, company_id)" + " values (?, ?, ?, ?)";
-    private final static String QUERY_UPDATE = "update computer set name=?, introduced=?, discontinued=?, company_id=? where id=?";
+    private final static String QUERY_FINDBYID = "SELECT  * FROM computer WHERE id = ?";
+    private final static String QUERY_INSERT = "INSERT INTO computer (name, introduced, discontinued, company_id)" + " VALUES (?, ?, ?, ?)";
+    private final static String QUERY_UPDATE = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
+    private final static String QUERY_DELETE = "DELETE FROM computer WHERE id=?";
     
     
     public List<Computer> findAll () {
@@ -84,6 +85,16 @@ public class ComputerDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		}
+    }
+    
+    public void delete (int id) {
+    	try {
+			PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_DELETE);
+			stmt.setInt(1, id);
+			stmt.execute();
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
     }
     
