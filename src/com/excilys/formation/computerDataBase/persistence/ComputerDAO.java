@@ -98,19 +98,36 @@ public class ComputerDAO {
     }
     
     
-    private final static String QUERY_FINDBYPAGE_COMPUTER = "SELECT * FROM computer OFFSET ? LIMIT ?";
+    private final static String QUERY_FINDBYPAGE_COMPUTER = "SELECT * FROM computer LIMIT ? OFFSET ?";
     public List<Computer> findAllByPage (int offset, int nbEntry) {
     	ArrayList<Computer> result = new ArrayList<Computer>();
     	try {
-    		Statement stmt = con.getConnection().createStatement();
-    		ResultSet rset = stmt.executeQuery(QUERY_FINDBYPAGE_COMPUTER);
+    		PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_FINDBYPAGE_COMPUTER);
+    		stmt.setInt(1, nbEntry);
+    		stmt.setInt(2, offset);
+    		ResultSet rset = stmt.executeQuery();
     		while(rset.next()) {
     			result.add(ComputerMapper.rsetToComputer(rset));
     		}
     	}catch (Exception e) {
 			// TODO: handle exception
+    		e.printStackTrace();
 		}
     	
 		return result;
+    }
+    
+    private final static String QUERY_COUNT_COMPUTER = "SELECT count(*) as nbComputer FROM computer";
+    public int countEntry (){
+    	int result = 0;
+    	try {
+			Statement stmt = con.getConnection().createStatement();
+			ResultSet rset = stmt.executeQuery(QUERY_COUNT_COMPUTER);
+			result = rset.getInt("nbComputer");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    	return result;
     }
 }

@@ -99,6 +99,25 @@ public class CLI {
 					id = in.nextInt();
 					computerService.delete(id);
 					break;
+					
+				case 8:
+					for(String s : computerService.findAllByPage()) {
+						System.out.println(s);
+					}
+					boolean page = true;
+					while(page) {
+						entry = in.nextInt();
+						switch (entry) {
+							case 0:
+								page = false;
+								break;
+							case 1:
+								for(String s : computerService.nextPage()) {
+									System.out.println(s);
+								}
+						}
+					}
+					break;
 				case 7:
 					System.out.println("Closing application.");
 					quit = true;
