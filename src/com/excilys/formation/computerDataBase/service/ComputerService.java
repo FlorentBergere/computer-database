@@ -41,4 +41,9 @@ public class ComputerService {
 		computerDAO.add(name, introduced, discontinued, compagnyId);
 		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
+	
+	public void update (int id, String name, Date introduced, Date discontinued, int compagnyId) {
+		computerDAO.update(id, name, introduced, discontinued, compagnyId);
+		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
+	}
 }

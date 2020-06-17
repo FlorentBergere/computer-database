@@ -17,7 +17,8 @@ public class ComputerDAO {
 	Connection con = new Connection();
     private final static String QUERY_FIND_COMPUTER = "SELECT * FROM computer";
     private final static String QUERY_FINDBYID = "SELECT  * FROM computer where id = ?";
-    
+    private final static String QUERY_INSERT = "insert into computer (name, introduced, discontinued, company_id)" + " values (?, ?, ?, ?)";
+    private final static String QUERY_UPDATE = "update computer set name=?, introduced=?, discontinued=?, company_id=? where id=?";
     
     
     public List<Computer> findAll () {
@@ -54,13 +55,9 @@ public class ComputerDAO {
     	return result;
     }
     
-    public void add (String name, Date introduced, Date discontinued, int compagnyId) {
-    
-    	String query = "insert into computer (name, introduced, discontinued, company_id)"
-    	        + " values (?, ?, ?, ?)";
-    	
+    public void add (String name, Date introduced, Date discontinued, int compagnyId) { 	
     	try {
-    		PreparedStatement stmt = con.getConnection().prepareStatement(query);
+    		PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_INSERT);
         	stmt.setString(1, name);
         	stmt.setDate(2, introduced);
         	stmt.setDate(3, discontinued);
@@ -72,6 +69,22 @@ public class ComputerDAO {
 		}
     	
     	
+    }
+    
+    public void update (int id, String name, Date introduced, Date discontinued, int compagnyId) {
+    	try {
+        	PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_UPDATE);
+        	stmt.setString(1, name);
+        	stmt.setDate(2, introduced);
+        	stmt.setDate(3, discontinued);
+        	stmt.setInt(4, compagnyId);
+        	stmt.setInt(5, id);
+        	
+        	stmt.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
     }
     
     
