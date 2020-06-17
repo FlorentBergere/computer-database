@@ -14,11 +14,10 @@ public class ComputerService {
 		this.computerDAO = new ComputerDAO();
 	}
 	
-	public List<String> listComputer () {
+	public List<String> listAll () {
 		ArrayList<String> result = new ArrayList<String>();
 		//TODO changer pour que findComputer retourne directement une liste
-		computerDAO.findComputer();
-		List<Computer> computerCollection = computerDAO.getComputerCollection();
+		List<Computer> computerCollection = computerDAO.findAll();
 		for(Computer c : computerCollection) {
 			result.add(c.toString());
 			//TODO utiliser un mapper plutot que le ToString;
@@ -38,8 +37,8 @@ public class ComputerService {
 		return result;
 	}
 	
-	public void addComputer (String name, Date introduced, Date discontinued, int compagnyId) {
-		computerDAO.addComputer(name, introduced, discontinued, compagnyId);
+	public void add (String name, Date introduced, Date discontinued, int compagnyId) {
+		computerDAO.add(name, introduced, discontinued, compagnyId);
 		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
 }

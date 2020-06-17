@@ -13,7 +13,7 @@ public class CompanyService {
 		this.companyDAO = new CompanyDAO();
 	}
 	
-	public List<String> listCompany () {
+	public List<String> listAll () {
 		ArrayList<String> result = new ArrayList<String>();
 		//TODO faire en sorte que findcompagny renvoi directement une liste
 		companyDAO.findCompany();

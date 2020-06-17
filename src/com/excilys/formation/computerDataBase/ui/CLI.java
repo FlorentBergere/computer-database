@@ -35,13 +35,13 @@ public class CLI {
 			switch(entry) {
 			
 				case 1: 		
-					for(String s : computerService.listComputer()) {
+					for(String s : computerService.listAll()) {
 						System.out.println(s);
 					}
 					break;
 				
 				case 2:
-					for(String s : compagnyService.listCompany()) {
+					for(String s : compagnyService.listAll()) {
 						System.out.println(s);
 					}
 					break;
@@ -70,7 +70,11 @@ public class CLI {
 					System.out.println("Enter the compagny Id : ");
 					System.out.print(">");
 					int compagnyId = in.nextInt();
-					computerService.addComputer(name,introduced,discontinued,compagnyId);
+					computerService.add(name,introduced,discontinued,compagnyId);
+					
+					break;
+					
+				case 5:
 					
 					break;
 				case 7:

@@ -18,25 +18,22 @@ public class ComputerDAO {
     private final static String QUERY_FIND_COMPUTER = "SELECT * FROM computer";
     private final static String QUERY_FINDBYID = "SELECT  * FROM computer where id = ?";
     
-    private static List<Computer> computerCollection;
     
-    public ComputerDAO() {
-    	computerCollection = new ArrayList<Computer>();
-    }
     
-    public void findComputer () {
+    public List<Computer> findAll () {
+    	ArrayList<Computer> result = new ArrayList<Computer>();
     	try {
     		Statement stmt = con.getConnection().createStatement();
     		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPUTER);
     		
     		while(rset.next()) {
-    			computerCollection.add(rsetToComputer(rset));
+    			result.add(rsetToComputer(rset));
     		}
     	}catch (Exception e) {
 			// TODO: handle exception
 		}
 		
-		
+		return result;
 		
     }
     
@@ -57,7 +54,7 @@ public class ComputerDAO {
     	return result;
     }
     
-    public void addComputer (String name, Date introduced, Date discontinued, int compagnyId) {
+    public void add (String name, Date introduced, Date discontinued, int compagnyId) {
     
     	String query = "insert into computer (name, introduced, discontinued, company_id)"
     	        + " values (?, ?, ?, ?)";
@@ -77,9 +74,6 @@ public class ComputerDAO {
     	
     }
     
-    public List<Computer> getComputerCollection (){
-    	return ComputerDAO.computerCollection;
-    }
     
     private Computer rsetToComputer (ResultSet rset) throws SQLException {
     	return new Computer(rset.getInt("id"),
