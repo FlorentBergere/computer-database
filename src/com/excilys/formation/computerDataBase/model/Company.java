@@ -33,6 +33,9 @@ public final class Company {
 	
 	@Override
 	public String toString() {
-		return "Id : " + String.valueOf(id) + " Company : " + name;
+		return String.format("| %s | Name : %-60s |" ,
+				this.id,
+				this.name);
+//		return "Id : " + String.valueOf(id) + " Company : " + name;
 	}
 }

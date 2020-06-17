@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 
@@ -41,14 +40,12 @@ public class ComputerService {
 	}
 	
 	public void add (String name, Date introduced, Date discontinued, int compagnyId) {
-		Computer c = new Computer(0, name, introduced, discontinued, compagnyId);
-		computerDAO.add(c);
+		computerDAO.add(name, introduced, discontinued, compagnyId);
 		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
 	
 	public void update (int id, String name, Date introduced, Date discontinued, int compagnyId) {
-		Computer c = new Computer(id, name, introduced, discontinued, compagnyId);
-		computerDAO.update(c);
+		computerDAO.update(id, name, introduced, discontinued, compagnyId);
 		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
 	

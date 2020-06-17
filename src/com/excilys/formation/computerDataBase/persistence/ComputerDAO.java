@@ -55,10 +55,13 @@ public class ComputerDAO {
     	return result;
     }
     
-    public void add (Computer c) { 	
+    public void add (String name, Date introduced, Date discontinued, int compagnyId) { 	
     	try {
     		PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_INSERT);
-        	ComputerMapper.toStatementAdd(stmt, c);
+    		stmt.setString(1, name);
+	    	stmt.setDate(2, introduced);
+	    	stmt.setDate(3, discontinued);
+	    	stmt.setInt(4, compagnyId);
         	stmt.execute();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -68,10 +71,14 @@ public class ComputerDAO {
     	
     }
     
-    public void update (Computer c) {
+    public void update (int id, String name, Date introduced, Date discontinued, int compagnyId) {
     	try {
         	PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_UPDATE);
-        	ComputerMapper.toStatementUpdate(stmt, c);
+        	stmt.setString(1, name);
+	    	stmt.setDate(2, introduced);
+	    	stmt.setDate(3, discontinued);
+	    	stmt.setInt(4, compagnyId);
+	    	stmt.setInt(5, id);
         	stmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -91,5 +98,19 @@ public class ComputerDAO {
     }
     
     
-    
+    private final static String QUERY_FINDBYPAGE_COMPUTER = "SELECT * FROM computer OFFSET ? LIMIT ?";
+    public List<Computer> findAllByPage (int offset, int nbEntry) {
+    	ArrayList<Computer> result = new ArrayList<Computer>();
+    	try {
+    		Statement stmt = con.getConnection().createStatement();
+    		ResultSet rset = stmt.executeQuery(QUERY_FINDBYPAGE_COMPUTER);
+    		while(rset.next()) {
+    			result.add(ComputerMapper.rsetToComputer(rset));
+    		}
+    	}catch (Exception e) {
+			// TODO: handle exception
+		}
+    	
+		return result;
+    }
 }

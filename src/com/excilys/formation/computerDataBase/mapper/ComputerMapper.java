@@ -9,19 +9,7 @@ import com.excilys.formation.computerDataBase.model.Computer;
 public class ComputerMapper {
 
 	
-	public static void toStatementUpdate(PreparedStatement stmt, Computer c) {
-		try {
-			stmt.setString(1, c.getName());
-	    	stmt.setDate(2, c.getIntroduced());
-	    	stmt.setDate(3, c.getDiscontinued());
-	    	stmt.setInt(4, c.getCompagnyId());
-	    	stmt.setInt(5, c.getId());
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		
-	}
+
 	
 	public static void toStatementAdd(PreparedStatement stmt, Computer c) {
 		try {
