@@ -10,6 +10,8 @@ import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.persistence.CompanyDAO;
 import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 import com.excilys.formation.computerDataBase.service.Connection;
+import com.excilys.formation.computerDataBase.service.CompanyService;
+import com.excilys.formation.computerDataBase.service.ComputerService;
 
 public class CLI {
 	public static void main(String[] args) throws SQLException {
@@ -17,6 +19,8 @@ public class CLI {
 		int entry;
 		Scanner in = new Scanner(System.in);
 		Connection con = new Connection();
+		ComputerService computerService = new ComputerService();
+		CompanyService compagnyService = new CompanyService();
 		
 		CompanyDAO companyDAO = new CompanyDAO();
 		companyDAO.findCompany();
@@ -38,18 +42,19 @@ public class CLI {
 			switch(entry) {
 			
 				case 1: 		
-					for(Computer c : computerCollection) {
-						System.out.println(c);
+					for(String s : computerService.listComputer()) {
+						System.out.println(s);
 					}
 					break;
 				
 				case 2:
-					for(Company c : companyCollection) {
-						System.out.println(c);
+					for(String s : compagnyService.listCompany()) {
+						System.out.println(s);
 					}
 					break;
 				
 				case 3:
+					//TODO utiliser le computerService
 					entry = in.nextInt();
 					String result = null;
 					for(Computer c : computerCollection) {
