@@ -20,14 +20,19 @@ public class CompanyDAO {
     	companyCollection = new ArrayList<Company>();
     }
     
-    public void findCompany () throws SQLException{
-    	Statement stmt = con.getConnection().createStatement();
-		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPANY);
-		
-		while(rset.next()) {
-			Company company = new Company(rset.getInt("id"),rset.getString("name"));
-			companyCollection.add(company);
+    public void findCompany () {
+    	try {
+    		Statement stmt = con.getConnection().createStatement();
+    		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPANY);
+    		
+    		while(rset.next()) {
+    			Company company = new Company(rset.getInt("id"),rset.getString("name"));
+    			companyCollection.add(company);
+    		}
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
+    	
 		
 		
 		

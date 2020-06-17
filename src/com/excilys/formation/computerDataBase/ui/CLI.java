@@ -22,13 +22,6 @@ public class CLI {
 		ComputerService computerService = new ComputerService();
 		CompanyService compagnyService = new CompanyService();
 		
-		CompanyDAO companyDAO = new CompanyDAO();
-		companyDAO.findCompany();
-		List<Company> companyCollection = companyDAO.getCompanyCollection();
-		
-		ComputerDAO computerDAO = new ComputerDAO();
-		computerDAO.findComputer();
-		List<Computer> computerCollection = computerDAO.getComputerCollection();
 		
 		
 		showCommand();
@@ -55,17 +48,11 @@ public class CLI {
 				
 				case 3:
 					//TODO utiliser le computerService
+					System.out.println("Enter the ID of the computer : ");
+					System.out.print(">");
 					entry = in.nextInt();
-					String result = null;
-					for(Computer c : computerCollection) {
-						if ( c.getId() == entry ) {
-							result = c.toString();
-						}
-					}
-					if (result !=null) {
-						System.out.println(result);
-					}else {
-						System.out.printf("No match found for computer with id n°: %d\n",entry);
+					for(String s : computerService.getComputerByID(entry)) {
+						System.out.println(s);
 					}
 					break;
 					
@@ -83,7 +70,7 @@ public class CLI {
 					System.out.println("Enter the compagny Id : ");
 					System.out.print(">");
 					int compagnyId = in.nextInt();
-					computerDAO.addComputer(name,introduced,discontinued,compagnyId);
+					computerService.addComputer(name,introduced,discontinued,compagnyId);
 					
 					break;
 				case 7:
@@ -97,6 +84,7 @@ public class CLI {
 		}
 		
 		con.closeConnection();
+		in.close();
 		
 	}
 	

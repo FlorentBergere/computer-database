@@ -15,6 +15,8 @@ public class CompanyService {
 	
 	public List<String> listCompany () {
 		ArrayList<String> result = new ArrayList<String>();
+		//TODO faire en sorte que findcompagny renvoi directement une liste
+		companyDAO.findCompany();
 		List<Company> companyCollection = companyDAO.getCompanyCollection();
 		for(Company c : companyCollection) {
 			result.add(c.toString());
