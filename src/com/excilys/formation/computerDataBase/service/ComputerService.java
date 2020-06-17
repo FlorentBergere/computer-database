@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 
@@ -19,12 +20,14 @@ public class ComputerService {
 		//TODO changer pour que findComputer retourne directement une liste
 		List<Computer> computerCollection = computerDAO.findAll();
 		for(Computer c : computerCollection) {
-			result.add(c.toString());
+			result.add(ComputerMapper.printAll(c));
+			
 			//TODO utiliser un mapper plutot que le ToString;
 		}
 		
 		return result;
 	}
+	
 	
 	public List<String> getComputerByID (int id) {
 		ArrayList<String> result = new ArrayList<String>();
