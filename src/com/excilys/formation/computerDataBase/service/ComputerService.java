@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.formation.computerDataBase.model.Computer;
-import com.excilys.formation.computerDataBase.model.PageComputer;
+import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 
 public class ComputerService {
 	private ComputerDAO computerDAO;
-	private PageComputer pageComputer;
+	private Page pageComputer;
 	
 	public ComputerService () {
 		this.computerDAO = new ComputerDAO();
@@ -57,7 +57,7 @@ public class ComputerService {
 	
 	public List<String> findAllByPage () {
 		ArrayList<String> result = new ArrayList<String>();
-		pageComputer = new PageComputer(computerDAO.countEntry());
+		pageComputer = new Page(computerDAO.countEntry());
 		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage());
 		for(Computer c : computerCollection) {
 			result.add(c.toString());
@@ -67,6 +67,16 @@ public class ComputerService {
 	public List<String> nextPage () {
 		ArrayList<String> result = new ArrayList<String>();
 		System.out.println(pageComputer.next());
+		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage());
+		for(Computer c : computerCollection) {
+			result.add(c.toString());
+		}
+		return result;
+	}
+	
+	public List<String> priviousPage () {
+		ArrayList<String> result = new ArrayList<String>();
+		System.out.println(pageComputer.privious());
 		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage());
 		for(Computer c : computerCollection) {
 			result.add(c.toString());

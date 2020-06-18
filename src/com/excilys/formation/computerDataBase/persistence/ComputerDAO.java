@@ -123,7 +123,9 @@ public class ComputerDAO {
     	try {
 			Statement stmt = con.getConnection().createStatement();
 			ResultSet rset = stmt.executeQuery(QUERY_COUNT_COMPUTER);
+			rset.first();
 			result = rset.getInt("nbComputer");
+			System.out.println(result);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

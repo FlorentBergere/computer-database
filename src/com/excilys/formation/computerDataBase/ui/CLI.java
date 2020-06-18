@@ -13,10 +13,11 @@ public class CLI {
 	public static void main(String[] args) throws SQLException {
 		boolean quit = false;
 		int entry;
+		boolean page;
 		Scanner in = new Scanner(System.in);
 		Connection con = new Connection();
 		ComputerService computerService = new ComputerService();
-		CompanyService compagnyService = new CompanyService();
+		CompanyService companyService = new CompanyService();
 		
 		int id;
 		String name;
@@ -41,14 +42,66 @@ public class CLI {
 						System.out.println(s);
 					}
 					break;
-				
 				case 2:
-					for(String s : compagnyService.listAll()) {
+					for(String s : computerService.findAllByPage()) {
+						System.out.println(s);
+					}
+					page = true;
+					while(page) {
+						entry = in.nextInt();
+						switch (entry) {
+							case 0:
+								page = false;
+								break;
+							case 1:
+								for(String s : computerService.nextPage()) {
+									System.out.println(s);
+								}
+								break;
+							case 2:
+								for(String s : computerService.priviousPage()) {
+									System.out.println(s);
+								}
+								break;
+							default:
+								//TODO print menu des page
+								break;
+						}
+					}
+					break;
+				case 3:
+					for(String s : companyService.listAll()) {
 						System.out.println(s);
 					}
 					break;
-				
-				case 3:
+				case 4:
+					for(String s : companyService.findAllByPage()) {
+						System.out.println(s);
+					}
+					page = true;
+					while(page) {
+						entry = in.nextInt();
+						switch (entry) {
+							case 0:
+								page = false;
+								break;
+							case 1:
+								for(String s : companyService.nextPage()) {
+									System.out.println(s);
+								}
+								break;
+							case 2:
+								for(String s : companyService.priviousPage()) {
+									System.out.println(s);
+								}
+								break;
+							default:
+								//TODO print menu des page
+								break;
+						}
+					}
+					break;
+				case 5:
 					System.out.println("Enter the ID of the computer : ");
 					System.out.print(">");
 					entry = in.nextInt();
@@ -57,7 +110,7 @@ public class CLI {
 					}
 					break;
 					
-				case 4:
+				case 6:
 					System.out.println("Enter the computer name : ");
 					System.out.print(">");
 					name = in.next() + in.nextLine();
@@ -74,7 +127,7 @@ public class CLI {
 					
 					break;
 					
-				case 5:
+				case 7:
 					System.out.println("Enter the computer ID : ");
 					System.out.print(">");
 					id = in.nextInt();
@@ -93,32 +146,15 @@ public class CLI {
 					computerService.update(id,name,introduced,discontinued,compagnyId);
 					
 					break;
-				case 6:
+				case 8:
 					System.out.println("Enter the computer ID : ");
 					System.out.print(">");
 					id = in.nextInt();
 					computerService.delete(id);
 					break;
 					
-				case 8:
-					for(String s : computerService.findAllByPage()) {
-						System.out.println(s);
-					}
-					boolean page = true;
-					while(page) {
-						entry = in.nextInt();
-						switch (entry) {
-							case 0:
-								page = false;
-								break;
-							case 1:
-								for(String s : computerService.nextPage()) {
-									System.out.println(s);
-								}
-						}
-					}
-					break;
-				case 7:
+				
+				case 9:
 					System.out.println("Closing application.");
 					quit = true;
 					break;
@@ -135,13 +171,15 @@ public class CLI {
 	
 	private static void showCommand () {
 		System.out.println("List of commands (type the corresponding number to select one) : ");
-		System.out.println(" 1 - List computer ");
-		System.out.println(" 2 - List company ");
-		System.out.println(" 3 - Show computer detail (you will need the Id the computer )");
-		System.out.println(" 4 - Create a computer");
-		System.out.println(" 5 - Update a computer");
-		System.out.println(" 6 - Delete a computer");
-		System.out.println(" 7 - quit");
+		System.out.println(" 1 - List all computer ");
+		System.out.println(" 2 - List computer by page");
+		System.out.println(" 3 - List company ");
+		System.out.println(" 4 - List computer by page");
+		System.out.println(" 5 - Show computer detail (you will need the Id the computer )");
+		System.out.println(" 6 - Create a computer");
+		System.out.println(" 7 - Update a computer");
+		System.out.println(" 8 - Delete a computer");
+		System.out.println(" 9 - quit");
 		
 	}
 }
