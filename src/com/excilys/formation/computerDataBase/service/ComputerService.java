@@ -1,6 +1,7 @@
 package com.excilys.formation.computerDataBase.service;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +19,9 @@ public class ComputerService {
 	
 	public List<String> listAll () {
 		ArrayList<String> result = new ArrayList<String>();
-		//TODO changer pour que findComputer retourne directement une liste
 		List<Computer> computerCollection = computerDAO.findAll();
 		for(Computer c : computerCollection) {
 			result.add(c.toString());
-			
-			//TODO utiliser un mapper plutot que le ToString;
 		}
 		
 		return result;
@@ -41,12 +39,12 @@ public class ComputerService {
 		return result;
 	}
 	
-	public void add (String name, Date introduced, Date discontinued, int compagnyId) {
+	public void add (String name, LocalDate introduced, LocalDate discontinued, int compagnyId) {
 		computerDAO.add(name, introduced, discontinued, compagnyId);
 		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
 	
-	public void update (int id, String name, Date introduced, Date discontinued, int compagnyId) {
+	public void update (int id, String name, LocalDate introduced, LocalDate discontinued, int compagnyId) {
 		computerDAO.update(id, name, introduced, discontinued, compagnyId);
 		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}

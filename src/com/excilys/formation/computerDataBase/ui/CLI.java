@@ -1,16 +1,17 @@
 package com.excilys.formation.computerDataBase.ui;
 
-import java.sql.Date;
-import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 
 import com.excilys.formation.computerDataBase.service.Connection;
+import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
+import com.excilys.formation.computerDataBase.mapper.DateMapper;
 import com.excilys.formation.computerDataBase.service.CompanyService;
 import com.excilys.formation.computerDataBase.service.ComputerService;
 
 public class CLI {
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) {
 		boolean quit = false;
 		int entry;
 		boolean page;
@@ -21,8 +22,8 @@ public class CLI {
 		
 		int id;
 		String name;
-		Date introduced;
-		Date discontinued;
+		LocalDate introduced;
+		LocalDate discontinued;
 		int compagnyId;
 		
 		
@@ -116,10 +117,10 @@ public class CLI {
 					name = in.next() + in.nextLine();
 					System.out.println("Enter the date of the computer was introduce yyyy-mm-dd or (null): ");
 					System.out.print(">");
-					introduced = Date.valueOf(in.next());
+					introduced = DateMapper.stringToLocalDate(in.next());
 					System.out.println("Enter the date of the computer was discontinued yyyy-mm-dd or (null): ");
 					System.out.print(">");
-					discontinued = Date.valueOf(in.next());
+					discontinued = DateMapper.stringToLocalDate(in.next());
 					System.out.println("Enter the compagny Id : ");
 					System.out.print(">");
 					compagnyId = in.nextInt();
@@ -136,10 +137,10 @@ public class CLI {
 					name = in.next() + in.nextLine();
 					System.out.println("Enter the new date of the computer was introduce yyyy-mm-dd or (null): ");
 					System.out.print(">");
-					introduced = Date.valueOf(in.next());
+					introduced = DateMapper.stringToLocalDate(in.next());
 					System.out.println("Enter the new date of the computer was discontinued yyyy-mm-dd or (null): ");
 					System.out.print(">");
-					discontinued = Date.valueOf(in.next());
+					discontinued = DateMapper.stringToLocalDate(in.next());
 					System.out.println("Enter the new compagny Id : ");
 					System.out.print(">");
 					compagnyId = in.nextInt();

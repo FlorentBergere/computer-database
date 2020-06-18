@@ -3,12 +3,13 @@ package com.excilys.formation.computerDataBase.persistence;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
+import com.excilys.formation.computerDataBase.mapper.DateMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.service.Connection;
 import com.mysql.cj.protocol.Resultset;
@@ -32,6 +33,7 @@ public class ComputerDAO {
     		}
     	}catch (Exception e) {
 			// TODO: handle exception
+    		e.printStackTrace();
 		}
     	
 		return result;
@@ -51,16 +53,17 @@ public class ComputerDAO {
 	    	}
 	    }catch (Exception e) {
 			// TODO: handle exception
+	    	e.printStackTrace();
 		}
     	return result;
     }
     
-    public void add (String name, Date introduced, Date discontinued, int compagnyId) { 	
+    public void add (String name, LocalDate introduced, LocalDate discontinued, int compagnyId) { 	
     	try {
     		PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_INSERT);
     		stmt.setString(1, name);
-	    	stmt.setDate(2, introduced);
-	    	stmt.setDate(3, discontinued);
+	    	stmt.setDate(2, DateMapper.localDateTosqlDate(introduced));
+	    	stmt.setDate(3, DateMapper.localDateTosqlDate(discontinued));
 	    	stmt.setInt(4, compagnyId);
         	stmt.execute();
 		} catch (Exception e) {
@@ -71,12 +74,12 @@ public class ComputerDAO {
     	
     }
     
-    public void update (int id, String name, Date introduced, Date discontinued, int compagnyId) {
+    public void update (int id, String name, LocalDate introduced, LocalDate discontinued, int compagnyId) {
     	try {
         	PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_UPDATE);
         	stmt.setString(1, name);
-	    	stmt.setDate(2, introduced);
-	    	stmt.setDate(3, discontinued);
+	    	stmt.setDate(2, DateMapper.localDateTosqlDate(introduced));
+	    	stmt.setDate(3, DateMapper.localDateTosqlDate(discontinued));
 	    	stmt.setInt(4, compagnyId);
 	    	stmt.setInt(5, id);
         	stmt.executeUpdate();

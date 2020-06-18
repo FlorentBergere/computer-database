@@ -1,16 +1,16 @@
 package com.excilys.formation.computerDataBase.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Computer {
 	
 	private int id;
 	private String name;
-	private Date introduced;
-	private Date discontinued;
+	private LocalDate introduced;
+	private LocalDate discontinued;
 	private int compagnyId;
 	
-	public Computer(int id, String name, Date introduced, Date discontinued, int compagnyId){
+	public Computer(int id, String name, LocalDate introduced, LocalDate discontinued, int compagnyId){
 		this.id = id;
 		this.name = name;
 		this.introduced = introduced;
@@ -40,23 +40,23 @@ public class Computer {
 
 
 	
-	public Date getIntroduced() {
+	public LocalDate getIntroduced() {
 		return introduced;
 	}
 
 
-	public void setIntroduced(Date introduced) {
+	public void setIntroduced(LocalDate introduced) {
 		this.introduced = introduced;
 	}
 
 	
 
-	public Date getDiscontinued() {
+	public LocalDate getDiscontinued() {
 		return discontinued;
 	}
 
 
-	public void setDiscontinued(Date discontinued) {
+	public void setDiscontinued(LocalDate discontinued) {
 		this.discontinued = discontinued;
 	}
 
