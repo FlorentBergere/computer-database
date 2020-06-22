@@ -47,7 +47,7 @@ public class CompanyService {
 	
 	public List<String> priviousPage () {
 		ArrayList<String> result = new ArrayList<String>();
-		System.out.println(pageCompany.privious());
+		System.out.println(pageCompany.previous());
 		List<Company> companyCollection = companyDAO.findAllByPage(pageCompany.getOffset(), pageCompany.getNbEntryPerPage());
 		for(Company c : companyCollection) {
 			result.add(c.toString());

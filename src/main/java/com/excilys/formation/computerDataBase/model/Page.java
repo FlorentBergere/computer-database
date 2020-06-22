@@ -32,7 +32,7 @@ public class Page {
 		}
 	}
 	
-	public boolean privious () {
+	public boolean previous () {
 		if (this.currentPage > 0) {
 			this.currentPage--;
 			return true;

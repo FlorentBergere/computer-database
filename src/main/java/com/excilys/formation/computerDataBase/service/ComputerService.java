@@ -72,7 +72,7 @@ public class ComputerService {
 	
 	public List<String> priviousPage () {
 		ArrayList<String> result = new ArrayList<String>();
-		System.out.println(pageComputer.privious());
+		System.out.println(pageComputer.previous());
 		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage());
 		for(Computer c : computerCollection) {
 			result.add(c.toString());
