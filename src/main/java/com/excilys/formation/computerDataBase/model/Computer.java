@@ -81,5 +81,13 @@ public class Computer {
 			this.compagnyId);
 		
 	}
+	
+	public boolean equals(Computer c) {
+		return	this.id == c.id && 
+				this.name.equals(c.name) &&
+				this.introduced.equals(c.introduced) &&
+				this.discontinued.equals(c.discontinued) &&
+				this.compagnyId == c.compagnyId;
+	}
 
 }
