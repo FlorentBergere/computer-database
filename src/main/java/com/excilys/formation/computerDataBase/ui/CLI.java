@@ -2,7 +2,8 @@ package com.excilys.formation.computerDataBase.ui;
 
 import java.time.LocalDate;
 import java.util.Scanner;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.excilys.formation.computerDataBase.service.Connection;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
@@ -11,6 +12,7 @@ import com.excilys.formation.computerDataBase.service.ComputerService;
 
 public class CLI {
 	public static void main(String[] args) {
+		final Logger logger = LoggerFactory.getLogger(CLI.class);
 		boolean quit = false;
 		int entry;
 		boolean page;
@@ -38,6 +40,7 @@ public class CLI {
 			switch(entry) {
 			
 				case 1: 		
+					logger.info("affichage des ordinateurs de la base");
 					for(String s : computerService.listAll()) {
 						System.out.println(s);
 					}
