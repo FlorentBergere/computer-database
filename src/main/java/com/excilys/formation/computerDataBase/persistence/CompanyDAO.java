@@ -7,9 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.formation.computerDataBase.mapper.CompanyMapper;
-import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.model.Company;
-import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.service.Connection;
 
 public class CompanyDAO {

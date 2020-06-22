@@ -1,6 +1,7 @@
 package com.excilys.formation.computerDataBase.model;
 
 public class Page {
+	@SuppressWarnings("unused")
 	private int nbEntry;
 	private int nbEntryPerPage;
 	

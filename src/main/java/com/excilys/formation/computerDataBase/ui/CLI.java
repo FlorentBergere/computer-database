@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 
 import com.excilys.formation.computerDataBase.service.Connection;
-import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
 import com.excilys.formation.computerDataBase.service.CompanyService;
 import com.excilys.formation.computerDataBase.service.ComputerService;

@@ -1,6 +1,5 @@
 package com.excilys.formation.computerDataBase.persistence;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -12,7 +11,6 @@ import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.service.Connection;
-import com.mysql.cj.protocol.Resultset;
 
 public class ComputerDAO {
 	Connection con = new Connection();

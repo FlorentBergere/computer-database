@@ -1,12 +1,8 @@
 package com.excilys.formation.computerDataBase.mapper;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import com.excilys.formation.computerDataBase.model.Computer;
 
 public class ComputerMapper {

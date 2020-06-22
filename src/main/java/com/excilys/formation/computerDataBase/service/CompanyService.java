@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.excilys.formation.computerDataBase.model.Company;
-import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.persistence.CompanyDAO;
 
