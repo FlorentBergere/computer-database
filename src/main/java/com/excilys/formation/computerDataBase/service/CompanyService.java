@@ -17,8 +17,7 @@ public class CompanyService {
 	
 	public List<String> listAll () {
 		ArrayList<String> result = new ArrayList<String>();
-		companyDAO.findCompany();
-		List<Company> companyCollection = companyDAO.getCompanyCollection();
+		List<Company> companyCollection = companyDAO.findCompany();
 		for(Company c : companyCollection) {
 			result.add(c.toString());
 		}

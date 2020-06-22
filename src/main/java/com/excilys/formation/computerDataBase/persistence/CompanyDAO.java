@@ -14,28 +14,19 @@ public class CompanyDAO {
 	Connection con = new Connection();
     private final static String QUERY_FIND_COMPANY = "SELECT * FROM company";
     
-    private static List<Company> companyCollection;
-    
-    public CompanyDAO() {
-    	companyCollection = new ArrayList<Company>();
-    }
-    
-    public void findCompany () {
+    public List<Company> findCompany () {
+    	ArrayList<Company> result = new ArrayList<Company>();
     	try {
     		Statement stmt = con.getConnection().createStatement();
     		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPANY);
     		
     		while(rset.next()) {
-    			companyCollection.add(CompanyMapper.rsetToCompany(rset));
+    			result.add(CompanyMapper.rsetToCompany(rset));
     		}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-    			
-    }
-    
-    public List<Company> getCompanyCollection (){
-    	return CompanyDAO.companyCollection;
+    	return result;
     }
     
     private final static String QUERY_FINDBYPAGE_COMPANY = "SELECT * FROM company LIMIT ? OFFSET ?";
