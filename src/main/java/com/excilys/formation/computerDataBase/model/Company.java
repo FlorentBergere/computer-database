@@ -38,4 +38,11 @@ public final class Company {
 				this.name);
 //		return "Id : " + String.valueOf(id) + " Company : " + name;
 	}
+	
+	
+	public boolean equals(Company c) {
+		return this.id == c.id && this.name.equals(c.name);
+	}
+	
+
 }
