@@ -70,7 +70,7 @@ public class ComputerService {
 		return result;
 	}
 	
-	public List<String> priviousPage () {
+	public List<String> previousPage () {
 		ArrayList<String> result = new ArrayList<String>();
 		System.out.println(pageComputer.previous());
 		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage());

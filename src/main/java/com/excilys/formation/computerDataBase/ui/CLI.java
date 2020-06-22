@@ -59,7 +59,7 @@ public class CLI {
 								}
 								break;
 							case 2:
-								for(String s : computerService.priviousPage()) {
+								for(String s : computerService.previousPage()) {
 									System.out.println(s);
 								}
 								break;
@@ -91,7 +91,7 @@ public class CLI {
 								}
 								break;
 							case 2:
-								for(String s : companyService.priviousPage()) {
+								for(String s : companyService.previousPage()) {
 									System.out.println(s);
 								}
 								break;
