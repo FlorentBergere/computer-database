@@ -36,7 +36,6 @@ public final class Company {
 		return String.format("| %s | Name : %-60s |" ,
 				this.id,
 				this.name);
-//		return "Id : " + String.valueOf(id) + " Company : " + name;
 	}
 	
 	

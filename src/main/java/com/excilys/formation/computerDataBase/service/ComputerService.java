@@ -32,7 +32,6 @@ public class ComputerService {
 		List<Computer> computerCollection = computerDAO.fingByID(id);
 		for(Computer c : computerCollection) {
 			result.add(c.toString());
-			//TODO utiliser un mapper plutot que le ToString;
 		}
 		
 		return result;

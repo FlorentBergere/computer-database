@@ -19,7 +19,7 @@ public class Connection {
         		initialise = true;
         	}
     	}catch(Exception e) {
-    		//  TODO si la tentative de connection echoue
+    		//  TODO: handle exception
     	}
     	
     }
