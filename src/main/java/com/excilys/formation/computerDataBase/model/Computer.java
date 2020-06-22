@@ -90,4 +90,14 @@ public class Computer {
 				this.compagnyId == c.compagnyId;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = 1;
+		hash += hash*this.id;
+		hash += hash*this.name.hashCode();
+		hash += hash*this.introduced.hashCode();
+		hash += hash*this.discontinued.hashCode();
+		hash += hash*this.getCompagnyId();
+		return hash;
+	}
 }
