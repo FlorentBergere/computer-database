@@ -44,5 +44,13 @@ public final class Company {
 		return this.id == c.id && this.name.equals(c.name);
 	}
 	
+	@Override
+	public int hashCode() {
+		int hash = 1;
+		hash += hash*id;
+		hash += hash*this.name.hashCode();
+		return hash;
+	}
+	
 
 }
