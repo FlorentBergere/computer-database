@@ -11,8 +11,9 @@ import com.excilys.formation.computerDataBase.service.CompanyService;
 import com.excilys.formation.computerDataBase.service.ComputerService;
 
 public class CLI {
+	private static final Logger logger = LoggerFactory.getLogger(CLI.class);
+	
 	public static void main(String[] args) {
-		final Logger logger = LoggerFactory.getLogger(CLI.class);
 		boolean quit = false;
 		int entry;
 		boolean page;
