@@ -37,19 +37,38 @@ public final class Company {
 				this.id,
 				this.name);
 	}
-	
-	
-	public boolean equals(Company c) {
-		return this.id == c.id && this.name.equals(c.name);
-	}
-	
+
+
 	@Override
 	public int hashCode() {
-		int hash = 1;
-		hash += hash*id;
-		hash += hash*this.name.hashCode();
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Company other = (Company) obj;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
 	}
 	
+	
+
 
 }
