@@ -15,10 +15,12 @@ public class Connection {
     public Connection () {
     	try {
     		if (!initialise) {
+    			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         		Connection.con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
         		initialise = true;
         	}
     	}catch(Exception e) {
+    		e.printStackTrace();
     		//  TODO: handle exception
     	}
     	
