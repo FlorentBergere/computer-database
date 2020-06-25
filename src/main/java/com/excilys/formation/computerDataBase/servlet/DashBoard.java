@@ -40,6 +40,7 @@ public class DashBoard extends HttpServlet {
 		
 		List<ComputerDTO> computerDTOCollection = dashBoardService.findAll();
 		request.setAttribute("computerDTOCollection", computerDTOCollection);
+		request.setAttribute("nbComputer", dashBoardService.countComputer());
 		
 		request.getRequestDispatcher("views/dashboard.jsp").forward(request,response);
 	}

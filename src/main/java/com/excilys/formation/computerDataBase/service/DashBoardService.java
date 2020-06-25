@@ -23,4 +23,8 @@ public class DashBoardService {
 		}
 		return result;
 	}
+	
+	public int countComputer() {
+		return computerDAO.countEntry();
+	}
 }
