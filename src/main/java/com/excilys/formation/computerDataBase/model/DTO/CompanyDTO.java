@@ -1,53 +1,38 @@
-package com.excilys.formation.computerDataBase.model;
+package com.excilys.formation.computerDataBase.model.DTO;
 
-public final class Company {
-	private int id;
+public class CompanyDTO {
+	private String id;
 	private String name;
 	
-	public Company (int id, String name){
+	public CompanyDTO(String id, String name) {
 		this.id = id;
 		this.name = name;
-	}
-	
-	
-	public int getId() {
-		return this.id;
-	}
-	
-	
-	
-	public void setId (int id) {
-		this.id = id;
-	}
-	
-	
-	
-	public String getName() {
-		return this.name;
-	}
-	
-	
-	public void setName (String name) {
-		this.name = name;
-	}
-	
-	@Override
-	public String toString() {
-		return String.format("| %3d | Name : %-60s |" ,
-				this.id,
-				this.name);
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -57,8 +42,11 @@ public final class Company {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Company other = (Company) obj;
-		if (id != other.id)
+		CompanyDTO other = (CompanyDTO) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -69,6 +57,4 @@ public final class Company {
 	}
 	
 	
-
-
 }

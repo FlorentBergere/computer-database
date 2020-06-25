@@ -1,21 +1,18 @@
 package com.excilys.formation.computerDataBase.model.DTO;
 
-import java.time.LocalDate;
-import java.util.Dictionary;
-
 public class ComputerDTO {
 	private String id;
 	private String name;
 	private String introduced;
 	private String discontinued;
-	private String companyId;
+	private CompanyDTO companyDTO;
 	
-	public ComputerDTO (String id, String name, String introduced, String discontinued, String companyId) {
+	public ComputerDTO (String id, String name, String introduced, String discontinued, CompanyDTO companyDTO) {
 		this.id = id;
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
-		this.companyId = companyId;
+		this.companyDTO = companyDTO;
 	}
 	
 	public String getId() {
@@ -42,24 +39,31 @@ public class ComputerDTO {
 	public void setDiscontinued(String discontinued) {
 		this.discontinued = discontinued;
 	}
+	public CompanyDTO getCompany() {
+		return companyDTO;
+	}
+	public String getCompanyName() {
+		return this.companyDTO.getName();
+	}
 	public String getCompanyId() {
-		return companyId;
+		return this.companyDTO.getId();
 	}
-	public void setCompanyId(String companyId) {
-		this.companyId = companyId;
+	public void setCompany(CompanyDTO company) {
+		this.companyDTO = company;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((companyId == null) ? 0 : companyId.hashCode());
+		result = prime * result + ((companyDTO == null) ? 0 : companyDTO.hashCode());
 		result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -69,10 +73,10 @@ public class ComputerDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		ComputerDTO other = (ComputerDTO) obj;
-		if (companyId == null) {
-			if (other.companyId != null)
+		if (companyDTO == null) {
+			if (other.companyDTO != null)
 				return false;
-		} else if (!companyId.equals(other.companyId))
+		} else if (!companyDTO.equals(other.companyDTO))
 			return false;
 		if (discontinued == null) {
 			if (other.discontinued != null)
@@ -96,6 +100,8 @@ public class ComputerDTO {
 			return false;
 		return true;
 	}
+	
+	
 	
 	
 	

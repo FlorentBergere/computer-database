@@ -14,11 +14,12 @@ import com.excilys.formation.computerDataBase.service.Connection;
 
 public class ComputerDAO {
 	Connection con = new Connection();
-    private final static String QUERY_FIND_COMPUTER = "SELECT * FROM computer";
-    private final static String QUERY_FINDBYID = "SELECT  * FROM computer WHERE id = ?";
+    private final static String QUERY_FIND_COMPUTER = "SELECT computer.id, computer.name, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id";
+    private final static String QUERY_FINDBYID = QUERY_FIND_COMPUTER + " WHERE computer.id = ?";
     private final static String QUERY_INSERT = "INSERT INTO computer (name, introduced, discontinued, company_id)" + " VALUES (?, ?, ?, ?)";
     private final static String QUERY_UPDATE = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
     private final static String QUERY_DELETE = "DELETE FROM computer WHERE id=?";
+    private final static String QUERY_FINDBYPAGE_COMPUTER = QUERY_FIND_COMPUTER + " LIMIT ? OFFSET ?";
     
     
     public List<Computer> findAll () {
@@ -99,7 +100,7 @@ public class ComputerDAO {
     }
     
     
-    private final static String QUERY_FINDBYPAGE_COMPUTER = "SELECT * FROM computer LIMIT ? OFFSET ?";
+
     public List<Computer> findAllByPage (int offset, int nbEntry) {
     	ArrayList<Computer> result = new ArrayList<Computer>();
     	try {

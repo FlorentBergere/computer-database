@@ -8,14 +8,14 @@ public class Computer {
 	private String name;
 	private LocalDate introduced;
 	private LocalDate discontinued;
-	private int compagnyId;
+	private Company company;
 	
-	public Computer(int id, String name, LocalDate introduced, LocalDate discontinued, int compagnyId){
+	public Computer(int id, String name, LocalDate introduced, LocalDate discontinued,Company company){
 		this.id = id;
 		this.name = name;
 		this.introduced = introduced;
 		this.discontinued = discontinued;
-		this.compagnyId = compagnyId;
+		this.company = company;
 	}
 
 	public int getId() {
@@ -62,23 +62,33 @@ public class Computer {
 
 
 	
-	public int getCompagnyId() {
-		return compagnyId;
+	public Company getCompany() {
+		return this.company;
 	}
 
-
-	public void setCompagnyId(int compagnyId) {
-		this.compagnyId = compagnyId;
+	
+	public int getCompanyId() {
+		return this.company.getId();
 	}
+	
+	public String getComanyName() {
+		return this.company.getName();
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+	
+
 	
 	@Override
 	public String toString() {
-		return String.format("| %3d | Name : %-65s | Intro : %10s | Disco : %10s | Comp_ID %3d",
+		return String.format("| %3d | Name : %-65s | Intro : %10s | Disco : %10s | Comp_ID %3s",
 			this.getId(),
 			this.name,
 			String.valueOf(this.introduced),
 			String.valueOf(this.discontinued),
-			this.compagnyId);
+			this.company.toString());
 		
 	}
 
@@ -86,7 +96,7 @@ public class Computer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + compagnyId;
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
 		result = prime * result + ((discontinued == null) ? 0 : discontinued.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((introduced == null) ? 0 : introduced.hashCode());
@@ -103,7 +113,10 @@ public class Computer {
 		if (getClass() != obj.getClass())
 			return false;
 		Computer other = (Computer) obj;
-		if (compagnyId != other.compagnyId)
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
 			return false;
 		if (discontinued == null) {
 			if (other.discontinued != null)
@@ -124,6 +137,8 @@ public class Computer {
 			return false;
 		return true;
 	}
+
+
 	
 	
 }

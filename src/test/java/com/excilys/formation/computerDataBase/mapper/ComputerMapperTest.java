@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 
 public class ComputerMapperTest {
@@ -20,7 +21,7 @@ public class ComputerMapperTest {
 	private final static String NAME = "le nom d'un ordinateur";
 	private final static Date INTRODUCED = Date.valueOf("2010-10-11");
 	private final static Date DISCONTINUED = Date.valueOf("2011-01-25");
-	private final static int COMPANY_ID = 3;
+	private final static Company COMPANY = new Company(999,"lolilol");
 	
 
 	@Before
@@ -35,13 +36,14 @@ public class ComputerMapperTest {
 			Mockito.when(rset.getString("name")).thenReturn(NAME);
 			Mockito.when(rset.getDate("introduced")).thenReturn(INTRODUCED);
 			Mockito.when(rset.getDate("discontinued")).thenReturn(DISCONTINUED);
-			Mockito.when(rset.getInt("company_id")).thenReturn(COMPANY_ID);
+			Mockito.when(rset.getInt("company_id")).thenReturn(COMPANY.getId());
+			Mockito.when(rset.getString("company_name")).thenReturn(COMPANY.getName());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		Computer computer = new Computer(ID,NAME,DateMapper.sqlDateToLocalDate(INTRODUCED),DateMapper.sqlDateToLocalDate(DISCONTINUED),COMPANY_ID);
+		Computer computer = new Computer(ID,NAME,DateMapper.sqlDateToLocalDate(INTRODUCED),DateMapper.sqlDateToLocalDate(DISCONTINUED),COMPANY);
 		
 		try {
 			assertEquals(computer,ComputerMapper.rsetToComputer(rset));
