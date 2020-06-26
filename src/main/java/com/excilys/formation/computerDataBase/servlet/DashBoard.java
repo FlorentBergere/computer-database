@@ -23,6 +23,7 @@ public class DashBoard extends HttpServlet {
 	private int pageNumber = 0;
 	private int nbEntryPerPage = 10;
 	private int numberMaxPage;
+	private List<Integer> listPage;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -39,17 +40,24 @@ public class DashBoard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
 		if (request.getParameter("pageNumber") != null) {
 			pageNumber = Integer.valueOf(request.getParameter("pageNumber"));
 		}
+		
 		if (request.getParameter("nbEntryPerPage") != null) {
 			nbEntryPerPage = Integer.valueOf(request.getParameter("nbEntryPerPage"));
 		}
 		List<ComputerDTO> computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber);
 		numberMaxPage = dashBoardService.getNumberMaxPage();
+		listPage = dashBoardService.getListPage();
+		System.out.println(listPage.size());
 		request.setAttribute("computerDTOCollection", computerDTOCollection);
 		request.setAttribute("nbComputer", dashBoardService.countComputer());
 		request.setAttribute("nbPage", numberMaxPage);
+		request.setAttribute("listPage", listPage);
+		request.setAttribute("pageNumber", pageNumber);
+		request.setAttribute("nbEntryPerPage", nbEntryPerPage);
 		
 		request.getRequestDispatcher("views/dashboard.jsp").forward(request,response);
 	}

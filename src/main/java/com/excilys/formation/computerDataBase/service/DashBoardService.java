@@ -44,5 +44,9 @@ public class DashBoardService {
 	public int getNumberMaxPage() {
 		return this.pageComputer.getNbPage();
 	}
+	
+	public List<Integer> getListPage (){
+		return this.pageComputer.getListPage();
+	}
 
 }

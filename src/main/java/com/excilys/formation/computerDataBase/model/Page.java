@@ -1,5 +1,8 @@
 package com.excilys.formation.computerDataBase.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Page {
 	@SuppressWarnings("unused")
 	private int nbEntry;
@@ -41,6 +44,33 @@ public class Page {
 	
 	public int getNbPage () {
 		return nbPage;
+	}
+	
+	
+	/**
+	 * Permet d'avoir un liste de page avant et après la page courante.
+	 * @return 
+	 */
+	public List<Integer> getListPage(){
+		List<Integer> result = new ArrayList<Integer>();
+		if (this.currentPage > 2 && this.nbPage - this.currentPage > 2) {
+			for(int i = this.currentPage-3; i <= this.currentPage + 3; i++) {
+				result.add(i);
+			}
+		}else if (this.currentPage <= 2 && this.nbPage - this.currentPage <= 2){
+			for(int i = 0; i < this.nbPage ; i++) {
+				result.add(i);
+			}
+		}else if (this.currentPage <= 2 ) {
+			for(int i = 0; i <= this.currentPage + 3; i++) {
+				result.add(i);
+			}
+		}else if (this.nbPage - this.currentPage <= 2) {
+			for(int i = this.currentPage-3; i <= this.nbPage; i++) {
+				result.add(i);
+			}
+		}
+		return result;
 	}
 	
 	public boolean next () {
