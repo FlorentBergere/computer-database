@@ -118,10 +118,18 @@
         </ul>
 
         <div class="btn-group btn-group-sm pull-right" role="group" >
-            <button type="button" class="btn btn-default">10</button>
-            <button type="button" class="btn btn-default">50</button>
-            <button type="button" class="btn btn-default">100</button>
+            <button type="button" class="btn btn-default">
+            	<a href="DashBoard?nbEntryPerPage=10">10</a>
+            </button>
+            <button type="button" class="btn btn-default">
+           		<a href="DashBoard?nbEntryPerPage=50">50</a>
+            </button>
+            <button type="button" class="btn btn-default">
+          	  	<a href="DashBoard?nbEntryPerPage=100">100</a>
+            </button>
+            	
         </div>
+       </div>
 
     </footer>
 <script src="../js/jquery.min.js"></script>

@@ -4,7 +4,6 @@ public class Page {
 	@SuppressWarnings("unused")
 	private int nbEntry;
 	private int nbEntryPerPage;
-	
 	private int nbPage;
 	private int currentPage;
 	
@@ -15,12 +14,33 @@ public class Page {
 		this.currentPage = 0;
 	}
 	
+	public Page(int nbEntry,int nbEntryPerPage) {
+		this.nbEntry = nbEntry;
+		this.nbEntryPerPage = nbEntryPerPage;
+		this.nbPage = nbEntry / nbEntryPerPage;
+		this.currentPage = 0;
+	}
+	
 	public int getOffset() {
 		return currentPage * nbEntryPerPage;
 	}
 	
 	public int getNbEntryPerPage () {
 		return nbEntryPerPage;
+	}
+	
+	public void goTo (int pageNumber) {
+		if(pageNumber > nbPage) {
+			currentPage = nbPage;
+		}else if (pageNumber < 0) {
+			currentPage = 0;
+		}else {
+			currentPage = pageNumber;
+		}
+	}
+	
+	public int getNbPage () {
+		return nbPage;
 	}
 	
 	public boolean next () {
