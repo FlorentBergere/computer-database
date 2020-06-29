@@ -24,9 +24,9 @@ public class CompanyDAO {
     public List<Company> findCompany () {
     	ArrayList<Company> result = new ArrayList<Company>();
     	try (	Connection connection = connectionFactory.getConnection();
-    			Statement stmt = connection.createStatement())
+    			PreparedStatement stmt = connection.prepareStatement(QUERY_FIND_COMPANY))
     		{
-    		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPANY);
+    		ResultSet rset = stmt.executeQuery();
     		while(rset.next()) {
     			result.add(CompanyMapper.rsetToCompany(rset));
     		}
@@ -59,9 +59,9 @@ public class CompanyDAO {
     public int countEntry (){
     	int result = 0;
     	try (	Connection connection = connectionFactory.getConnection();
-    			Statement stmt = connection.createStatement())
+    			PreparedStatement stmt = connection.prepareStatement(QUERY_COUNT_COMPANY))
     		{
-			ResultSet rset = stmt.executeQuery(QUERY_COUNT_COMPANY);
+			ResultSet rset = stmt.executeQuery();
 			rset.first();
 			result = rset.getInt("nbCompany");
 		} catch (Exception e) {

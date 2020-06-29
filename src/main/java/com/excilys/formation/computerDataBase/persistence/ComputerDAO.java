@@ -30,9 +30,9 @@ public class ComputerDAO {
     public List<Computer> findAll () {
     	ArrayList<Computer> result = new ArrayList<Computer>();
     	try (	Connection connection = connectionFactory.getConnection();
-    			Statement stmt = connection.createStatement())
+    			PreparedStatement stmt = connection.prepareStatement(QUERY_FIND_COMPUTER))
     		{
-    		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPUTER);
+    		ResultSet rset = stmt.executeQuery();
     		while(rset.next()) {
     			result.add(ComputerMapper.rsetToComputer(rset));
     		}
@@ -71,7 +71,7 @@ public class ComputerDAO {
 	    	stmt.setDate(2, DateMapper.localDateTosqlDate(introduced));
 	    	stmt.setDate(3, DateMapper.localDateTosqlDate(discontinued));
 	    	stmt.setInt(4, compagnyId);
-        	stmt.execute();
+        	stmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -99,7 +99,7 @@ public class ComputerDAO {
     			PreparedStatement stmt = connection.prepareStatement(QUERY_DELETE))
     		{
 			stmt.setInt(1, id);
-			stmt.execute();
+			stmt.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
