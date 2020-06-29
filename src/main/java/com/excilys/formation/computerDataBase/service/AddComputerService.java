@@ -16,8 +16,8 @@ public class AddComputerService {
 	private CompanyDAO companyDAO;
 
 	public AddComputerService() {
-		this.computerDAO = new ComputerDAO();
-		this.companyDAO = new CompanyDAO();
+		this.computerDAO = new ComputerDAO(ConnectionFactory.Mode.PROD);
+		this.companyDAO = new CompanyDAO(ConnectionFactory.Mode.PROD);
 	}
 	
 	public void addComputer (String name, String introduced, String discontinued, String compagnyId) {

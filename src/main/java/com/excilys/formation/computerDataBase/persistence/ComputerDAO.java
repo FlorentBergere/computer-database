@@ -22,14 +22,16 @@ public class ComputerDAO {
     private final static String QUERY_DELETE = "DELETE FROM computer WHERE id=?";
     private final static String QUERY_FINDBYPAGE_COMPUTER = QUERY_FIND_COMPUTER + " LIMIT ? OFFSET ?";
     private final static String QUERY_COUNT_COMPUTER = "SELECT count(*) as nbComputer FROM computer";
+    private static ConnectionFactory.Mode mode;
     
-    public ComputerDAO () {
+    public ComputerDAO (ConnectionFactory.Mode mode) {
+    	ComputerDAO.mode = mode;
     	this.connectionFactory = ConnectionFactory.getInstance();
     }
     
     public List<Computer> findAll () {
     	ArrayList<Computer> result = new ArrayList<Computer>();
-    	try (	Connection connection = connectionFactory.getConnection();
+    	try (	Connection connection = connectionFactory.getConnection(ComputerDAO.mode);
     			PreparedStatement stmt = connection.prepareStatement(QUERY_FIND_COMPUTER))
     		{
     		ResultSet rset = stmt.executeQuery();
@@ -47,7 +49,7 @@ public class ComputerDAO {
     
     public List<Computer> fingByID (int id) {
     	ArrayList<Computer> result = new ArrayList<Computer>();
-    	try (	Connection connection = connectionFactory.getConnection();
+    	try (	Connection connection = connectionFactory.getConnection(ComputerDAO.mode);
     			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYID))
     		{
 	    	stmt.setInt(1, id);
@@ -64,7 +66,7 @@ public class ComputerDAO {
     }
     
     public void add (String name, LocalDate introduced, LocalDate discontinued, int compagnyId) { 	
-    	try (	Connection connection = connectionFactory.getConnection();
+    	try (	Connection connection = connectionFactory.getConnection(ComputerDAO.mode);
     			PreparedStatement stmt = connection.prepareStatement(QUERY_INSERT))
     		{
     		stmt.setString(1, name);
@@ -79,7 +81,7 @@ public class ComputerDAO {
     }
     
     public void update (int id, String name, LocalDate introduced, LocalDate discontinued, int compagnyId) {
-    	try (	Connection connection = connectionFactory.getConnection();
+    	try (	Connection connection = connectionFactory.getConnection(ComputerDAO.mode);
     			PreparedStatement stmt = connection.prepareStatement(QUERY_UPDATE))
     		{
         	stmt.setString(1, name);
@@ -95,7 +97,7 @@ public class ComputerDAO {
     }
     
     public void delete (int id) {
-    	try (	Connection connection = connectionFactory.getConnection();
+    	try (	Connection connection = connectionFactory.getConnection(ComputerDAO.mode);
     			PreparedStatement stmt = connection.prepareStatement(QUERY_DELETE))
     		{
 			stmt.setInt(1, id);
@@ -110,7 +112,7 @@ public class ComputerDAO {
 
     public List<Computer> findAllByPage (int offset, int nbEntry) {
     	ArrayList<Computer> result = new ArrayList<Computer>();
-    	try (	Connection connection = connectionFactory.getConnection();
+    	try (	Connection connection = connectionFactory.getConnection(ComputerDAO.mode);
     			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPUTER))
     		{
     		stmt.setInt(1, nbEntry);
@@ -129,7 +131,7 @@ public class ComputerDAO {
    
     public int countEntry (){
     	int result = 0;
-    	try (	Connection connection = connectionFactory.getConnection();
+    	try (	Connection connection = connectionFactory.getConnection(ComputerDAO.mode);
     			PreparedStatement stmt = connection.prepareStatement(QUERY_COUNT_COMPUTER))
     		{
 			ResultSet rset = stmt.executeQuery();

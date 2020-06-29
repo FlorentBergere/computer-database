@@ -13,7 +13,7 @@ public class ComputerService {
 	private Page pageComputer;
 	
 	public ComputerService () {
-		this.computerDAO = new ComputerDAO();
+		this.computerDAO = new ComputerDAO(ConnectionFactory.Mode.PROD);
 	}
 	
 	public List<String> listAll () {
