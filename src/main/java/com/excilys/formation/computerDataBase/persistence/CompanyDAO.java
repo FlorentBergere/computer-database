@@ -1,5 +1,6 @@
 package com.excilys.formation.computerDataBase.persistence;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -8,21 +9,24 @@ import java.util.List;
 
 import com.excilys.formation.computerDataBase.mapper.CompanyMapper;
 import com.excilys.formation.computerDataBase.model.Company;
-import com.excilys.formation.computerDataBase.service.Connection;
+import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 
 public class CompanyDAO {
-	Connection con = new Connection();
+	ConnectionFactory connectionFactory;
     private final static String QUERY_FIND_COMPANY = "SELECT * FROM company";
     private final static String QUERY_FINDBYPAGE_COMPANY = "SELECT * FROM company LIMIT ? OFFSET ?";
     private final static String QUERY_COUNT_COMPANY = "SELECT count(*) as nbCompany FROM company";
     
-    
+    public CompanyDAO () {
+    	this.connectionFactory = ConnectionFactory.getInstance();
+    }
+        
     public List<Company> findCompany () {
     	ArrayList<Company> result = new ArrayList<Company>();
-    	try {
-    		Statement stmt = con.getConnection().createStatement();
+    	try (	Connection connection = connectionFactory.getConnection();
+    			Statement stmt = connection.createStatement())
+    		{
     		ResultSet rset = stmt.executeQuery(QUERY_FIND_COMPANY);
-    		
     		while(rset.next()) {
     			result.add(CompanyMapper.rsetToCompany(rset));
     		}
@@ -35,8 +39,9 @@ public class CompanyDAO {
 
     public List<Company> findAllByPage (int offset, int nbEntry) {
     	ArrayList<Company> result = new ArrayList<Company>();
-    	try {
-    		PreparedStatement stmt = con.getConnection().prepareStatement(QUERY_FINDBYPAGE_COMPANY);
+    	try (	Connection connection = connectionFactory.getConnection();
+    			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPANY))
+    		{
     		stmt.setInt(1, nbEntry);
     		stmt.setInt(2, offset);
     		ResultSet rset = stmt.executeQuery();
@@ -47,19 +52,18 @@ public class CompanyDAO {
 			// TODO: handle exception
     		e.printStackTrace();
 		}
-    	
 		return result;
     }
     
 
     public int countEntry (){
     	int result = 0;
-    	try {
-			Statement stmt = con.getConnection().createStatement();
+    	try (	Connection connection = connectionFactory.getConnection();
+    			Statement stmt = connection.createStatement())
+    		{
 			ResultSet rset = stmt.executeQuery(QUERY_COUNT_COMPANY);
 			rset.first();
 			result = rset.getInt("nbCompany");
-			System.out.println(result);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

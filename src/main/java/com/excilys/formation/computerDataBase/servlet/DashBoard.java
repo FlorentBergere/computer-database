@@ -51,7 +51,6 @@ public class DashBoard extends HttpServlet {
 		List<ComputerDTO> computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber);
 		numberMaxPage = dashBoardService.getNumberMaxPage();
 		listPage = dashBoardService.getListPage();
-		System.out.println(listPage.size());
 		request.setAttribute("computerDTOCollection", computerDTOCollection);
 		request.setAttribute("nbComputer", dashBoardService.countComputer());
 		request.setAttribute("nbPage", numberMaxPage);

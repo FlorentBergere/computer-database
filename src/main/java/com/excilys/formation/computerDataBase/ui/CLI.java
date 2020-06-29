@@ -5,7 +5,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.excilys.formation.computerDataBase.service.Connection;
+import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
 import com.excilys.formation.computerDataBase.service.CompanyService;
 import com.excilys.formation.computerDataBase.service.ComputerService;
@@ -18,7 +18,6 @@ public class CLI {
 		int entry;
 		boolean page;
 		Scanner in = new Scanner(System.in);
-		Connection con = new Connection();
 		ComputerService computerService = new ComputerService();
 		CompanyService companyService = new CompanyService();
 		
@@ -168,7 +167,6 @@ public class CLI {
 			}
 		}
 		
-		con.closeConnection();
 		in.close();
 		
 	}
