@@ -23,7 +23,7 @@ public class DateMapper {
 		LocalDate result;
 		if(date == null) {
 			result = null;
-		}else if(date.equals("null")) {
+		}else if(date.equals("null") || date.equals("")) {
 			result = null;
 		}else {
 			result = LocalDate.parse(date,format);

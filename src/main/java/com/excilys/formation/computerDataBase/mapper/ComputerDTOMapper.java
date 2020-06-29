@@ -11,7 +11,7 @@ public class ComputerDTOMapper {
 		return new Computer(
 			Integer.valueOf(computerDTO.getId()),
 			computerDTO.getName(),
-			DateMapper.stringToLocalDate(computerDTO.getDiscontinued()),
+			DateMapper.stringToLocalDate(computerDTO.getIntroduced()),
 			DateMapper.stringToLocalDate(computerDTO.getDiscontinued()),
 			new Company(Integer.valueOf(computerDTO.getCompanyId()),computerDTO.getCompanyName()));
 	}

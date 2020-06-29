@@ -15,7 +15,7 @@ public class Connection {
     public Connection () {
     	try {
     		if (!initialise) {
-    			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+    			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
         		Connection.con = DriverManager.getConnection(URL, LOGIN, PASSWORD);
         		initialise = true;
         	}

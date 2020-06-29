@@ -34,7 +34,7 @@
 					</form>
 				</div>
 				<div class="pull-right">
-					<a class="btn btn-success" id="addComputer" href="addComputer.html">Add
+					<a class="btn btn-success" id="addComputer" href="addComputer">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
@@ -109,9 +109,9 @@
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
 
-				<a href="DashBoard?nbEntryPerPage=10"><button type="button" class="btn btn-default"></button> 10</a> 
-				<a href="DashBoard?nbEntryPerPage=50"><button type="button" class="btn btn-default"></button> 50</a> 
-				<a href="DashBoard?nbEntryPerPage=100"><button type="button" class="btn btn-default"></button> 100</a>
+				<a href="DashBoard?nbEntryPerPage=10"><button type="button" class="btn btn-default">10</button></a> 
+				<a href="DashBoard?nbEntryPerPage=50"><button type="button" class="btn btn-default">50</button></a> 
+				<a href="DashBoard?nbEntryPerPage=100"><button type="button" class="btn btn-default">100</button></a>
 
 
 			</div>
