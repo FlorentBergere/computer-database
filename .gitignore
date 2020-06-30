@@ -2,6 +2,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,eclipse,java-web,intellij,code
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,java-web,intellij,code
 
+
+### Config Files ###
+src/main/resources/configDB.properties
+
 ### Code ###
 .vscode/*
 !.vscode/settings.json

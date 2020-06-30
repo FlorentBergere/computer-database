@@ -16,16 +16,14 @@ public class CompanyDAO {
     private final static String QUERY_FIND_COMPANY = "SELECT * FROM company";
     private final static String QUERY_FINDBYPAGE_COMPANY = "SELECT * FROM company LIMIT ? OFFSET ?";
     private final static String QUERY_COUNT_COMPANY = "SELECT count(*) as nbCompany FROM company";
-    private static ConnectionFactory.Mode mode;
     
-    public CompanyDAO (ConnectionFactory.Mode mode) {
-    	CompanyDAO.mode = mode;
+    public CompanyDAO () {
     	this.connectionFactory = ConnectionFactory.getInstance();
     }
         
     public List<Company> findCompany () {
     	ArrayList<Company> result = new ArrayList<Company>();
-    	try (	Connection connection = connectionFactory.getConnection(CompanyDAO.mode);
+    	try (	Connection connection = connectionFactory.getConnection();
     			PreparedStatement stmt = connection.prepareStatement(QUERY_FIND_COMPANY))
     		{
     		ResultSet rset = stmt.executeQuery();
@@ -41,7 +39,7 @@ public class CompanyDAO {
 
     public List<Company> findAllByPage (int offset, int nbEntry) {
     	ArrayList<Company> result = new ArrayList<Company>();
-    	try (	Connection connection = connectionFactory.getConnection(CompanyDAO.mode);
+    	try (	Connection connection = connectionFactory.getConnection();
     			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPANY))
     		{
     		stmt.setInt(1, nbEntry);
@@ -60,7 +58,7 @@ public class CompanyDAO {
 
     public int countEntry (){
     	int result = 0;
-    	try (	Connection connection = connectionFactory.getConnection(CompanyDAO.mode);
+    	try (	Connection connection = connectionFactory.getConnection();
     			PreparedStatement stmt = connection.prepareStatement(QUERY_COUNT_COMPANY))
     		{
 			ResultSet rset = stmt.executeQuery();

@@ -12,7 +12,7 @@ public class CompanyService {
 	private Page pageCompany;
 	
 	public CompanyService () {
-		this.companyDAO = new CompanyDAO(ConnectionFactory.Mode.PROD);
+		this.companyDAO = new CompanyDAO();
 	}
 	
 	public List<String> listAll () {

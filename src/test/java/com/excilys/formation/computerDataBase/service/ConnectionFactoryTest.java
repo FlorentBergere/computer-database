@@ -17,7 +17,7 @@ public class ConnectionFactoryTest {
 
 	@Test
 	public void test() {
-		Connection connection = connectionFactory.getConnection(ConnectionFactory.Mode.TEST);
+		Connection connection = connectionFactory.getConnection();
 		assertNotNull(connection);
 	}
 

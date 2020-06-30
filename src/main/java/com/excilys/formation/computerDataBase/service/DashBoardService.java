@@ -14,7 +14,7 @@ public class DashBoardService {
 	private Page pageComputer;
 	
 	public DashBoardService () {
-		this.computerDAO = new ComputerDAO(ConnectionFactory.Mode.PROD);
+		this.computerDAO = new ComputerDAO();
 	}
 	
 	public List<ComputerDTO> findAll (){
