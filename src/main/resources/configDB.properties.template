@@ -1,4 +1,4 @@
-url=
-login=
-password=a
+jdbcUrl=
+dataSource.user=
+dataSource.password=
 driverClassName=

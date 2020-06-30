@@ -28,12 +28,11 @@ public class CompanyDAOTest {
 	}
 
 	@Test
-	public void test() {
+	public void testFinDCompany() {
 		List<Company> result = companyDAO.findCompany();
 
 		assertEquals(expectedListAll, result);
 	}
 
-	
 	
 }
