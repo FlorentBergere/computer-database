@@ -74,7 +74,7 @@
 						<tr>
 							<td class="editMode"><input type="checkbox" name="cb"
 								class="cb" value=${ computer.id }></td>
-							<td><a href="editComputer.html" onclick="">${ computer.name }</a>
+							<td><a href="editComputer?computerId=${ computer.id }&computerName=${ computer.name }&introduced=${computer.introduced}&discontinued=${computer.discontinued}&companyId=${computer.getCompany().id}" onclick="">${ computer.name }</a>
 							</td>
 							<td>${computer.introduced}</td>
 							<td>${computer.discontinued}</td>
@@ -118,9 +118,9 @@
 		</div>
 
 	</footer>
-	<script src="../js/jquery.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/dashboard.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/dashboard.js"></script>
 
 </body>
 </html>

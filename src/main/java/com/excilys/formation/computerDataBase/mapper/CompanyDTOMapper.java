@@ -9,6 +9,7 @@ import com.excilys.formation.computerDataBase.model.DTO.CompanyDTO;
 public class CompanyDTOMapper {
 	public static Company dtoToCompany (CompanyDTO companyDTO) {
 		return new Company(
+			//companyDTO.getId() == "0" ? null : Integer.valueOf(companyDTO.getId()),
 			Integer.valueOf(companyDTO.getId()),
 			companyDTO.getName());
 

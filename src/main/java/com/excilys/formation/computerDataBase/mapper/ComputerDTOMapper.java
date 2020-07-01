@@ -24,4 +24,7 @@ public class ComputerDTOMapper {
 			DateMapper.LocalDateToString(computer.getDiscontinued()),
 			new CompanyDTO(Integer.valueOf(computer.getCompanyId()).toString(), computer.getComanyName()));
 	}
+	
+
+	
 }
