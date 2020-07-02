@@ -33,7 +33,7 @@ public class ComputerMapperTest {
 	public void testrsetToComputer() {
 		try {
 			Mockito.when(rset.getInt("id")).thenReturn(ID);
-			Mockito.when(rset.getString("computerName")).thenReturn(NAME);
+			Mockito.when(rset.getString("name")).thenReturn(NAME);
 			Mockito.when(rset.getDate("introduced")).thenReturn(INTRODUCED);
 			Mockito.when(rset.getDate("discontinued")).thenReturn(DISCONTINUED);
 			Mockito.when(rset.getInt("company_id")).thenReturn(COMPANY.getId());
