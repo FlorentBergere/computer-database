@@ -21,6 +21,7 @@ public class ComputerDAO {
     private final static String QUERY_UPDATE = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
     private final static String QUERY_DELETE = "DELETE FROM computer WHERE id=?";
     private final static String QUERY_FINDBYPAGE_COMPUTER = QUERY_FIND_COMPUTER + " LIMIT ? OFFSET ?";
+    private final static String QUERY_FINDBYPAGE_COMPUTER_BYNAME = QUERY_FIND_COMPUTER + " WHERE computer.name LIKE ?" +  " LIMIT ? OFFSET ?";
     private final static String QUERY_COUNT_COMPUTER = "SELECT count(*) as nbComputer FROM computer";
     
     public ComputerDAO () {
@@ -115,6 +116,46 @@ public class ComputerDAO {
     		{
     		stmt.setInt(1, nbEntry);
     		stmt.setInt(2, offset);
+    		ResultSet rset = stmt.executeQuery();
+    		while(rset.next()) {
+    			result.add(ComputerMapper.rsetToComputer(rset));
+    		}
+    	}catch (Exception e) {
+			// TODO: handle exception
+    		e.printStackTrace();
+		}
+		return result;
+    }
+    
+    public List<Computer> findAllByPage (int offset, int nbEntry, String name) {
+    	ArrayList<Computer> result = new ArrayList<Computer>();
+    	try (	Connection connection = connectionFactory.getConnection();
+    			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPUTER_BYNAME))
+    		{
+    		stmt.setString(1, "%" + name + "%");
+    		stmt.setInt(2, nbEntry);
+    		stmt.setInt(3, offset);
+    		System.out.println(stmt.toString());
+    		ResultSet rset = stmt.executeQuery();
+    		while(rset.next()) {
+    			result.add(ComputerMapper.rsetToComputer(rset));
+    		}
+    	}catch (Exception e) {
+			// TODO: handle exception
+    		e.printStackTrace();
+		}
+		return result;
+    }
+    
+    public List<Computer> findAllByPage (int offset, int nbEntry, String name, String order) {
+    	ArrayList<Computer> result = new ArrayList<Computer>();
+    	try (	Connection connection = connectionFactory.getConnection();
+    			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPUTER_BYNAME))
+    		{
+    		stmt.setString(1, "%" + name + "%");
+    		stmt.setInt(2, nbEntry);
+    		stmt.setInt(3, offset);
+    		System.out.println(stmt.toString());
     		ResultSet rset = stmt.executeQuery();
     		while(rset.next()) {
     			result.add(ComputerMapper.rsetToComputer(rset));

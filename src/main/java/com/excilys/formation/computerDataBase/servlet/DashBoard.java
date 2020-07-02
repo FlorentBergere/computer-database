@@ -24,6 +24,8 @@ public class DashBoard extends HttpServlet {
 	private int nbEntryPerPage = 10;
 	private int numberMaxPage;
 	private List<Integer> listPage;
+    private String search;
+    List<ComputerDTO> computerDTOCollection;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -48,7 +50,15 @@ public class DashBoard extends HttpServlet {
 		if (request.getParameter("nbEntryPerPage") != null) {
 			nbEntryPerPage = Integer.valueOf(request.getParameter("nbEntryPerPage"));
 		}
-		List<ComputerDTO> computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber);
+		
+		
+		search = request.getParameter("search");
+		if (search != null && !search.isEmpty()) {
+			computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber,search);
+		}else {
+			computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber);
+		}
+
 		numberMaxPage = dashBoardService.getNumberMaxPage();
 		listPage = dashBoardService.getListPage();
 		request.setAttribute("computerDTOCollection", computerDTOCollection);
@@ -57,6 +67,8 @@ public class DashBoard extends HttpServlet {
 		request.setAttribute("listPage", listPage);
 		request.setAttribute("pageNumber", pageNumber);
 		request.setAttribute("nbEntryPerPage", nbEntryPerPage);
+		
+
 		
 		request.getRequestDispatcher("views/dashboard.jsp").forward(request,response);
 	}
@@ -68,8 +80,13 @@ public class DashBoard extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		
-		String idsToDelete = request.getParameter("selection");
-		dashBoardService.delete(idsToDelete);
+		String idsToDelete = null;
+		idsToDelete = request.getParameter("selection");
+		if (idsToDelete != null && !idsToDelete.isEmpty() ) {
+			dashBoardService.delete(idsToDelete);
+		}
+		
+		search = request.getParameter("search");
 		doGet(request, response);
 	}
 
