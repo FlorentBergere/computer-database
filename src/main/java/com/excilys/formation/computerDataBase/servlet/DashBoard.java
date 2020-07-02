@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
+import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.model.DTO.ComputerDTO;
 import com.excilys.formation.computerDataBase.service.DashBoardService;
 
@@ -25,7 +27,8 @@ public class DashBoard extends HttpServlet {
 	private int numberMaxPage;
 	private List<Integer> listPage;
     private String search;
-    List<ComputerDTO> computerDTOCollection;
+    private List<ComputerDTO> computerDTOCollection;
+    private Computer.atributes atribute;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,13 +54,24 @@ public class DashBoard extends HttpServlet {
 			nbEntryPerPage = Integer.valueOf(request.getParameter("nbEntryPerPage"));
 		}
 		
+		atribute = ComputerMapper.parseAtribute((request.getParameter("orderBy")));
 		
 		search = request.getParameter("search");
-		if (search != null && !search.isEmpty()) {
-			computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber,search);
-		}else {
-			computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber);
+		if(atribute == null) {
+			if (search != null && !search.isEmpty()) {
+				computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber,search);
+			}else {
+				computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber);
+			}
+		}else{
+			if (search != null && !search.isEmpty()) {
+				computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber,search,atribute);
+			}else {
+				computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber,atribute);
+			}
 		}
+		
+		
 
 		numberMaxPage = dashBoardService.getNumberMaxPage();
 		listPage = dashBoardService.getListPage();
@@ -85,6 +99,7 @@ public class DashBoard extends HttpServlet {
 		if (idsToDelete != null && !idsToDelete.isEmpty() ) {
 			dashBoardService.delete(idsToDelete);
 		}
+		
 		
 		search = request.getParameter("search");
 		doGet(request, response);

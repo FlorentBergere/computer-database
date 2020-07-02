@@ -10,6 +10,19 @@ public class Computer {
 	private LocalDate discontinued;
 	private Company company;
 	
+	public enum atributes {
+		ID ("computer.id"),
+		NAME ("computerName");
+		
+		private final String atribute; 
+		private atributes (String name) {
+			this.atribute = name;
+		} 
+		public String getAtribute() {
+			return this.atribute;
+		}
+	}
+	
 	public Computer(int id, String name, LocalDate introduced, LocalDate discontinued,Company company){
 		this.id = id;
 		this.name = name;

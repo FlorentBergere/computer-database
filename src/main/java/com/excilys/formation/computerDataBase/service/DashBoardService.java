@@ -43,6 +43,17 @@ public class DashBoardService {
 		return result;
 	}
 	
+	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, Computer.atributes atribute){
+		List<ComputerDTO> result = new ArrayList<ComputerDTO>();
+		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
+		pageComputer.goTo(pageNumber);
+		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),atribute);
+		for(Computer c :computerCollection) {
+			result.add(ComputerDTOMapper.computerToDTO(c));
+		}
+		return result;
+	}
+	
 	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, String name){
 		List<ComputerDTO> result = new ArrayList<ComputerDTO>();
 		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
@@ -53,6 +64,18 @@ public class DashBoardService {
 		}
 		return result;
 	}
+	
+	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, String name, Computer.atributes atribute){
+		List<ComputerDTO> result = new ArrayList<ComputerDTO>();
+		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
+		pageComputer.goTo(pageNumber);
+		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),name,atribute);
+		for(Computer c :computerCollection) {
+			result.add(ComputerDTOMapper.computerToDTO(c));
+		}
+		return result;
+	}
+	
 	
 	public int getNumberMaxPage() {
 		return this.pageComputer.getNbPage();
