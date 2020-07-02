@@ -1,5 +1,7 @@
 package com.excilys.formation.computerDataBase.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,13 @@ public class DashBoardService {
 	
 	public List<Integer> getListPage (){
 		return this.pageComputer.getListPage();
+	}
+	
+	public void delete(String idsToDelete) {
+		String toDelete [] = idsToDelete.split(",");
+		for(String id : toDelete) {
+			computerDAO.delete(Integer.valueOf(id));
+		}
 	}
 
 }
