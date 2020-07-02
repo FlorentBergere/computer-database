@@ -82,6 +82,7 @@
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.Version}</version>
+			<scope>runtime</scope>
 		</dependency>
 				
 		<dependency>
