@@ -17,65 +17,79 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.target>1.8</maven.compiler.target>	
+		<junit.Version>4.11</junit.Version>
+		<mysql.Version>8.0.19</mysql.Version>
+		<h2.Version>1.4.197</h2.Version>
+		<slf4j.Version>1.7.25</slf4j.Version>
+		<mockito.Version>1.10.19</mockito.Version>
+		<jstl.Version>1.2</jstl.Version>
+		<hikariCP.Version>3.4.5</hikariCP.Version>
 	</properties>
 
 	<dependencies>
+	
+	<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>${junit.Version}</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${mockito.Version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+	<!-- Base de donnée  -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.Version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>${h2.Version}</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+			<version>${hikariCP.Version}</version>
+		</dependency>
+		
+	<!-- Logger -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.Version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.Version}</version>
+		</dependency>
+
+	<!-- JSP -->
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>${jstl.Version}</version>
+		</dependency>
+				
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.0-b06</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.19</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.25</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.25</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>1.10.19</version>
-			<scope>test</scope>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
-		<dependency>
-			<groupId>jstl</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.4.197</version>
-			<scope>test</scope>
-		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<version>3.4.5</version>
-		</dependency>
-				
 	</dependencies>
 
 	<build>
