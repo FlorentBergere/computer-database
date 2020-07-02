@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
+import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
 
 public class ComputerDAOTest {
@@ -17,6 +18,7 @@ public class ComputerDAOTest {
 	
 	@Before
 	public void setUp() throws Exception {
+		ConnectionFactory.resetFactory();
 		computerDAO = new ComputerDAO();
 	}
 

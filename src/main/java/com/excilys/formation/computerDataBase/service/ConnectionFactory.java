@@ -49,5 +49,9 @@ public class ConnectionFactory  {
 		}
 		return result;
     }
+    
+    public static void resetFactory () {
+    	connectionFactory = null;
+    }
 
 }
