@@ -12,154 +12,58 @@ import com.excilys.formation.computerDataBase.service.ComputerService;
 
 public class CLI {
 	private static final Logger logger = LoggerFactory.getLogger(CLI.class);
+	boolean quit = false;
+	int entry;
+	boolean page;
+	Scanner in = new Scanner(System.in);
+	ComputerService computerService = new ComputerService();
+	CompanyService companyService = new CompanyService();
+	
+	int id;
+	String name;
+	LocalDate introduced;
+	LocalDate discontinued;
+	int compagnyId;
 	
 	public static void main(String[] args) {
-		boolean quit = false;
-		int entry;
-		boolean page;
-		Scanner in = new Scanner(System.in);
-		ComputerService computerService = new ComputerService();
-		CompanyService companyService = new CompanyService();
+		CLI cli = new CLI();
+		cli.showCommand();
 		
-		int id;
-		String name;
-		LocalDate introduced;
-		LocalDate discontinued;
-		int compagnyId;
-		
-		
-		
-		showCommand();
-		
-		while(!quit) {
+		while(!cli.quit) {
 			
 			System.out.print(">");
 			
-			entry = in.nextInt();
+			cli.entry = cli.in.nextInt();
 
-			switch(entry) {
+			switch(cli.entry) {
 			
 				case 1: 		
-					logger.info("affichage des ordinateurs de la base");
-					for(String s : computerService.listAll()) {
-						System.out.println(s);
-					}
+					cli.printAllComputer();
 					break;
 				case 2:
-					for(String s : computerService.findAllByPage()) {
-						System.out.println(s);
-					}
-					page = true;
-					while(page) {
-						entry = in.nextInt();
-						switch (entry) {
-							case 0:
-								page = false;
-								break;
-							case 1:
-								for(String s : computerService.nextPage()) {
-									System.out.println(s);
-								}
-								break;
-							case 2:
-								for(String s : computerService.previousPage()) {
-									System.out.println(s);
-								}
-								break;
-							default:
-								//TODO print menu des page
-								break;
-						}
-					}
+					cli.printAllComputerByPage();
 					break;
 				case 3:
-					for(String s : companyService.listAll()) {
-						System.out.println(s);
-					}
+					cli.printAllCompany();
 					break;
 				case 4:
-					for(String s : companyService.findAllByPage()) {
-						System.out.println(s);
-					}
-					page = true;
-					while(page) {
-						entry = in.nextInt();
-						switch (entry) {
-							case 0:
-								page = false;
-								break;
-							case 1:
-								for(String s : companyService.nextPage()) {
-									System.out.println(s);
-								}
-								break;
-							case 2:
-								for(String s : companyService.previousPage()) {
-									System.out.println(s);
-								}
-								break;
-							default:
-								//TODO print menu des page
-								break;
-						}
-					}
+					cli.printAllCompanyByPage();
 					break;
 				case 5:
-					System.out.println("Enter the ID of the computer : ");
-					System.out.print(">");
-					entry = in.nextInt();
-					for(String s : computerService.getComputerByID(entry)) {
-						System.out.println(s);
-					}
+					cli.printComputer();
 					break;
-					
 				case 6:
-					System.out.println("Enter the computer name : ");
-					System.out.print(">");
-					name = in.next() + in.nextLine();
-					System.out.println("Enter the date of the computer was introduce yyyy-mm-dd or (null): ");
-					System.out.print(">");
-					introduced = DateMapper.stringToLocalDate(in.next());
-					System.out.println("Enter the date of the computer was discontinued yyyy-mm-dd or (null): ");
-					System.out.print(">");
-					discontinued = DateMapper.stringToLocalDate(in.next());
-					System.out.println("Enter the compagny Id : ");
-					System.out.print(">");
-					compagnyId = in.nextInt();
-					computerService.add(name,introduced,discontinued,compagnyId);
-					
-					break;
-					
+					cli.createComputer();
+					break;	
 				case 7:
-					System.out.println("Enter the computer ID : ");
-					System.out.print(">");
-					id = in.nextInt();
-					System.out.println("Enter the new computer name : ");
-					System.out.print(">");
-					name = in.next() + in.nextLine();
-					System.out.println("Enter the new date of the computer was introduce yyyy-mm-dd or (null): ");
-					System.out.print(">");
-					introduced = DateMapper.stringToLocalDate(in.next());
-					System.out.println("Enter the new date of the computer was discontinued yyyy-mm-dd or (null): ");
-					System.out.print(">");
-					discontinued = DateMapper.stringToLocalDate(in.next());
-					System.out.println("Enter the new compagny Id : ");
-					System.out.print(">");
-					compagnyId = in.nextInt();
-					computerService.update(id,name,introduced,discontinued,compagnyId);
-					
+					cli.updateComputer();
 					break;
 				case 8:
-					System.out.println("Enter the computer ID : ");
-					System.out.print(">");
-					id = in.nextInt();
-					computerService.delete(id);
+					cli.deleteComputer();
 					break;
-					
-				
 				case 9:
 					System.out.println("Closing application.");
-					quit = true;
+					cli.quit = true;
 					break;
 				default: 
 					System.out.println("Bad argument");
@@ -167,11 +71,11 @@ public class CLI {
 			}
 		}
 		
-		in.close();
+		cli.in.close();
 		
 	}
 	
-	private static void showCommand () {
+	private void showCommand () {
 		System.out.println("List of commands (type the corresponding number to select one) : ");
 		System.out.println(" 1 - List all computer ");
 		System.out.println(" 2 - List computer by page");
@@ -183,6 +87,129 @@ public class CLI {
 		System.out.println(" 8 - Delete a computer");
 		System.out.println(" 9 - quit");
 		
+	}
+	
+	private void printAllComputer () {
+		for(String s : computerService.listAll()) {
+			System.out.println(s);
+		}
+	}
+	
+	private void printAllComputerByPage () {
+		for(String s : computerService.findAllByPage()) {
+			System.out.println(s);
+		}
+		page = true;
+		while(page) {
+			entry = in.nextInt();
+			switch (entry) {
+				case 0:
+					page = false;
+					break;
+				case 1:
+					for(String s : computerService.nextPage()) {
+						System.out.println(s);
+					}
+					break;
+				case 2:
+					for(String s : computerService.previousPage()) {
+						System.out.println(s);
+					}
+					break;
+				default:
+					//TODO print menu des page
+					break;
+			}
+		}
+	}
+	
+	private void printAllCompany () {
+		for(String s : companyService.listAll()) {
+			System.out.println(s);
+		}
+	}
+	
+	private void printAllCompanyByPage () {
+		for(String s : companyService.findAllByPage()) {
+			System.out.println(s);
+		}
+		page = true;
+		while(page) {
+			entry = in.nextInt();
+			switch (entry) {
+				case 0:
+					page = false;
+					break;
+				case 1:
+					for(String s : companyService.nextPage()) {
+						System.out.println(s);
+					}
+					break;
+				case 2:
+					for(String s : companyService.previousPage()) {
+						System.out.println(s);
+					}
+					break;
+				default:
+					//TODO print menu des page
+					break;
+			}
+		}
+	}
+	
+	
+	private void printComputer () {
+		System.out.println("Enter the ID of the computer : ");
+		System.out.print(">");
+		entry = in.nextInt();
+		for(String s : computerService.getComputerByID(entry)) {
+			System.out.println(s);
+		}
+	}
+	
+	
+	private void createComputer () {
+		System.out.println("Enter the computer name : ");
+		System.out.print(">");
+		name = in.next() + in.nextLine();
+		System.out.println("Enter the date of the computer was introduce yyyy-mm-dd or (null): ");
+		System.out.print(">");
+		introduced = DateMapper.stringToLocalDate(in.next());
+		System.out.println("Enter the date of the computer was discontinued yyyy-mm-dd or (null): ");
+		System.out.print(">");
+		discontinued = DateMapper.stringToLocalDate(in.next());
+		System.out.println("Enter the compagny Id : ");
+		System.out.print(">");
+		compagnyId = in.nextInt();
+		computerService.add(name,introduced,discontinued,compagnyId);
+	}
+	
+	
+	private void updateComputer () {
+		System.out.println("Enter the computer ID : ");
+		System.out.print(">");
+		id = in.nextInt();
+		System.out.println("Enter the new computer name : ");
+		System.out.print(">");
+		name = in.next() + in.nextLine();
+		System.out.println("Enter the new date of the computer was introduce yyyy-mm-dd or (null): ");
+		System.out.print(">");
+		introduced = DateMapper.stringToLocalDate(in.next());
+		System.out.println("Enter the new date of the computer was discontinued yyyy-mm-dd or (null): ");
+		System.out.print(">");
+		discontinued = DateMapper.stringToLocalDate(in.next());
+		System.out.println("Enter the new compagny Id : ");
+		System.out.print(">");
+		compagnyId = in.nextInt();
+		computerService.update(id,name,introduced,discontinued,compagnyId);
+	}
+	
+	
+	private void deleteComputer () {
+		System.out.println("Enter the computer ID : ");
+		System.out.print(">");
+		id = in.nextInt();
+		computerService.delete(id);
 	}
 }
 
