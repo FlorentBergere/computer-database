@@ -3,6 +3,8 @@ package com.excilys.formation.computerDataBase.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.model.Page;
@@ -17,34 +19,20 @@ public class ComputerService {
 	}
 	
 	public List<String> listAll () {
-		ArrayList<String> result = new ArrayList<String>();
-		List<Computer> computerCollection = computerDAO.findAll();
-		for(Computer c : computerCollection) {
-			result.add(c.toString());
-		}
-		
-		return result;
+		return computerDAO.findAll().stream().map(Computer::toString).collect(Collectors.toList());
 	}
 	
 	
 	public List<String> getComputerByID (int id) {
-		ArrayList<String> result = new ArrayList<String>();
-		List<Computer> computerCollection = computerDAO.fingByID(id);
-		for(Computer c : computerCollection) {
-			result.add(c.toString());
-		}
-		
-		return result;
+		return computerDAO.fingByID(id).stream().map(Computer::toString).collect(Collectors.toList());
 	}
 	
 	public void add (String name, LocalDate introduced, LocalDate discontinued, int compagnyId) {
 		computerDAO.add(name, introduced, discontinued, compagnyId);
-		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
 	
 	public void update (int id, String name, LocalDate introduced, LocalDate discontinued, int compagnyId) {
 		computerDAO.update(id, name, introduced, discontinued, compagnyId);
-		//TODO verifier que les donnees envoyer par l'utilisateur sont correct
 	}
 	
 	public void delete(int id) {
@@ -52,31 +40,18 @@ public class ComputerService {
 	}
 	
 	public List<String> findAllByPage () {
-		ArrayList<String> result = new ArrayList<String>();
 		pageComputer = new Page(computerDAO.countEntry());
-		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage());
-		for(Computer c : computerCollection) {
-			result.add(c.toString());
-		}
-		return result;
+		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage()).stream().map(Computer::toString).collect(Collectors.toList());
 	}
+	
 	public List<String> nextPage () {
-		ArrayList<String> result = new ArrayList<String>();
-		System.out.println(pageComputer.next());
-		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage());
-		for(Computer c : computerCollection) {
-			result.add(c.toString());
-		}
-		return result;
+		pageComputer.next();
+		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage()).stream().map(Computer::toString).collect(Collectors.toList());
 	}
 	
 	public List<String> previousPage () {
-		ArrayList<String> result = new ArrayList<String>();
-		System.out.println(pageComputer.previous());
-		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage());
-		for(Computer c : computerCollection) {
-			result.add(c.toString());
-		}
-		return result;
+		pageComputer.previous();
+		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage()).stream().map(Computer::toString).collect(Collectors.toList());
 	}
+	
 }

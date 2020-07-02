@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.excilys.formation.computerDataBase.mapper.ComputerDTOMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
@@ -20,12 +21,7 @@ public class DashBoardService {
 	}
 	
 	public List<ComputerDTO> findAll (){
-		ArrayList<ComputerDTO> result = new ArrayList<ComputerDTO>();
-		List<Computer> computerCollection = computerDAO.findAll();
-		for(Computer c : computerCollection) {
-			result.add(ComputerDTOMapper.computerToDTO(c));
-		}
-		return result;
+		return computerDAO.findAll().stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
 	}
 	
 	public int countComputer() {
@@ -33,47 +29,27 @@ public class DashBoardService {
 	}
 	
 	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber){
-		List<ComputerDTO> result = new ArrayList<ComputerDTO>();
 		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
 		pageComputer.goTo(pageNumber);
-		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage());
-		for(Computer c :computerCollection) {
-			result.add(ComputerDTOMapper.computerToDTO(c));
-		}
-		return result;
+		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage()).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
 	}
 	
 	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, Computer.atributes atribute){
-		List<ComputerDTO> result = new ArrayList<ComputerDTO>();
 		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
 		pageComputer.goTo(pageNumber);
-		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),atribute);
-		for(Computer c :computerCollection) {
-			result.add(ComputerDTOMapper.computerToDTO(c));
-		}
-		return result;
+		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),atribute).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
 	}
 	
 	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, String name){
-		List<ComputerDTO> result = new ArrayList<ComputerDTO>();
 		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
 		pageComputer.goTo(pageNumber);
-		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),name);
-		for(Computer c :computerCollection) {
-			result.add(ComputerDTOMapper.computerToDTO(c));
-		}
-		return result;
+		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),name).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
 	}
 	
 	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, String name, Computer.atributes atribute){
-		List<ComputerDTO> result = new ArrayList<ComputerDTO>();
 		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
 		pageComputer.goTo(pageNumber);
-		List<Computer> computerCollection = computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),name,atribute);
-		for(Computer c :computerCollection) {
-			result.add(ComputerDTOMapper.computerToDTO(c));
-		}
-		return result;
+		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),name,atribute).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
 	}
 	
 	
