@@ -35,4 +35,8 @@ public class CompanyService {
 		System.out.println(pageCompany.previous());
 		return companyDAO.findAllByPage(pageCompany.getOffset(), pageCompany.getNbEntryPerPage()).stream().map(Company::toString).collect(Collectors.toList());
 	}
+	
+	public void delete (int id) {
+		companyDAO.deleteCompany(new Company(id, null));
+	}
 }

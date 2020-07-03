@@ -36,7 +36,10 @@ public class CLI {
 			cli.entry = cli.in.nextInt();
 
 			switch(cli.entry) {
-			
+				case 0 : 					
+					System.out.println("Closing application.");
+					cli.quit = true;
+					break;
 				case 1: 		
 					cli.printAllComputer();
 					break;
@@ -62,8 +65,7 @@ public class CLI {
 					cli.deleteComputer();
 					break;
 				case 9:
-					System.out.println("Closing application.");
-					cli.quit = true;
+					cli.deleteCompany();
 					break;
 				default: 
 					System.out.println("Bad argument");
@@ -77,6 +79,7 @@ public class CLI {
 	
 	private void showCommand () {
 		System.out.println("List of commands (type the corresponding number to select one) : ");
+		System.out.println(" 0 - quit");
 		System.out.println(" 1 - List all computer ");
 		System.out.println(" 2 - List computer by page");
 		System.out.println(" 3 - List company ");
@@ -85,7 +88,7 @@ public class CLI {
 		System.out.println(" 6 - Create a computer");
 		System.out.println(" 7 - Update a computer");
 		System.out.println(" 8 - Delete a computer");
-		System.out.println(" 9 - quit");
+		System.out.println(" 9 - Delete a company");
 		
 	}
 	
@@ -210,6 +213,12 @@ public class CLI {
 		System.out.print(">");
 		id = in.nextInt();
 		computerService.delete(id);
+	}
+	
+	private void deleteCompany () {
+		System.out.println("Enter the company ID : ");
+		compagnyId = in.nextInt();
+		companyService.delete(compagnyId);
 	}
 }
 

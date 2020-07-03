@@ -20,6 +20,8 @@ public class CompanyDAO {
     private final static String QUERY_FINDBYID = QUERY_FIND_COMPANY + " WHERE id = ?";
     private final static String QUERY_FINDBYPAGE_COMPANY = "SELECT * FROM company LIMIT ? OFFSET ?";
     private final static String QUERY_COUNT_COMPANY = "SELECT count(*) as nbCompany FROM company";
+    private final static String QUERY_DELETE_COMPUTER = "DELETE FROM computer WHERE company_id = ?";
+    private final static String QUERY_DELETE_COMPANY = "DELETE FROM company WHERE id = ?";
     
     
     public CompanyDAO () {
@@ -91,6 +93,25 @@ public class CompanyDAO {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+    	return result;
+    }
+    
+    public boolean deleteCompany (Company company) {
+    	boolean result = false;
+    	try (	Connection connection = connectionFactory.getConnection();
+    			PreparedStatement stmtDelComputer = connection.prepareStatement(QUERY_DELETE_COMPUTER);
+    			PreparedStatement stmtDelComany = connection.prepareStatement(QUERY_DELETE_COMPANY))	 {
+   			connection.setAutoCommit(false);
+   			stmtDelComputer.setInt(1, company.getId());
+   			stmtDelComputer.executeUpdate();
+   			stmtDelComany.setInt(1, company.getId());
+   			stmtDelComany.executeUpdate();
+   			connection.commit();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+    	
     	return result;
     }
 }
