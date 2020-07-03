@@ -22,6 +22,7 @@
 		<mysql.Version>8.0.19</mysql.Version>
 		<h2.Version>1.4.197</h2.Version>
 		<slf4j.Version>1.7.25</slf4j.Version>
+		<log4j12.Version>1.7.30</log4j12.Version>
 		<mockito.Version>1.10.19</mockito.Version>
 		<jstl.Version>1.2</jstl.Version>
 		<hikariCP.Version>3.4.5</hikariCP.Version>
@@ -71,11 +72,14 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.Version}</version>
 		</dependency>
+
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>${slf4j.Version}</version>
+	    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-log4j12</artifactId>
+		    <version>${log4j12.Version}</version>
 		</dependency>
+		
+		
 
 	<!-- JSP -->
 		<dependency>
