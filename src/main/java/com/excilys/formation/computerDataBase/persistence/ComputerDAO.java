@@ -8,10 +8,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.service.ConnectionFactory;
+
 
 public class ComputerDAO {
 	ConnectionFactory connectionFactory;

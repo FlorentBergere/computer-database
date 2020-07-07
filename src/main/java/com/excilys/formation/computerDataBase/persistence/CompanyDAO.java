@@ -8,11 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.excilys.formation.computerDataBase.mapper.CompanyMapper;
 import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.service.ConnectionFactory;
+
 
 public class CompanyDAO {
 	ConnectionFactory connectionFactory;

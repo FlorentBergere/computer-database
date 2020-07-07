@@ -2,6 +2,9 @@ package com.excilys.formation.computerDataBase.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.excilys.formation.computerDataBase.mapper.CompanyDTOMapper;
 import com.excilys.formation.computerDataBase.mapper.ComputerDTOMapper;
 import com.excilys.formation.computerDataBase.model.Company;
@@ -11,14 +14,16 @@ import com.excilys.formation.computerDataBase.model.DTO.ComputerDTO;
 import com.excilys.formation.computerDataBase.persistence.CompanyDAO;
 import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 
+@Service
 public class EditComputerService {
 	CompanyDAO companyDAO;
 	ComputerDAO computerDAO;
 	
 	public EditComputerService() {
-		this.companyDAO = new CompanyDAO();
-		this.computerDAO = new ComputerDAO();
+		companyDAO = new CompanyDAO();
+		computerDAO = new ComputerDAO();
 	}
+	
 	public List<CompanyDTO> getListCompany () {		
 		return CompanyDTOMapper.companyListToDTOList(companyDAO.findCompany());
 	}

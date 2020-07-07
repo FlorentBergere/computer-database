@@ -3,6 +3,8 @@ package com.excilys.formation.computerDataBase.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.excilys.formation.computerDataBase.mapper.CompanyDTOMapper;
 import com.excilys.formation.computerDataBase.mapper.ComputerDTOMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
@@ -11,6 +13,8 @@ import com.excilys.formation.computerDataBase.model.DTO.ComputerDTO;
 import com.excilys.formation.computerDataBase.persistence.CompanyDAO;
 import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 
+
+@Service
 public class AddComputerService {
 	private ComputerDAO computerDAO;
 	private CompanyDAO companyDAO;

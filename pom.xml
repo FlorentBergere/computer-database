@@ -27,6 +27,7 @@
 		<mockito.Version>1.10.19</mockito.Version>
 		<jstl.Version>1.2</jstl.Version>
 		<hikariCP.Version>3.4.5</hikariCP.Version>
+		<spring.Version>5.2.7.RELEASE</spring.Version>
 	</properties>
 
 	<dependencies>
@@ -91,6 +92,25 @@
 			<scope>provided</scope>
 		</dependency>
 
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.Version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.Version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.Version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>

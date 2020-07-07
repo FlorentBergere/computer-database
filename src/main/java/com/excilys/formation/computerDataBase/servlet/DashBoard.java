@@ -3,11 +3,15 @@ package com.excilys.formation.computerDataBase.servlet;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
@@ -21,7 +25,10 @@ import com.excilys.formation.computerDataBase.service.DashBoardService;
 @WebServlet(urlPatterns = "/DashBoard")
 public class DashBoard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	@Autowired
 	private DashBoardService dashBoardService;
+	
 	private int pageNumber = 0;
 	private int nbEntryPerPage = 10;
 	private int numberMaxPage;
@@ -35,9 +42,13 @@ public class DashBoard extends HttpServlet {
      */
     public DashBoard() {
         super();
-        this.dashBoardService = new DashBoardService();
-        // TODO Auto-generated constructor stub
     }
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+		super.init(config);
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
