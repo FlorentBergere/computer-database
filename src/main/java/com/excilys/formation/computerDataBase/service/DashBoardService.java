@@ -17,11 +17,11 @@ import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 
 @Service
 public class DashBoardService {
+	@Autowired
 	private ComputerDAO computerDAO;
 	private Page pageComputer;
 	
 	public DashBoardService () {
-		computerDAO = new ComputerDAO();
 	}
 	
 	public List<ComputerDTO> findAll (){

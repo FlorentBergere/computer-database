@@ -16,12 +16,12 @@ import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 
 @Service
 public class EditComputerService {
-	CompanyDAO companyDAO;
-	ComputerDAO computerDAO;
+	@Autowired
+	private CompanyDAO companyDAO;
+	@Autowired
+	private ComputerDAO computerDAO;
 	
 	public EditComputerService() {
-		companyDAO = new CompanyDAO();
-		computerDAO = new ComputerDAO();
 	}
 	
 	public List<CompanyDTO> getListCompany () {		

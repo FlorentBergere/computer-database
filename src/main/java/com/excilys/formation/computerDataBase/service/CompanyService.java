@@ -5,15 +5,16 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.persistence.CompanyDAO;
 
-@Service
+
 public class CompanyService {
-	CompanyDAO companyDAO;
+	private CompanyDAO companyDAO;
 	private Page pageCompany;
 	
 	public CompanyService () {

@@ -1,4 +1,4 @@
-package configuration;
+package com.excilys.formation.computerDataBase.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.AbstractContextLoaderInitializer;
@@ -7,7 +7,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.context.annotation.ComponentScan;
 
 @Configuration
-@ComponentScan(basePackages = "com.excilys.formation.computerDataBase.service")
+@ComponentScan(basePackages = "com.excilys.formation.computerDataBase")
 public class SpringConfig extends AbstractContextLoaderInitializer {
 
 	@Override

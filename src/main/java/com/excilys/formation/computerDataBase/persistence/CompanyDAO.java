@@ -16,7 +16,7 @@ import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 
-
+@Repository
 public class CompanyDAO {
 	ConnectionFactory connectionFactory;
     private final static String QUERY_FIND_COMPANY = "SELECT * FROM company";
