@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.FileInputStream;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import org.dbunit.DBTestCase;
@@ -32,6 +33,14 @@ public class ComputerDAOTest extends DBTestCase{
 	@Autowired
 	private ComputerDAO computerDAO;
 	
+	private static List<Computer> expectedListAll = Arrays.asList(	
+			new Computer(1,"MacBook Pro 15.4 inch", null, null, new Company(1, "Apple Inc.")),
+			new Computer(2,"CM-2a" , null, null, new Company(2, "Thinking Machines")),
+			new Computer(3,"CM-200",DateMapper.stringToLocalDate("1999-09-06"),DateMapper.stringToLocalDate("2000-03-03"),new Company(2, "Thinking Machines")),
+			new Computer(4,"CM-5e",null,null,new Company(2, "Thinking Machines")),
+			new Computer(5,"CM-5",DateMapper.stringToLocalDate("1991-01-01"),null,new Company(2, "Thinking Machines"))
+			);
+	
 	
     @Override
     protected IDataSet getDataSet() throws Exception {
@@ -52,10 +61,22 @@ public class ComputerDAOTest extends DBTestCase{
 	public void setUp() throws Exception {
 		getSetUpOperation().execute(new DatabaseConnection(connectionFactory.getConnection()), getDataSet());
 	}
+	
+	@Test
+	public void testFindAll() {
+		assertEquals(expectedListAll, computerDAO.findAll());
+	}
+	
+	@Test
+	public void testFindByIdWhenNotPresent() {
+		int id = 6;
+		List<Computer> result = computerDAO.fingByID(id);
+		assertTrue(result.isEmpty());
+	}
 
 	@Test
 	public void testAdd() {
-		int id = 1000;
+		int id = 6;
 		String name = "computerName";
 		LocalDate introduced = DateMapper.stringToLocalDate("1999-12-01");
 		LocalDate discontinued = DateMapper.stringToLocalDate("2014-09-07");
@@ -69,11 +90,10 @@ public class ComputerDAOTest extends DBTestCase{
 		assertEquals(computer, result);
 	}
 	
-	@Test
-	public void testFindByIdWhenNotPresent() {
-		int id = 6;
-		List<Computer> result = computerDAO.fingByID(id);
-		assertTrue(result.isEmpty());
+	
+	@Test 
+	public void testCountEntry () {
+		assertEquals(5, computerDAO.countEntry());
 	}
 
 }

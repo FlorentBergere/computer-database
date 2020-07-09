@@ -29,9 +29,10 @@ public class CompanyDAOTest extends DBTestCase{
 	@Autowired
 	private CompanyDAO companyDAO;
 	
-	private static List<Company> expectedListAll = Arrays.asList(	new Company(1, "Apple Inc."),
-																	new Company(2, "Thinking Machines"),
-																	new Company(3, "RCA"));
+	private static List<Company> expectedListAll = Arrays.asList(	
+			new Company(1, "Apple Inc."),
+			new Company(2, "Thinking Machines"),
+			new Company(3, "RCA"));
 	
 	
 	
