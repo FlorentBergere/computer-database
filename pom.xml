@@ -7,7 +7,7 @@
 
 	<groupId>com.excilys.formation</groupId>
 	<artifactId>computerDataBase</artifactId>
-	<version>0.3.0</version>
+	<version>1.0.0</version>
 	<packaging>war</packaging>
 
 	<name>computerDataBase Maven Webapp</name>

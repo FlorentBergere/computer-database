@@ -25,7 +25,7 @@ import com.excilys.formation.computerDataBase.service.DashBoardService;
 
 @WebServlet(urlPatterns = "/DashBoard")
 public class DashBoard extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
 	@Autowired
 	private DashBoardService dashBoardService;
