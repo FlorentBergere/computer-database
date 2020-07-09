@@ -4,11 +4,16 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.stereotype.Component;
 
 import com.excilys.formation.computerDataBase.service.ConnectionFactory;
+import com.excilys.formation.computerDataBase.configuration.SpringConfig;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
 import com.excilys.formation.computerDataBase.service.CompanyService;
 import com.excilys.formation.computerDataBase.service.ComputerService;
+
 
 public class CLI {
 	private static final Logger logger = LoggerFactory.getLogger(CLI.class);
@@ -16,17 +21,26 @@ public class CLI {
 	int entry;
 	boolean page;
 	Scanner in = new Scanner(System.in);
-	ComputerService computerService = new ComputerService();
-	CompanyService companyService = new CompanyService();
-	
+	private ComputerService computerService;
+	private CompanyService companyService;
+
 	int id;
 	String name;
 	LocalDate introduced;
 	LocalDate discontinued;
 	int compagnyId;
 	
+	
+	@Autowired
+	public CLI (ComputerService computerService, CompanyService companyService) {
+		this.computerService = computerService;
+		this.companyService = companyService;
+	}
+	
+	
 	public static void main(String[] args) {
-		CLI cli = new CLI();
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class);
+		CLI cli = new CLI(context.getBean(ComputerService.class),context.getBean(CompanyService.class));
 		cli.showCommand();
 		
 		while(!cli.quit) {

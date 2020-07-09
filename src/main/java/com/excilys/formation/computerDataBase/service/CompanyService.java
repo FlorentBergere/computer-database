@@ -12,13 +12,13 @@ import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.persistence.CompanyDAO;
 
-
+@Service
 public class CompanyService {
+	@Autowired
 	private CompanyDAO companyDAO;
 	private Page pageCompany;
 	
 	public CompanyService () {
-		this.companyDAO = new CompanyDAO();
 	}
 	
 	public List<String> listAll () {
