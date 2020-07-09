@@ -67,6 +67,44 @@ public class CompanyDAOTest extends DBTestCase{
 		System.out.println(result);
 		assertEquals(expectedListAll, result);
 	}
+	
+	@Test 
+	public void testFindById () {
+		List<Company> result = companyDAO.fingByID(1);
+		assertNotNull(result);
+		assertEquals(1, result.size());
+		assertEquals(new Company(1, "Apple Inc."), result.get(0));
+	}
+	
+	@Test
+	public void testDeleteCompanyWithNoComputerLink() {
+		List<Company> result = null;
+		
+		result = companyDAO.fingByID(3);
+		assertNotNull(result);
+		assertEquals(1, result.size());
+		
+		companyDAO.deleteCompany(new Company(3, "RCA"));
+		
+		result = companyDAO.fingByID(3);
+		assertNotNull(result);
+		assertEquals(0, result.size());
+	}
+	
+	@Test
+	public void testDeleteCompanyWithComputerLink() {
+		List<Company> result = null;
+		
+		result = companyDAO.fingByID(1);
+		assertNotNull(result);
+		assertEquals(1, result.size());
+		
+		companyDAO.deleteCompany(new Company(1, "Apple Inc."));
+		
+		result = companyDAO.fingByID(1);
+		assertNotNull(result);
+		assertEquals(0, result.size());
+	}
 
 	
 }
