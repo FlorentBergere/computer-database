@@ -6,13 +6,21 @@ import java.sql.Connection;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 
+import com.excilys.formation.computerDataBase.configuration.SpringConfig;
+
+@RunWith(SpringRunner.class)
+@ContextConfiguration(classes = SpringConfig.class)
 public class ConnectionFactoryTest {
+	@Autowired
 	private ConnectionFactory connectionFactory;
 
 	@Before
 	public void setUp() throws Exception {
-		connectionFactory = ConnectionFactory.getInstance();
 	}
 
 	@Test

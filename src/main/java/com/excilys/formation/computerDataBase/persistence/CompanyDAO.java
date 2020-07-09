@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.formation.computerDataBase.mapper.CompanyMapper;
@@ -18,6 +19,7 @@ import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 
 @Repository
 public class CompanyDAO {
+	@Autowired
 	ConnectionFactory connectionFactory;
     private final static String QUERY_FIND_COMPANY = "SELECT * FROM company";
     private final static String QUERY_FINDBYID = QUERY_FIND_COMPANY + " WHERE id = ?";
@@ -28,7 +30,6 @@ public class CompanyDAO {
     
     
     public CompanyDAO () {
-    	this.connectionFactory = ConnectionFactory.getInstance();
     }
         
     public List<Company> findCompany () {

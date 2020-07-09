@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
@@ -17,6 +18,7 @@ import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 
 @Repository
 public class ComputerDAO {
+	@Autowired
 	ConnectionFactory connectionFactory;
     private final static String QUERY_FIND_COMPUTER = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id";
     private final static String QUERY_FINDBYID = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.id = ?";
@@ -30,7 +32,6 @@ public class ComputerDAO {
     private final static String QUERY_COUNT_COMPUTER = "SELECT count(*) as nbComputer FROM computer";
     
     public ComputerDAO () {
-    	this.connectionFactory = ConnectionFactory.getInstance();
     }
     
     public List<Computer> findAll () {

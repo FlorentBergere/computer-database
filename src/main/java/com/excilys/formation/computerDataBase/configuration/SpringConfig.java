@@ -4,6 +4,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.AbstractContextLoaderInitializer;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 @Configuration
@@ -15,6 +20,11 @@ public class SpringConfig extends AbstractContextLoaderInitializer {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.register(SpringConfig.class);
 		return context;
+	}
+	
+	@Bean
+	public HikariDataSource hikariDataSource() {
+		return new HikariDataSource(new HikariConfig("/hikariConfig.properties"));
 	}
 
 }
