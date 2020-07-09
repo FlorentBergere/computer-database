@@ -3,11 +3,15 @@ package com.excilys.formation.computerDataBase.servlet;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.formation.computerDataBase.model.DTO.CompanyDTO;
 import com.excilys.formation.computerDataBase.model.DTO.ComputerDTO;
@@ -20,6 +24,8 @@ import com.excilys.formation.computerDataBase.service.ComputerService;
 @WebServlet(urlPatterns = "/addComputer")
 public class AddComputer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	@Autowired
 	private AddComputerService addComputerService;
 	String name;
 	String introduced;
@@ -31,9 +37,13 @@ public class AddComputer extends HttpServlet {
      */
     public AddComputer() {
         super();
-        this.addComputerService = new AddComputerService();
-        // TODO Auto-generated constructor stub
     }
+    
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+		super.init(config);
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

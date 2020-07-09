@@ -1,0 +1,22 @@
+<!DOCTYPE dataset SYSTEM "src/test/resources/dataset.dtd">
+<dataset>
+	<company id="1" name="Apple Inc."/>
+	<company id="2" name="Thinking Machines"/>
+	<company id="3" name="RCA"/>
+	<computer id="1" name="Computer1" 		introduced="2010-10-10" discontinued="2010-10-12" 	company_id="1"/>
+	<computer id="3" name="Computer3" 		introduced="1989-12-05" discontinued="2010-10-12" />
+	<computer id="22" name="Computer22"/>
+	<computer id="18" name="Computer18" 														company_id="1"/>
+	<computer id="15" name="Computer15" 	introduced="1999-09-06" 							company_id="2"/>
+	<computer id="999" name="Computer999" 	introduced="1980-11-11" discontinued="2099-01-01" 	company_id="2"/>
+	<computer id="44" name="Computer44" 	introduced="1970-01-01" discontinued="2070-01-01" 	company_id="1"/>
+	<computer id="42" name="Computer42" 							discontinued="2000-03-03" 	company_id="3"/>
+</dataset>
+
+
+<!-- 
+insert into computer (id,name,introduced,discontinued,company_id) values (  1,'MacBook Pro 15.4 inch',null,null,1);
+insert into computer (id,name,introduced,discontinued,company_id) values (  2,'CM-2a',null,null,2);
+insert into computer (id,name,introduced,discontinued,company_id) values (  3,'CM-200',null,null,2);
+insert into computer (id,name,introduced,discontinued,company_id) values (  4,'CM-5e',null,null,2);
+insert into computer (id,name,introduced,discontinued,company_id) values (  5,'CM-5','1991-01-01',null,2); -->

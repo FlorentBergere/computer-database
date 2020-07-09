@@ -18,15 +18,17 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>	
-		<junit.Version>4.11</junit.Version>
+		<junit.Version>4.12</junit.Version>
 		<mysql.Version>8.0.19</mysql.Version>
 		<h2.Version>1.4.197</h2.Version>
+		<dbunit.Version>2.7.0</dbunit.Version>
 		<slf4j.Version>1.7.25</slf4j.Version>
 		<log4j12.Version>1.7.30</log4j12.Version>
 		<logback.Version>1.2.3</logback.Version>
 		<mockito.Version>1.10.19</mockito.Version>
 		<jstl.Version>1.2</jstl.Version>
 		<hikariCP.Version>3.4.5</hikariCP.Version>
+		<spring.Version>5.2.7.RELEASE</spring.Version>
 	</properties>
 
 	<dependencies>
@@ -60,6 +62,14 @@
 			<version>${h2.Version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>${dbunit.Version}</version>
+			<scope>test</scope>
+		</dependency>
+		
 		
 		<dependency>
 			<groupId>com.zaxxer</groupId>
@@ -91,6 +101,32 @@
 			<scope>provided</scope>
 		</dependency>
 
+
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.Version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.Version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.Version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.Version}</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

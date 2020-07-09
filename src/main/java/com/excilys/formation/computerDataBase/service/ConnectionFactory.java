@@ -9,40 +9,29 @@ import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+@Component
 public class ConnectionFactory  {
-	private static HikariDataSource hikariConfig;
-    private static ConnectionFactory connectionFactory = null;
+	@Autowired
+	private HikariDataSource hikariDataSource;
     private final static Logger log = LoggerFactory.getLogger(ConnectionFactory.class);
     
     
-    private ConnectionFactory () {
-    	try {
-    		HikariConfig config = new HikariConfig("/hikariConfig.properties");
-    		hikariConfig = new HikariDataSource(config);
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		//  TODO: handle exception
-    	}
-    	
+    private ConnectionFactory () {    	
     }
     
     
-    public static ConnectionFactory getInstance () {
-    	if (connectionFactory == null) {
-    		connectionFactory = new ConnectionFactory();
-    	}
-    	return connectionFactory;
-    }
-    
+
     
     public Connection getConnection() {
     	Connection result = null;
 		try {
-			result = hikariConfig.getConnection();
+			result = hikariDataSource.getConnection();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
