@@ -36,14 +36,13 @@ public class ComputerDAO {
     ComputerMapper computerMapper;
     
     private final static String QUERY_FIND_COMPUTER = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id";
+    private final static String QUERY_WHERE_ATTRIBUTE_LIKE = " WHERE computer.name LIKE '%:like%'";
+    private final static String QUERY_ORDER_BY = " ORDER BY :attribute ";
+    private final static String QUERY_LIMIT_OFFSET = " LIMIT :limit OFFSET :offset" ;
     private final static String QUERY_FINDBYID = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.id = :id";
     private final static String QUERY_INSERT = "INSERT INTO computer (name, introduced, discontinued, company_id)" + " VALUES (:name, :introduced, :discontinued, :companyId)";
-    private final static String QUERY_UPDATE = "UPDATE computer SET name=?, introduced=?, discontinued=?, company_id=? WHERE id=?";
+    private final static String QUERY_UPDATE = "UPDATE computer SET name=:name, introduced=:introduced, discontinued=:discontinued, company_id=:companyId WHERE id=:computerId";
     private final static String QUERY_DELETE = "DELETE FROM computer WHERE id=:id";
-    private final static String QUERY_FINDBYPAGE_COMPUTER = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id LIMIT ? OFFSET ?";
-    private final static String QUERY_FINDBYPAGE_COMPUTER_BYPAGE_FINDBYNAME = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.name LIKE ? LIMIT ? OFFSET ?";
-    private final static String QUERY_FINDBYPAGE_COMPUTER_BYPAGE_ORDER = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id ORDER BY $$ORDER$$ LIMIT ? OFFSET ?"; 
-    private final static String QUERY_FINDBYPAGE_COMPUTER_BYPAGE_FINDBYNAME_ORDER = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.name LIKE ? ORDER BY $$ORDER$$ LIMIT ? OFFSET ?";
     private final static String QUERY_COUNT_COMPUTER = "SELECT count(*) as nbComputer FROM computer";
     
     public ComputerDAO () {
@@ -79,7 +78,7 @@ public class ComputerDAO {
     
     public void update (int id, String name, LocalDate introduced, LocalDate discontinued, int companyId) {
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
-    	parameters.addValue("id", id);
+    	parameters.addValue("computerId", id);
     	parameters.addValue("name", name);
     	parameters.addValue("introduced", introduced);
     	parameters.addValue("discontinued", discontinued);
@@ -99,95 +98,24 @@ public class ComputerDAO {
     
     public List<Computer> findAllByPage (Page page) {
     	List<Computer> result =null;
+    	String query = QUERY_FIND_COMPUTER;
+    	if( page.getSearch() != null ) {
+    		query += QUERY_WHERE_ATTRIBUTE_LIKE.replace(":like", page.getSearch());
+    	}
+    	if( page.getAttributeToOrder() != null ) {
+    		query += QUERY_ORDER_BY.replace(":attribute", page.getAttributeToOrder());
+    		query += page.getCurrentOrder();
+    	}
+    	query += QUERY_LIMIT_OFFSET
+    			.replace(":limit", Integer.valueOf(page.getNbEntryPerPage()).toString())
+    			.replace(":offset", Integer.valueOf(page.getOffset()).toString());
     	
-    	return null;
+    	JdbcTemplate jdbc = new JdbcTemplate(hikariDataSource);
+    	result = jdbc.query(query, computerMapper);
+    	return result;
     }
 
-    public List<Computer> findAllByPage (int offset, int nbEntry) {
-    	ArrayList<Computer> result = new ArrayList<Computer>();
-    	try (	Connection connection = connectionFactory.getConnection();
-    			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPUTER))
-    		{
-    		stmt.setInt(1, nbEntry);
-    		stmt.setInt(2, offset);
-    		ResultSet rset = stmt.executeQuery();
-    		while(rset.next()) {
-    			result.add(ComputerMapper.rsetToComputer(rset));
-    		}
-    	}catch (Exception e) {
-			// TODO: handle exception
-    		e.printStackTrace();
-		}
-		return result;
-    }
     
-    public List<Computer> findAllByPage (int offset, int nbEntry, Computer.atributes atribute) {
-    	ArrayList<Computer> result = new ArrayList<Computer>();
-    	try (	Connection connection = connectionFactory.getConnection();
-    			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPUTER_BYPAGE_ORDER.replace("$$ORDER$$", atribute.getAtribute()));
-    			ResultSet rset = extracted(offset, nbEntry, stmt);
-    			)
-    		{
-    	//	stmt.setString(1, atribute.getAtribute());
-    		while(rset.next()) {
-    			result.add(ComputerMapper.rsetToComputer(rset));
-    		}
-    	}catch (Exception e) {
-			// TODO: handle exception
-    		e.printStackTrace();
-		}
-		return result;
-    }
-
-	private ResultSet extracted(int offset, int nbEntry, PreparedStatement stmt) throws SQLException {
-		stmt.setInt(1, nbEntry);
-		stmt.setInt(2, offset);
-		System.out.println(stmt.toString());
-		ResultSet rset = stmt.executeQuery();
-		return rset;
-	}
-    
-    public List<Computer> findAllByPage (int offset, int nbEntry, String name) {
-    	ArrayList<Computer> result = new ArrayList<Computer>();
-    	try (	Connection connection = connectionFactory.getConnection();
-    			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPUTER_BYPAGE_FINDBYNAME))
-    		{
-    		stmt.setString(1, "%" + name + "%");
-    		stmt.setInt(2, nbEntry);
-    		stmt.setInt(3, offset);
-    		ResultSet rset = stmt.executeQuery();
-    		while(rset.next()) {
-    			result.add(ComputerMapper.rsetToComputer(rset));
-    		}
-    	}catch (Exception e) {
-			// TODO: handle exception
-    		e.printStackTrace();
-		}
-		return result;
-    }
-    
-    public List<Computer> findAllByPage (int offset, int nbEntry, String name,Computer.atributes atribute) {
-    	ArrayList<Computer> result = new ArrayList<Computer>();
-    	try (	Connection connection = connectionFactory.getConnection();
-    			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPUTER_BYPAGE_FINDBYNAME_ORDER.replace("$$ORDER$$", atribute.getAtribute())))
-    		{
-    		stmt.setString(1, "%" + name + "%");
-    		//stmt.setString(2, atribute.getAtribute());
-    		stmt.setInt(2, nbEntry);
-    		stmt.setInt(3, offset);
-    		ResultSet rset = stmt.executeQuery();
-    		while(rset.next()) {
-    			result.add(ComputerMapper.rsetToComputer(rset));
-    		}
-    	}catch (Exception e) {
-			// TODO: handle exception
-    		e.printStackTrace();
-		}
-		return result;
-    }
-    
-    
-   
     public int countEntry (){
     	int result = 0;
     	JdbcTemplate jdbc = new JdbcTemplate(hikariDataSource);

@@ -21,6 +21,7 @@ import com.excilys.formation.computerDataBase.mapper.CompanyMapper;
 import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
+import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -37,7 +38,7 @@ public class CompanyDAO {
     
     private final static String QUERY_FIND_COMPANY = "SELECT * FROM company";
     private final static String QUERY_FINDBYID = QUERY_FIND_COMPANY + " WHERE id = :id";
-    private final static String QUERY_FINDBYPAGE_COMPANY = "SELECT * FROM company LIMIT ? OFFSET ?";
+    private final static String QUERY_FINDBYPAGE_COMPANY = "SELECT * FROM company LIMIT :limit OFFSET :offset";
     private final static String QUERY_COUNT_COMPANY = "SELECT count(company.id) as nbCompany FROM company";
     private final static String QUERY_DELETE_COMPUTER = "DELETE FROM computer WHERE company_id = :id";
     private final static String QUERY_DELETE_COMPANY = "DELETE FROM company WHERE id = :id";
@@ -64,22 +65,17 @@ public class CompanyDAO {
     }
     
 
-    public List<Company> findAllByPage (int offset, int nbEntry) {
-    	ArrayList<Company> result = new ArrayList<Company>();
-    	try (	Connection connection = connectionFactory.getConnection();
-    			PreparedStatement stmt = connection.prepareStatement(QUERY_FINDBYPAGE_COMPANY))
-    		{
-    		stmt.setInt(1, nbEntry);
-    		stmt.setInt(2, offset);
-    		ResultSet rset = stmt.executeQuery();
-    		while(rset.next()) {
-    			result.add(CompanyMapper.rsetToCompany(rset));
-    		}
-    	}catch (Exception e) {
-			// TODO: handle exception
-    		e.printStackTrace();
-		}
-		return result;
+    public List<Company> findAllByPage (Page page) {
+    	List<Company> result;
+    	
+    	MapSqlParameterSource parameters = new MapSqlParameterSource();
+    	parameters.addValue("limit", page.getNbEntryPerPage(), Types.INTEGER);
+    	parameters.addValue("offset", page.getOffset(), Types.INTEGER);
+    	
+    	NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(hikariDataSource);
+    	result = jdbc.query(QUERY_FINDBYPAGE_COMPANY, parameters, companyMapper);
+    	
+    	return result;
     }
     
 

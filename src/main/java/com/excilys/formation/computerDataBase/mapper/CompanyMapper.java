@@ -3,7 +3,6 @@ package com.excilys.formation.computerDataBase.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import org.springframework.aop.RawTargetAccess;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
 

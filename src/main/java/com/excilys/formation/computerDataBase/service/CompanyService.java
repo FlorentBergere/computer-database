@@ -27,17 +27,17 @@ public class CompanyService {
 	
 	public List<String> findAllByPage () {
 		pageCompany = new Page(companyDAO.countEntry());
-		return companyDAO.findAllByPage(pageCompany.getOffset(), pageCompany.getNbEntryPerPage()).stream().map(Company::toString).collect(Collectors.toList());
+		return companyDAO.findAllByPage(pageCompany).stream().map(Company::toString).collect(Collectors.toList());
 	}
 	
 	public List<String> nextPage () {
 		System.out.println(pageCompany.next());
-		return companyDAO.findAllByPage(pageCompany.getOffset(), pageCompany.getNbEntryPerPage()).stream().map(Company::toString).collect(Collectors.toList());
+		return companyDAO.findAllByPage(pageCompany).stream().map(Company::toString).collect(Collectors.toList());
 	}
 	
 	public List<String> previousPage () {
 		System.out.println(pageCompany.previous());
-		return companyDAO.findAllByPage(pageCompany.getOffset(), pageCompany.getNbEntryPerPage()).stream().map(Company::toString).collect(Collectors.toList());
+		return companyDAO.findAllByPage(pageCompany).stream().map(Company::toString).collect(Collectors.toList());
 	}
 	
 	public void delete (int id) {

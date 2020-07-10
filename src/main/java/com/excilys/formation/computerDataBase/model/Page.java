@@ -10,6 +10,24 @@ public class Page {
 	private int nbPage;
 	private int currentPage;
 	
+	private String attributeToOrder;
+	private String search;
+	private String currentOrder = Page.order.ASCENDING.getOrder();
+	
+	public enum order {
+		ASCENDING("ASC"),
+		DESCENDING("DSC");
+		
+		private final String order;
+		private order (String order) {
+		this.order = order;
+		} 
+		public String getOrder() {
+			return this.order;
+		}
+	}
+	
+	
 	public Page(int nbEntry) {
 		this.nbEntry = nbEntry;
 		this.nbEntryPerPage = 20;
@@ -89,6 +107,30 @@ public class Page {
 		}else {
 			return false;
 		}
+	}
+	
+	public void setAttributeToOrder(String attributeToOrder) {
+		this.attributeToOrder = attributeToOrder;
+	}
+	
+	public String getAttributeToOrder() {
+		return this.attributeToOrder;
+	}
+
+	public String getCurrentOrder() {
+		return currentOrder;
+	}
+
+	public void setCurrentOrder(String currentOrder) {
+		this.currentOrder = currentOrder;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
 	}
 	
 }

@@ -3,10 +3,14 @@ package com.excilys.formation.computerDataBase.mapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
+
 import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 
-public class ComputerMapper {
+@Component
+public class ComputerMapper implements RowMapper<Computer> {
 	public static Computer rsetToComputer (ResultSet rset) throws SQLException {
     	return new Computer(rset.getInt("id"),
 							rset.getString("computerName"),
@@ -30,5 +34,10 @@ public class ComputerMapper {
 			}	
 		}
 		return result;
+	}
+
+	@Override
+	public Computer mapRow(ResultSet rs, int rowNum) throws SQLException {
+		return ComputerMapper.rsetToComputer(rs);
 	}
 }

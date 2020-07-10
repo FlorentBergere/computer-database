@@ -45,17 +45,17 @@ public class ComputerService {
 	
 	public List<String> findAllByPage () {
 		pageComputer = new Page(computerDAO.countEntry());
-		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage()).stream().map(Computer::toString).collect(Collectors.toList());
+		return computerDAO.findAllByPage(pageComputer).stream().map(Computer::toString).collect(Collectors.toList());
 	}
 	
 	public List<String> nextPage () {
 		pageComputer.next();
-		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage()).stream().map(Computer::toString).collect(Collectors.toList());
+		return computerDAO.findAllByPage(pageComputer).stream().map(Computer::toString).collect(Collectors.toList());
 	}
 	
 	public List<String> previousPage () {
 		pageComputer.previous();
-		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage()).stream().map(Computer::toString).collect(Collectors.toList());
+		return computerDAO.findAllByPage(pageComputer).stream().map(Computer::toString).collect(Collectors.toList());
 	}
 	
 }

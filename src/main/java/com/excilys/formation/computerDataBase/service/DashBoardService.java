@@ -35,25 +35,29 @@ public class DashBoardService {
 	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber){
 		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
 		pageComputer.goTo(pageNumber);
-		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage()).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
+		return computerDAO.findAllByPage(pageComputer).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
 	}
 	
 	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, Computer.atributes atribute){
 		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
 		pageComputer.goTo(pageNumber);
-		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),atribute).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
+		pageComputer.setAttributeToOrder(atribute.getAtribute());
+		return computerDAO.findAllByPage(pageComputer).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
 	}
 	
-	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, String name){
+	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, String search){
 		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
 		pageComputer.goTo(pageNumber);
-		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),name).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
+		pageComputer.setSearch(search);
+		return computerDAO.findAllByPage(pageComputer).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
 	}
 	
-	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, String name, Computer.atributes atribute){
+	public List<ComputerDTO> findAllByPage(int nbEntryPerPage,int pageNumber, String search, Computer.atributes atribute){
 		pageComputer = new Page(computerDAO.countEntry(),nbEntryPerPage);
 		pageComputer.goTo(pageNumber);
-		return computerDAO.findAllByPage(pageComputer.getOffset(), pageComputer.getNbEntryPerPage(),name,atribute).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
+		pageComputer.setAttributeToOrder(atribute.getAtribute());
+		pageComputer.setSearch(search);
+		return computerDAO.findAllByPage(pageComputer).stream().map(computer -> ComputerDTOMapper.computerToDTO(computer)).collect(Collectors.toList());
 	}
 	
 	

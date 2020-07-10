@@ -12,7 +12,10 @@ public class Computer {
 	
 	public enum atributes {
 		ID ("computer.id"),
-		NAME ("computerName");
+		NAME ("computer.name"),
+		INTRODUCED ("computer.introduced"),
+		DISCONTINUED ("computer.discontinued"),
+		COMPANY ("computer.company_id");
 		
 		private final String atribute; 
 		private atributes (String name) {
