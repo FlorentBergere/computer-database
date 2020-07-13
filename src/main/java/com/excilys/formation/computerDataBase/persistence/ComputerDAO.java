@@ -35,6 +35,9 @@ public class ComputerDAO {
     @Autowired
     ComputerMapper computerMapper;
     
+    @Autowired
+    NamedParameterJdbcTemplate jdbc;
+    
     private final static String QUERY_FIND_COMPUTER = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id";
     private final static String QUERY_WHERE_ATTRIBUTE_LIKE = " WHERE computer.name LIKE '%:like%'";
     private final static String QUERY_ORDER_BY = " ORDER BY :attribute ";
@@ -50,7 +53,6 @@ public class ComputerDAO {
     
     public List<Computer> findAll () { 	
     	List<Computer> result;
-    	JdbcTemplate jdbc = new JdbcTemplate(hikariDataSource);
     	result = jdbc.query(QUERY_FIND_COMPUTER, computerMapper);
 		return result;
 		
@@ -60,7 +62,6 @@ public class ComputerDAO {
     	List<Computer> result;
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
     	parameters.addValue("id", id, Types.INTEGER);
-    	NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(hikariDataSource);
     	result = jdbc.query(QUERY_FINDBYID, parameters, computerMapper);
     	return result;
     }
@@ -68,11 +69,10 @@ public class ComputerDAO {
     public void add (String name, LocalDate introduced, LocalDate discontinued, int companyId) { 	
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
     	parameters.addValue("name", name);
-    	parameters.addValue("introduced", introduced);
-    	parameters.addValue("discontinued", discontinued);
+    	parameters.addValue("introduced", DateMapper.localDateTosqlDate(introduced));
+    	parameters.addValue("discontinued", DateMapper.localDateTosqlDate(discontinued));
     	parameters.addValue("companyId", companyId);
     	
-    	NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(hikariDataSource);
     	jdbc.update(QUERY_INSERT, parameters);
     }
     
@@ -80,18 +80,16 @@ public class ComputerDAO {
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
     	parameters.addValue("computerId", id);
     	parameters.addValue("name", name);
-    	parameters.addValue("introduced", introduced);
-    	parameters.addValue("discontinued", discontinued);
+    	parameters.addValue("introduced", DateMapper.localDateTosqlDate(introduced));
+    	parameters.addValue("discontinued", DateMapper.localDateTosqlDate(discontinued));
     	parameters.addValue("companyId", companyId);
     	
-    	NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(hikariDataSource);
     	jdbc.update(QUERY_UPDATE, parameters);
     }
     
     public void delete (int id) {
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
     	parameters.addValue("id", id, Types.INTEGER);
-    	NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(hikariDataSource); 
     	jdbc.update(QUERY_DELETE, parameters);
     }
     
@@ -110,7 +108,6 @@ public class ComputerDAO {
     			.replace(":limit", Integer.valueOf(page.getNbEntryPerPage()).toString())
     			.replace(":offset", Integer.valueOf(page.getOffset()).toString());
     	
-    	JdbcTemplate jdbc = new JdbcTemplate(hikariDataSource);
     	result = jdbc.query(query, computerMapper);
     	return result;
     }
@@ -118,8 +115,8 @@ public class ComputerDAO {
     
     public int countEntry (){
     	int result = 0;
-    	JdbcTemplate jdbc = new JdbcTemplate(hikariDataSource);
-    	result = jdbc.queryForObject(QUERY_COUNT_COMPUTER, Integer.class);
+    	MapSqlParameterSource parameters = new MapSqlParameterSource();
+    	result = jdbc.queryForObject(QUERY_COUNT_COMPUTER,parameters, Integer.class);
     	return result;
     }
 }

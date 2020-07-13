@@ -30,27 +30,20 @@ public class ComputerMapperTest {
 		
 	}
 	@Test
-	public void testrsetToComputer() {
-		try {
-			Mockito.when(rset.getInt("id")).thenReturn(ID);
-			Mockito.when(rset.getString("computerName")).thenReturn(NAME);
-			Mockito.when(rset.getDate("introduced")).thenReturn(INTRODUCED);
-			Mockito.when(rset.getDate("discontinued")).thenReturn(DISCONTINUED);
-			Mockito.when(rset.getInt("company_id")).thenReturn(COMPANY.getId());
-			Mockito.when(rset.getString("company_name")).thenReturn(COMPANY.getName());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void testrsetToComputer() throws SQLException {
+
+		Mockito.when(rset.getInt("id")).thenReturn(ID);
+		Mockito.when(rset.getString("computerName")).thenReturn(NAME);
+		Mockito.when(rset.getDate("introduced")).thenReturn(INTRODUCED);
+		Mockito.when(rset.getDate("discontinued")).thenReturn(DISCONTINUED);
+		Mockito.when(rset.getInt("company_id")).thenReturn(COMPANY.getId());
+		Mockito.when(rset.getString("company_name")).thenReturn(COMPANY.getName());
+
 		
 		Computer computer = new Computer(ID,NAME,DateMapper.sqlDateToLocalDate(INTRODUCED),DateMapper.sqlDateToLocalDate(DISCONTINUED),COMPANY);
 		
-		try {
-			assertEquals(computer,ComputerMapper.rsetToComputer(rset));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		assertEquals(computer,ComputerMapper.rsetToComputer(rset));
 	}
 
 }

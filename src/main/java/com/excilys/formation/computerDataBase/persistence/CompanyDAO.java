@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.formation.computerDataBase.mapper.CompanyMapper;
 import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
@@ -36,6 +37,9 @@ public class CompanyDAO {
     @Autowired
     CompanyMapper companyMapper;
     
+    @Autowired
+    NamedParameterJdbcTemplate jdbc;
+    
     private final static String QUERY_FIND_COMPANY = "SELECT * FROM company";
     private final static String QUERY_FINDBYID = QUERY_FIND_COMPANY + " WHERE id = :id";
     private final static String QUERY_FINDBYPAGE_COMPANY = "SELECT * FROM company LIMIT :limit OFFSET :offset";
@@ -50,7 +54,6 @@ public class CompanyDAO {
     
     public List<Company> findCompany () {
     	List<Company> result = null;
-    	JdbcTemplate jdbc = new JdbcTemplate(hikariDataSource);
     	result = jdbc.query(QUERY_FIND_COMPANY, companyMapper);
     	return result;
     }
@@ -59,7 +62,6 @@ public class CompanyDAO {
     	List<Company> result;
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
     	parameters.addValue("id", id, Types.INTEGER);
-    	NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(hikariDataSource);
     	result = jdbc.query(QUERY_FINDBYID, parameters, companyMapper);
     	return result;
     }
@@ -72,7 +74,6 @@ public class CompanyDAO {
     	parameters.addValue("limit", page.getNbEntryPerPage(), Types.INTEGER);
     	parameters.addValue("offset", page.getOffset(), Types.INTEGER);
     	
-    	NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(hikariDataSource);
     	result = jdbc.query(QUERY_FINDBYPAGE_COMPANY, parameters, companyMapper);
     	
     	return result;
@@ -82,22 +83,18 @@ public class CompanyDAO {
     
     public int countEntry() {
     	int result = 0;
-    	JdbcTemplate jdbc = new JdbcTemplate(hikariDataSource);
-    	result = jdbc.queryForObject(QUERY_COUNT_COMPANY, Integer.class);
+    	MapSqlParameterSource parameters = new MapSqlParameterSource();
+    	result = jdbc.queryForObject(QUERY_COUNT_COMPANY, parameters, Integer.class);
     	return result;
     }
     
+    @Transactional
     public void deleteCompany (Company company) {
-
-    	NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(hikariDataSource); 
     	
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
     	parameters.addValue("id", company.getId(), Types.INTEGER);
-    	
     	jdbc.update(QUERY_DELETE_COMPUTER, parameters);
     	jdbc.update(QUERY_DELETE_COMPANY, parameters);
-    	
-
     	
     }
 }

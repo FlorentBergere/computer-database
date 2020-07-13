@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 import com.excilys.formation.computerDataBase.configuration.SpringConfig;
@@ -64,7 +65,6 @@ public class CompanyDAOTest extends DBTestCase{
 	@Test
 	public void testFinDCompany() {
 		List<Company> result = companyDAO.findCompany();
-		System.out.println(result);
 		assertEquals(expectedListAll, result);
 	}
 	
@@ -105,6 +105,5 @@ public class CompanyDAOTest extends DBTestCase{
 		assertNotNull(result);
 		assertEquals(0, result.size());
 	}
-
-	
+		
 }

@@ -85,7 +85,6 @@ public class ComputerDAOTest extends DBTestCase{
 		
 		Computer computer = new Computer(id,name,introduced,discontinued,new Company(3,"RCA"));
 		computerDAO.add(name, introduced, discontinued, company.getId());
-		System.out.println(computerDAO.findAll());
 		Computer result = computerDAO.fingByID(id).get(0);
 		assertEquals(computer, result);
 	}
