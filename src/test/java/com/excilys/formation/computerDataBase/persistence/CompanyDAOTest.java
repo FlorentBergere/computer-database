@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.dbunit.DBTestCase;
-import org.dbunit.PropertiesBasedJdbcDatabaseTester;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.dataset.IDataSet;
 import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
@@ -16,15 +15,18 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.test.context.web.WebAppConfiguration;
 import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 import com.excilys.formation.computerDataBase.configuration.SpringConfig;
 import com.excilys.formation.computerDataBase.model.Company;
 
+
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 public class CompanyDAOTest extends DBTestCase{
+
+	
 	@Autowired
 	private ConnectionFactory connectionFactory;
 	@Autowired

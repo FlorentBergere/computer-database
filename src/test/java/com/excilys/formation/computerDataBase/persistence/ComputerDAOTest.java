@@ -1,7 +1,5 @@
 package com.excilys.formation.computerDataBase.persistence;
 
-import static org.junit.Assert.*;
-
 import java.io.FileInputStream;
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -18,6 +16,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
@@ -27,6 +26,7 @@ import com.excilys.formation.computerDataBase.mapper.DateMapper;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = SpringConfig.class)
+@WebAppConfiguration
 public class ComputerDAOTest extends DBTestCase{
 	@Autowired
 	private ConnectionFactory connectionFactory;

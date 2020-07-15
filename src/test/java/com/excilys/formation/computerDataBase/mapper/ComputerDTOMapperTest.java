@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.time.LocalDate;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.excilys.formation.computerDataBase.model.Company;

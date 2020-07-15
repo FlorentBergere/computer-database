@@ -8,18 +8,28 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.context.AbstractContextLoaderInitializer;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
+
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = "com.excilys.formation.computerDataBase")
-public class SpringConfig extends AbstractContextLoaderInitializer {
-
+@ComponentScan(basePackages = 
+		{"com.excilys.formation.computerDataBase.persistence"
+		,"com.excilys.formation.computerDataBase.service"
+		,"com.excilys.formation.computerDataBase.controller"
+		,"com.excilys.formation.computerDataBase.mapper"})
+public class SpringConfig extends AbstractContextLoaderInitializer   {
+	
 	@Override
 	protected WebApplicationContext createRootApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
@@ -27,6 +37,17 @@ public class SpringConfig extends AbstractContextLoaderInitializer {
 		return context;
 	}
 	
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException
+	{
+		AnnotationConfigWebApplicationContext serveltContext = new AnnotationConfigWebApplicationContext();
+		serveltContext.register(SpringConfig.class,MVCConfig.class);
+		serveltContext.setServletContext(servletContext);
+		ServletRegistration.Dynamic servlet = servletContext.addServlet("dynamicServlet", new DispatcherServlet(serveltContext));
+		servlet.setLoadOnStartup(1);
+		servlet.addMapping("/");
+	}
+
 	@Bean
 	public HikariDataSource hikariDataSource() {
 		return new HikariDataSource(new HikariConfig("/hikariConfig.properties"));
@@ -41,5 +62,7 @@ public class SpringConfig extends AbstractContextLoaderInitializer {
     public PlatformTransactionManager txManager() {
         return new DataSourceTransactionManager(hikariDataSource());
     }
+
+
 
 }
