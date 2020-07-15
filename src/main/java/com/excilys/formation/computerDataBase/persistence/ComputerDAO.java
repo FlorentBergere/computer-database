@@ -97,7 +97,7 @@ public class ComputerDAO {
     		query += page.getCurrentOrder();
     	}
     	query += QUERY_LIMIT_OFFSET
-    			.replace(":limit", Integer.valueOf(page.getNbEntryPerPage()).toString())
+    			.replace(":limit", Integer.valueOf(page.getPageLength()).toString())
     			.replace(":offset", Integer.valueOf(page.getOffset()).toString());
     	
     	result = jdbc.query(query, computerMapper);

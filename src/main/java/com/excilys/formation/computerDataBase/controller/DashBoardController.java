@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.model.DTO.ComputerDTO;
@@ -24,26 +27,22 @@ public class DashBoardController {
 	private List<Integer> listPage;
     private List<ComputerDTO> computerDTOCollection;
        
-    private void initPage() {
-    	if (this.pageComputerDTO == null) {
-    		pageComputerDTO = new Page(dashBoardService.countComputer());
-    		pageComputerDTO.setAttributeToOrder(Computer.atributes.ID.getAtribute());
-    	}
-    	
-    }
-
+ 
     @GetMapping("dashboard")
-	public void dashboard(
-			@RequestParam(value = "pageNumber ", defaultValue = "0") int pageNumber,
-			@RequestParam(value = "nbEntryPerPage ", defaultValue = "10") int pageLength,
+	public String dashboard(
+			@RequestParam(value = "nbEntryPerPage", defaultValue = "10") int pageLength,
+			@RequestParam(value = "pageNumber", defaultValue = "0") int pageNumber,
 			@RequestParam(value = "search", required = false) String search,
-    		@RequestParam(value = "atribute", required = false) Computer.atributes atribute,
+    		@RequestParam(value = "atribute", required = false) String atribute,
     		ModelMap map){
     	
-    	initPage();
-    	pageComputerDTO.setPageLength(pageLength);
-    	pageComputerDTO.goTo(pageNumber);
-    	computerDTOCollection = dashBoardService.findAllByPage(pageComputerDTO);
+    	pageComputerDTO = dashBoardService.initPage();
+    	dashBoardService.setPageLength(pageLength);
+    	dashBoardService.goTo(pageNumber);
+    	dashBoardService.setSearch(search);
+    	dashBoardService.setAttributeToOrder(ComputerMapper.parseAtribute(atribute));
+    	
+    	computerDTOCollection = dashBoardService.findAllByPage();
     	numberMaxPage = pageComputerDTO.getNbPage();
     	listPage = pageComputerDTO.getListPage();
     	map.put("computerDTOCollection", computerDTOCollection);
@@ -53,48 +52,21 @@ public class DashBoardController {
     	map.put("pageNumber", pageNumber);
     	map.put("nbEntryPerPage", pageLength);
     	
+    	return "dashboard";
     }
 
+    @PostMapping("dashboard")
+	public String deleteComputer (
+			@RequestParam(value = "selection", defaultValue = "") String idsToDelete,
+			ModelMap map) {
+    	dashBoardService.delete(idsToDelete);
+    	return "redirect:dashboard?"
+    			+ "nbEntryPerPage="+pageComputerDTO.getPageLength() + "&" 
+    			+ "pageNumber="+pageComputerDTO.getNbPage() + "&" 
+    			+ "search="+ pageComputerDTO.getSearch() + "&" 
+    			+ "atribute=" + pageComputerDTO.getAttributeToOrder();
+    }
 
 	
 	
-//		atribute = ComputerMapper.parseAtribute((request.getParameter("orderBy")));
-//		
-//		search = request.getParameter("search");
-//		if(atribute == null) {
-//			if (search != null && !search.isEmpty()) {
-//				computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber,search);
-//			}else {
-//				computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber);
-//			}
-//		}else{
-//			if (search != null && !search.isEmpty()) {
-//				computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber,search,atribute);
-//			}else {
-//				computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber,atribute);
-//			}
-//		}
-
-//		
-//		request.getRequestDispatcher("views/dashboard.jsp").forward(request,response);
-//	}
-//
-//	/**
-//	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-//	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		
-//		
-//		String idsToDelete = null;
-//		idsToDelete = request.getParameter("selection");
-//		if (idsToDelete != null && !idsToDelete.isEmpty() ) {
-//			dashBoardService.delete(idsToDelete);
-//		}
-//		
-//		
-//		search = request.getParameter("search");
-//		doGet(request, response);
-//	}
-
 }

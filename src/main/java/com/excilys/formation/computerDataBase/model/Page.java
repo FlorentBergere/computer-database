@@ -11,7 +11,7 @@ public class Page {
 	private int currentPage;
 	
 	private String attributeToOrder;
-	private String search;
+	private String search = "";;
 	private String currentOrder = Page.order.ASCENDING.getOrder();
 	
 	public enum order {
@@ -46,7 +46,7 @@ public class Page {
 		return currentPage * pageLength;
 	}
 	
-	public int getNbEntryPerPage () {
+	public int getPageLength () {
 		return pageLength;
 	}
 	
@@ -130,7 +130,12 @@ public class Page {
 	}
 
 	public void setSearch(String search) {
-		this.search = search;
+		if (search == null) {
+			search = "";
+		}else {
+			this.search = search;
+		}
+		
 	}
 	
 	public void setPageLength (int pageLength) {

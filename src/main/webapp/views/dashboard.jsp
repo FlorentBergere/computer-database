@@ -59,7 +59,7 @@
 									class="fa fa-trash-o fa-lg"></i>
 							</a>
 						</span></th>
-						<th><a href="DashBoard?orderBy=computerName">Computer name</a></th>
+						<th><a href="dashboard?orderBy=computerName">Computer name</a></th>
 						<th>Introduced date</th>
 						<!-- Table header for Discontinued Date -->
 						<th>Discontinued date</th>
@@ -91,17 +91,17 @@
 			<ul class="pagination">
 				<c:if test="${ pageNumber != 0}">
 					<li><a
-						href="DashBoard?nbEntryPerPage=<c:set var="nbEntryPerPage" value="${(empty nbEntryPerPage) ? 10 : nbEntryPerPage}"/>${ nbEntryPerPage }&pageNumber=${ pageNumber-1 }"
+						href="dashboard?nbEntryPerPage=<c:set var="nbEntryPerPage" value="${(empty nbEntryPerPage) ? 10 : nbEntryPerPage}"/>${ nbEntryPerPage }&pageNumber=${ pageNumber-1 }"
 						aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
 					</a></li>
 				</c:if>
 				<c:forEach var="i" items="${ listPage }">
 					<li <c:if test="${i == pageNumber}"> class="active"</c:if>><a
-						href="DashBoard?nbEntryPerPage=<c:set var="nbEntryPerPage" value="${(empty nbEntryPerPage) ? 10 : nbEntryPerPage}"/>${ nbEntryPerPage }&pageNumber=${ i }">${ i }</a></li>
+						href="dashboard?nbEntryPerPage=<c:set var="nbEntryPerPage" value="${(empty nbEntryPerPage) ? 10 : nbEntryPerPage}"/>${ nbEntryPerPage }&pageNumber=${ i }">${ i }</a></li>
 				</c:forEach>
 				<c:if test="${ pageNumber != nbPage }">
 					<li><a
-						href="DashBoard?nbEntryPerPage=<c:set var="nbEntryPerPage" value="${(empty nbEntryPerPage) ? 10 : nbEntryPerPage}"/>${ nbEntryPerPage }&pageNumber=${pageNumber+1 }"
+						href="dashboard?nbEntryPerPage=<c:set var="nbEntryPerPage" value="${(empty nbEntryPerPage) ? 10 : nbEntryPerPage}"/>${ nbEntryPerPage }&pageNumber=${pageNumber+1 }"
 						aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 					</a></li>
 				</c:if>
@@ -109,18 +109,18 @@
 
 			<div class="btn-group btn-group-sm pull-right" role="group">
 
-				<a href="DashBoard?nbEntryPerPage=10"><button type="button" class="btn btn-default">10</button></a> 
-				<a href="DashBoard?nbEntryPerPage=50"><button type="button" class="btn btn-default">50</button></a> 
-				<a href="DashBoard?nbEntryPerPage=100"><button type="button" class="btn btn-default">100</button></a>
+				<a href="dashboard?nbEntryPerPage=10"><button type="button" class="btn btn-default">10</button></a> 
+				<a href="dashboard?nbEntryPerPage=50"><button type="button" class="btn btn-default">50</button></a> 
+				<a href="dashboard?nbEntryPerPage=100"><button type="button" class="btn btn-default">100</button></a>
 
 
 			</div>
 		</div>
 
 	</footer>
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/dashboard.js"></script>
+	<script src="resources/js/jquery.min.js"></script>
+	<script src="resources/js/bootstrap.min.js"></script>
+	<script src="resources/js/dashboard.js"></script>
 
 </body>
 </html>

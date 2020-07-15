@@ -19,20 +19,24 @@ public class ComputerMapper implements RowMapper<Computer> {
 							new Company(rset.getInt("company_id"),rset.getString("company_name")));
 	}
 	
-	public static Computer.atributes parseAtribute (String atribute){
-		Computer.atributes result = null;
+	public static String parseAtribute (String atribute){
+		String result = null;
 		
-		if (atribute != null){
+		if (atribute == null) {
+			result = Computer.atributes.ID.getAtribute();
+		}
+		else {
 			switch (atribute) {
-			case "computerName":
-				result = Computer.atributes.NAME;
-				break;
-	
-			default:
-				result = Computer.atributes.ID;
-				break;
+				case "computerName":
+					result = Computer.atributes.NAME.getAtribute();
+					break;
+		
+				default:
+					result = Computer.atributes.ID.getAtribute();
+					break;
 			}	
 		}
+
 		return result;
 	}
 
