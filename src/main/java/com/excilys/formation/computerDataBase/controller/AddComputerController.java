@@ -12,7 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import com.excilys.formation.computerDataBase.model.DTO.CompanyDTO;
@@ -26,54 +30,30 @@ public class AddComputerController {
 	
 	@Autowired
 	private AddComputerService addComputerService;
-	String name;
-	String introduced;
-	String discontinued;
-	String compagnyId;
+
        
 	
+
+
     @GetMapping("addComputer")
-	public void addComputer() {
-    	
+    public String getFormAddComputer(ModelMap map){
+    	List<CompanyDTO>companyDTOcollection = addComputerService.getListCompany();
+    	map.put("listCompany", companyDTOcollection);
+    
+    	return "addComputer";
     }
 	
-//    /**
-//     * @see HttpServlet#HttpServlet()
-//     */
-//    public AddComputerController() {
-//        super();
-//    }
-//    
-////	@Override
-////	public void init(ServletConfig config) throws ServletException {
-////		SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
-////		super.init(config);
-////	}
-//
-//	/**
-//	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-//	 */
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//		
-//		List<CompanyDTO> companyDTOcollection = addComputerService.getListCompany();
-//		request.setAttribute("listCompany", companyDTOcollection);
-//
-//		request.getRequestDispatcher("views/addComputer.jsp").forward(request,response);
-//	}
-//
-//	/**
-//	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-//	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		name = request.getParameter("computerName");
-//		introduced = request.getParameter("introduced");
-//		discontinued = request.getParameter("discontinued");
-//		compagnyId = request.getParameter("companyId");
-//		addComputerService.addComputer(name, introduced, discontinued, compagnyId);
-//		doGet(request, response);
-//	}
+    @PostMapping("addComputer")
+   	public String addComputer (
+   			@ModelAttribute("computerName") String name,
+   			@ModelAttribute("introduced") String introduced,
+   			@ModelAttribute("discontinued") String discontinued,
+   			@ModelAttribute("companyId") String companyId) {
+    	
+    	addComputerService.addComputer(name, introduced, discontinued, companyId);
+    	
+    	return "addComputer";
+    	
+    }
 
 }
