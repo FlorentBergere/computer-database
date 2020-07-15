@@ -6,7 +6,7 @@ import java.util.List;
 public class Page {
 	@SuppressWarnings("unused")
 	private int nbEntry;
-	private int nbEntryPerPage;
+	private int pageLength;
 	private int nbPage;
 	private int currentPage;
 	
@@ -30,24 +30,24 @@ public class Page {
 	
 	public Page(int nbEntry) {
 		this.nbEntry = nbEntry;
-		this.nbEntryPerPage = 20;
-		this.nbPage = nbEntry / nbEntryPerPage;
+		this.pageLength = 20;
+		this.nbPage = nbEntry / pageLength;
 		this.currentPage = 0;
 	}
 	
-	public Page(int nbEntry,int nbEntryPerPage) {
+	public Page(int nbEntry,int pageLength) {
 		this.nbEntry = nbEntry;
-		this.nbEntryPerPage = nbEntryPerPage;
-		this.nbPage = nbEntry / nbEntryPerPage;
+		this.pageLength = pageLength;
+		this.nbPage = nbEntry / pageLength;
 		this.currentPage = 0;
 	}
 	
 	public int getOffset() {
-		return currentPage * nbEntryPerPage;
+		return currentPage * pageLength;
 	}
 	
 	public int getNbEntryPerPage () {
-		return nbEntryPerPage;
+		return pageLength;
 	}
 	
 	public void goTo (int pageNumber) {
@@ -131,6 +131,15 @@ public class Page {
 
 	public void setSearch(String search) {
 		this.search = search;
+	}
+	
+	public void setPageLength (int pageLength) {
+		this.pageLength = pageLength;
+		this.nbPage = nbEntry / pageLength;
+		if (currentPage * pageLength > nbEntry) {
+			this.currentPage = this.nbPage;
+		}
+
 	}
 	
 }
