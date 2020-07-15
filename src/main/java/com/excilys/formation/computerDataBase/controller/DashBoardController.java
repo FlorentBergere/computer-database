@@ -8,6 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.excilys.formation.computerDataBase.model.Computer;
+import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.model.DTO.ComputerDTO;
 import com.excilys.formation.computerDataBase.service.DashBoardService;
 
@@ -18,28 +19,39 @@ public class DashBoardController {
 	@Autowired
 	private DashBoardService dashBoardService;
 	
+	private Page pageComputerDTO = null;
 	private int numberMaxPage;
 	private List<Integer> listPage;
     private List<ComputerDTO> computerDTOCollection;
        
+    private void initPage() {
+    	if (this.pageComputerDTO == null) {
+    		pageComputerDTO = new Page(dashBoardService.countComputer());
+    		pageComputerDTO.setAttributeToOrder(Computer.atributes.ID.getAtribute());
+    	}
+    	
+    }
 
     @GetMapping("dashboard")
 	public void dashboard(
 			@RequestParam(value = "pageNumber ", defaultValue = "0") int pageNumber,
-			@RequestParam(value = "nbEntryPerPage ", defaultValue = "10") int nbEntryPerPage,
+			@RequestParam(value = "nbEntryPerPage ", defaultValue = "10") int pageLength,
 			@RequestParam(value = "search", required = false) String search,
     		@RequestParam(value = "atribute", required = false) Computer.atributes atribute,
     		ModelMap map){
     	
-    	computerDTOCollection = dashBoardService.findAllByPage(nbEntryPerPage,pageNumber);
-    	numberMaxPage = dashBoardService.getNumberMaxPage();
-    	listPage = dashBoardService.getListPage();
+    	initPage();
+    	pageComputerDTO.setPageLength(pageLength);
+    	pageComputerDTO.goTo(pageNumber);
+    	computerDTOCollection = dashBoardService.findAllByPage(pageComputerDTO);
+    	numberMaxPage = pageComputerDTO.getNbPage();
+    	listPage = pageComputerDTO.getListPage();
     	map.put("computerDTOCollection", computerDTOCollection);
     	map.put("nbComputer", dashBoardService.countComputer());
     	map.put("nbPage", numberMaxPage);
     	map.put("listPage", listPage);
     	map.put("pageNumber", pageNumber);
-    	map.put("nbEntryPerPage", nbEntryPerPage);
+    	map.put("nbEntryPerPage", pageLength);
     	
     }
 
