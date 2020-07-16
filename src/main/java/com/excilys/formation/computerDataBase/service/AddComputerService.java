@@ -34,7 +34,6 @@ public class AddComputerService {
 	}
 	
 	public List<CompanyDTO> getListCompany () {		
-		System.out.println("coucou");
 		return CompanyDTOMapper.companyListToDTOList(companyDAO.findCompany());
 	}
 }
