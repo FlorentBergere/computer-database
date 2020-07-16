@@ -55,12 +55,28 @@
                         <div class="actions pull-right">
                             <input type="submit" value="Edit" class="btn btn-primary">
                             or
-                            <a href="DashBoard" class="btn btn-default">Cancel</a>
+                            <a href="dashboard" class="btn btn-default">Cancel</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        
+        <c:if test="${ editButtonClick }">
+			<div class="container">
+				<c:choose>
+					<c:when test="${ editSuccess }">
+						<p class="alert-success">Creation successful</p>
+					</c:when>
+					<c:otherwise>
+						<p class="alert-warning">
+							Error creating :
+							<c:out value="error" />
+						</p>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</c:if>
     </section>
 </body>
 </html>

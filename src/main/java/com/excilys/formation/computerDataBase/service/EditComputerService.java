@@ -41,9 +41,9 @@ public class EditComputerService {
 		return result;
 	}
 	
-	public void editComputer (ComputerDTO computerDTO) {
+	public boolean editComputer (ComputerDTO computerDTO) {
 		Computer computer = ComputerDTOMapper.dtoToComputer(computerDTO);
-		computerDAO.update(computer.getId(),
+		return computerDAO.update(computer.getId(),
 				computer.getName(),
 				computer.getIntroduced(),
 				computer.getDiscontinued(),

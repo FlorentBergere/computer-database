@@ -48,9 +48,9 @@ public class AddComputerController {
    			@RequestParam("companyId") String companyId,
    			ModelMap map) {
     	
-    	boolean editSuccess = addComputerService.addComputer(name, introduced, discontinued, companyId);
-    	map.put("editSuccess", editSuccess);
-    	map.put("editButtonClick", true);
+    	boolean addSuccess = addComputerService.addComputer(name, introduced, discontinued, companyId);
+    	map.put("addSuccess", addSuccess);
+    	map.put("addButtonClick", true);
     	
     	return "addComputer";
     	

@@ -61,10 +61,10 @@
             </div>
         </div>
         
-        <c:if test="${ editButtonClick }">
+        <c:if test="${ addButtonClick }">
 			<div class="container">
 				<c:choose>
-					<c:when test="${ editSuccess }">
+					<c:when test="${ addSuccess }">
 						<p class="alert-success">Creation successful</p>
 					</c:when>
 					<c:otherwise>

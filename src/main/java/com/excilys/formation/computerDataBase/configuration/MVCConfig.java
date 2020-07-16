@@ -22,6 +22,13 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 public class MVCConfig implements WebMvcConfigurer {
 	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry
+		.addResourceHandler("/resources/**")
+		.addResourceLocations("/resources/"); 
+	}
+	
 	@Bean
 	public LocaleResolver localeResolver() {
 		CookieLocaleResolver localeResolver = new CookieLocaleResolver();

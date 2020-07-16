@@ -56,7 +56,10 @@ public class EditComputerController  {
     	
     	CompanyDTO companyDTO = editComputerService.findCompanyById(companyId);	
 		ComputerDTO computerDTO = new ComputerDTO(computerId, name, introduced, discontinued, companyDTO);
-    	editComputerService.editComputer(computerDTO);
+    	boolean editSuccess = editComputerService.editComputer(computerDTO);
+    	
+    	map.put("editSuccess", editSuccess);
+    	map.put("editButtonClick", true);
     	
     	return "editComputer";
     	
