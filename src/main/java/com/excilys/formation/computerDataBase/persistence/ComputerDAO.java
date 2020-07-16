@@ -58,14 +58,19 @@ public class ComputerDAO {
     	return result;
     }
     
-    public void add (String name, LocalDate introduced, LocalDate discontinued, int companyId) { 	
+    public boolean add (String name, LocalDate introduced, LocalDate discontinued, int companyId) { 	
+    	boolean success = false;
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
     	parameters.addValue("name", name);
     	parameters.addValue("introduced", DateMapper.localDateTosqlDate(introduced));
     	parameters.addValue("discontinued", DateMapper.localDateTosqlDate(discontinued));
     	parameters.addValue("companyId", companyId);
     	
-    	jdbc.update(QUERY_INSERT, parameters);
+    	int result = jdbc.update(QUERY_INSERT, parameters);
+    	if ( result > 0) {
+    		success = true;
+    	}
+    	return success;
     }
     
     public void update (int id, String name, LocalDate introduced, LocalDate discontinued, int companyId) {

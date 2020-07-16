@@ -60,7 +60,7 @@ public class CompanyDAO {
     	List<Company> result;
     	
     	MapSqlParameterSource parameters = new MapSqlParameterSource();
-    	parameters.addValue("limit", page.getNbEntryPerPage(), Types.INTEGER);
+    	parameters.addValue("limit", page.getPageLength(), Types.INTEGER);
     	parameters.addValue("offset", page.getOffset(), Types.INTEGER);
     	
     	result = jdbc.query(QUERY_FINDBYPAGE_COMPANY, parameters, companyMapper);

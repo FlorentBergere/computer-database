@@ -31,9 +31,6 @@ public class AddComputerController {
 	@Autowired
 	private AddComputerService addComputerService;
 
-       
-	
-
 
     @GetMapping("addComputer")
     public String getFormAddComputer(ModelMap map){
@@ -45,12 +42,15 @@ public class AddComputerController {
 	
     @PostMapping("addComputer")
    	public String addComputer (
-   			@ModelAttribute("computerName") String name,
-   			@ModelAttribute("introduced") String introduced,
-   			@ModelAttribute("discontinued") String discontinued,
-   			@ModelAttribute("companyId") String companyId) {
+   			@RequestParam("computerName") String name,
+   			@RequestParam("introduced") String introduced,
+   			@RequestParam("discontinued") String discontinued,
+   			@RequestParam("companyId") String companyId,
+   			ModelMap map) {
     	
-    	addComputerService.addComputer(name, introduced, discontinued, companyId);
+    	boolean editSuccess = addComputerService.addComputer(name, introduced, discontinued, companyId);
+    	map.put("editSuccess", editSuccess);
+    	map.put("editButtonClick", true);
     	
     	return "addComputer";
     	

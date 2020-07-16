@@ -24,10 +24,10 @@ public class AddComputerService {
 	public AddComputerService() {
 	}
 	
-	public void addComputer (String name, String introduced, String discontinued, String compagnyId) {
+	public boolean addComputer (String name, String introduced, String discontinued, String compagnyId) {
 		ComputerDTO computerDTO = new ComputerDTO("0", name, introduced, discontinued, new CompanyDTO(compagnyId,"null"));
 		Computer computer = ComputerDTOMapper.dtoToComputer(computerDTO);
-		computerDAO.add(computer.getName(),
+		return computerDAO.add(computer.getName(),
 				computer.getIntroduced(),
 				computer.getDiscontinued(),
 				computer.getCompanyId());
