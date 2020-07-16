@@ -27,7 +27,7 @@ public class DashBoardController {
 	private List<Integer> listPage;
     private List<ComputerDTO> computerDTOCollection;
        
- 
+
     @GetMapping("dashboard")
 	public String dashboard(
 			@RequestParam(value = "nbEntryPerPage", defaultValue = "10") int pageLength,
