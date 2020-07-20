@@ -27,7 +27,8 @@ import org.springframework.context.annotation.ComponentScan;
 		{"com.excilys.formation.computerDataBase.persistence"
 		,"com.excilys.formation.computerDataBase.service"
 		,"com.excilys.formation.computerDataBase.controller"
-		,"com.excilys.formation.computerDataBase.mapper"})
+		,"com.excilys.formation.computerDataBase.mapper"
+		,"com.excilys.formation.computerDataBase.validator"})
 public class SpringConfig extends AbstractContextLoaderInitializer   {
 	
 	@Override
