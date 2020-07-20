@@ -67,7 +67,7 @@ public class ComputerValidatorTest extends DBTestCase{
 			
 		}
 	
-/*
+
 	@Test(expected = EmptyNameException.class)
 	public void test_ComputerWithEmptyName_validateComputer_EmptyNameException() throws ValidatorException{
 		//given
@@ -79,7 +79,7 @@ public class ComputerValidatorTest extends DBTestCase{
 		//then
 		//throw EmptyNameException
 	}
-*/	
+	
 	@Test(expected = IntroducedDateAfeterDiscontinuedException.class)
 	public void test_ComputerWithIntroducedAfterDiscontinued_validateComputer_IntroducedDateAfeterDiscontinuedException() throws ValidatorException{
 		//given
@@ -91,7 +91,7 @@ public class ComputerValidatorTest extends DBTestCase{
 		//then
 		//throw EmptyNameException
 	}
-/*	
+	
 	@Test()
 	public void test_ComputerWithValidCompanyInBase_validateComputer_CompanyDoesNotExistException() throws ValidatorException{
 		//given
@@ -103,8 +103,7 @@ public class ComputerValidatorTest extends DBTestCase{
 		//then
 		//throw EmptyNameException
 	}
-*/	
-/*
+	
 	@Test(expected = CompanyDoesNotExistException.class)
 	public void test_ComputerWithCompanyWithIdNotMatchingName_validateComputer_CompanyDoesNotExistException() throws ValidatorException{
 		//given
@@ -116,7 +115,7 @@ public class ComputerValidatorTest extends DBTestCase{
 		//then
 		//throw EmptyNameException
 	}
-*/
+	
 
 
 }
