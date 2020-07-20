@@ -40,8 +40,7 @@ public class ComputerDAO {
     private final static String QUERY_DELETE = "DELETE FROM computer WHERE id=:id";
     private final static String QUERY_COUNT_COMPUTER = "SELECT count(*) as nbComputer FROM computer";
     
-    public ComputerDAO () {
-    }
+    
     
     public List<Computer> findAll () { 	
     	List<Computer> result;

@@ -35,6 +35,7 @@ public class SpringConfig extends AbstractContextLoaderInitializer   {
 	protected WebApplicationContext createRootApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		context.register(SpringConfig.class);
+		context.register(HibernateConfig.class);
 		return context;
 	}
 	
@@ -59,10 +60,10 @@ public class SpringConfig extends AbstractContextLoaderInitializer   {
 		return new NamedParameterJdbcTemplate(hikariDataSource());
 	}
 	
-	@Bean
-    public PlatformTransactionManager txManager() {
-        return new DataSourceTransactionManager(hikariDataSource());
-    }
+//	@Bean
+//    public PlatformTransactionManager txManager() {
+//        return new DataSourceTransactionManager(hikariDataSource());
+//    }
 
 
 

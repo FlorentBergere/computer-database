@@ -2,12 +2,34 @@ package com.excilys.formation.computerDataBase.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "computer")
 public class Computer {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
+	
+	@Column(name = "name")
 	private String name;
+	
+	@Column(name = "introduced")
 	private LocalDate introduced;
+	
+	@Column(name = "discontinued")
 	private LocalDate discontinued;
+	
+	@Transient
 	private Company company;
 	
 	public enum atributes {
@@ -25,6 +47,8 @@ public class Computer {
 			return this.atribute;
 		}
 	}
+	
+	public Computer() {}
 	
 	public Computer(int id, String name, LocalDate introduced, LocalDate discontinued,Company company){
 		this.id = id;
