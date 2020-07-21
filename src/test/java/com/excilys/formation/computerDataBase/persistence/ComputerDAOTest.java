@@ -15,18 +15,21 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.service.ConnectionFactory;
+import com.excilys.formation.computerDataBase.configuration.HibernateConfig;
 import com.excilys.formation.computerDataBase.configuration.SpringConfig;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = SpringConfig.class)
-@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {SpringConfig.class, HibernateConfig.class})
+@Transactional
 public class ComputerDAOTest extends DBTestCase{
 	@Autowired
 	private ConnectionFactory connectionFactory;
@@ -74,6 +77,7 @@ public class ComputerDAOTest extends DBTestCase{
 		assertTrue(result.isEmpty());
 	}
 
+	
 	@Test
 	public void testAdd() {
 		int id = 6;
@@ -83,8 +87,8 @@ public class ComputerDAOTest extends DBTestCase{
 		Company company = new Company(3,"RCA");
 		
 		
-		Computer computer = new Computer(id,name,introduced,discontinued,new Company(3,"RCA"));
-		computerDAO.add(name, introduced, discontinued, company.getId());
+		Computer computer = new Computer(id,name,introduced,discontinued,company);
+		computerDAO.add(computer);
 		Computer result = computerDAO.fingByID(id).get(0);
 		assertEquals(computer, result);
 	}
@@ -95,4 +99,22 @@ public class ComputerDAOTest extends DBTestCase{
 		assertEquals(5, computerDAO.countEntry());
 	}
 
+	@Test
+	public void testDelete () {
+		List<Computer> result ;
+		result = computerDAO.fingByID(3);
+		assertTrue(!result.isEmpty());
+		computerDAO.delete(3);
+		result = computerDAO.fingByID(3);
+		assertTrue(result.isEmpty());
+	}
+	
+	@Test 
+	public void testUpdate () {
+		Computer computer = computerDAO.fingByID(1).get(0);
+		computer.setCompany(new Company(3,"RCA"));
+		computerDAO.update(computer);
+		Computer result = computerDAO.fingByID(1).get(0);
+		assertEquals(computer, result);
+	}
 }

@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.model.Page;
+import com.excilys.formation.computerDataBase.persistence.CompanyDAO;
 import com.excilys.formation.computerDataBase.persistence.ComputerDAO;
 
 @Service
 public class ComputerService {
 	@Autowired
 	private ComputerDAO computerDAO;
+	
+	@Autowired
+	private CompanyDAO companyDAO;
+	
 	private Page pageComputer;
 	
 	public ComputerService () {
@@ -30,11 +35,17 @@ public class ComputerService {
 	}
 	
 	public void add (String name, LocalDate introduced, LocalDate discontinued, int compagnyId) {
-		computerDAO.add(name, introduced, discontinued, compagnyId);
+		Computer computer = new Computer(1,name,introduced,discontinued,companyDAO.fingByID(compagnyId).get(0));
+		computerDAO.add(computer);
 	}
 	
 	public void update (int id, String name, LocalDate introduced, LocalDate discontinued, int compagnyId) {
-		computerDAO.update(id, name, introduced, discontinued, compagnyId);
+		Computer computer = computerDAO.fingByID(id).get(0);
+		computer.setName(name);
+		computer.setIntroduced(introduced);
+		computer.setDiscontinued(discontinued);
+		computer.setCompany(companyDAO.fingByID(compagnyId).get(0));
+		computerDAO.update(computer);
 	}
 	
 	public void delete(int id) {

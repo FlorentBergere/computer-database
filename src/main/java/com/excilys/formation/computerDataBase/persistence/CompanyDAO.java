@@ -41,9 +41,7 @@ public class CompanyDAO {
     private final static String QUERYHQL_FIND_COMPANY = "FROM Company";
     private final static String QUERYHQL_FINDBYID = "FROM Company company where company.id = :id";
     private final static String QUERYHQL_COUNT_COMPANY = "SELECT count(company.id) FROM Company company";
-    private final static String QUERY_DELETE_COMPUTER = "DELETE FROM computer WHERE company_id = :id";
-    private final static String QUERYHQL_DELETE_COMPUTER = "DELETE FROM Computer computer WHERE computer.company_id=:id";
-    private final static String QUERY_DELETE_COMPANY = "DELETE FROM company WHERE id = :id";
+    private final static String QUERYHQL_DELETE_COMPUTER = "DELETE FROM Computer computer WHERE computer.company=:company";
     private final static String QUERYHQL_DELETE_COMPANY = "DELETE FROM Company company WHERE company.id=:id";
     
     
@@ -75,14 +73,15 @@ public class CompanyDAO {
     }
     
     
-    public void deleteCompany (Company company) {
-    	
-//    	MapSqlParameterSource parameters = new MapSqlParameterSource();
-//    	parameters.addValue("id", company.getId(), Types.INTEGER);
-//    	jdbc.update(QUERY_DELETE_COMPUTER, parameters);
-//    	jdbc.update(QUERY_DELETE_COMPANY, parameters);
-    	TypedQuery<Computer> queryDeleteComputer = sessionFactory.getCurrentSession().createQuery(QUERY_DELETE_COMPUTER,Computer.class).setParameter("id",company.getId());
-    	TypedQuery<Company> queryDeleteCompany = sessionFactory.getCurrentSession().createQuery(QUERY_DELETE_COMPANY,Company.class).setParameter("id",company.getId());
+//  Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//  session.beginTransaction();
+//  session.save(foo); //Here you have the magic
+//  session.getTransaction().commit();
+//  session.close();
+    @SuppressWarnings("unchecked")
+    public void deleteCompany (Company company) {   	
+		TypedQuery<Computer> queryDeleteComputer = sessionFactory.getCurrentSession().createQuery(QUERYHQL_DELETE_COMPUTER).setParameter("company",company);
+    	TypedQuery<Company> queryDeleteCompany = sessionFactory.getCurrentSession().createQuery(QUERYHQL_DELETE_COMPANY).setParameter("id",company.getId());
     	queryDeleteComputer.executeUpdate();
     	queryDeleteCompany.executeUpdate();
     	

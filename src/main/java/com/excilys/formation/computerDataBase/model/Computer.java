@@ -8,11 +8,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
+import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
 @Table(name = "computer")
+//@SecondaryTables({@SecondaryTable(name="company", pkJoinColumns={@PrimaryKeyJoinColumn(name="company_id", referencedColumnName="id")})})
 public class Computer {
 	
 	@Id
@@ -29,7 +38,8 @@ public class Computer {
 	@Column(name = "discontinued")
 	private LocalDate discontinued;
 	
-	@Transient
+    @ManyToOne(targetEntity = Company.class)
+    @JoinColumn(name = "company_id")
 	private Company company;
 	
 	public enum atributes {

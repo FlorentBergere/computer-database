@@ -43,9 +43,15 @@ public class ComputerDTO {
 		return companyDTO;
 	}
 	public String getCompanyName() {
+		if (this.companyDTO ==null) {
+			return null;
+		}
 		return this.companyDTO.getName();
 	}
 	public String getCompanyId() {
+		if (this.companyDTO ==null) {
+			return null;
+		}
 		return this.companyDTO.getId();
 	}
 	public void setCompany(CompanyDTO company) {

@@ -1,54 +1,38 @@
 package com.excilys.formation.computerDataBase.configuration;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@PropertySource("hikariConfig.properties")
+@EnableTransactionManagement
 public class HibernateConfig {
-	
-	@Autowired
-	private Environment properties;
 	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
 	@Bean
-	public LocalSessionFactoryBean sessionFactory() {
+	public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		sessionFactory.setDataSource(getDataSource());
+		sessionFactory.setDataSource(dataSource);
 		sessionFactory.setPackagesToScan(
 				"com.excilys.formation.computerDataBase.model");
-		
 		return sessionFactory;
 	}
 	
-	@Bean
-	public DataSource getDataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName(properties.getRequiredProperty("driverClassName"));
-		dataSource.setUrl(properties.getRequiredProperty("jdbcUrl"));
-		dataSource.setUsername(properties.getRequiredProperty("dataSource.user"));
-		dataSource.setPassword(properties.getRequiredProperty("dataSource.password"));
-		
-		return dataSource;
-	}
 	
 	@Bean
 	public HibernateTransactionManager transactionManager() {
-		HibernateTransactionManager txManager = new HibernateTransactionManager();
-		txManager.setSessionFactory(sessionFactory);
-		
+		HibernateTransactionManager txManager = new HibernateTransactionManager(sessionFactory);
 		return txManager;
 	}
 	
@@ -56,4 +40,5 @@ public class HibernateConfig {
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
 		return new PersistenceExceptionTranslationPostProcessor();
 	}
+	
 }

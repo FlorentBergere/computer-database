@@ -16,6 +16,7 @@ import com.zaxxer.hikari.HikariDataSource;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
+import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -43,7 +44,7 @@ public class SpringConfig extends AbstractContextLoaderInitializer   {
 	public void onStartup(ServletContext servletContext) throws ServletException
 	{
 		AnnotationConfigWebApplicationContext serveltContext = new AnnotationConfigWebApplicationContext();
-		serveltContext.register(SpringConfig.class,MVCConfig.class);
+		serveltContext.register(SpringConfig.class,MVCConfig.class,HibernateConfig.class);
 		serveltContext.setServletContext(servletContext);
 		ServletRegistration.Dynamic servlet = servletContext.addServlet("dynamicServlet", new DispatcherServlet(serveltContext));
 		servlet.setLoadOnStartup(1);
@@ -51,7 +52,7 @@ public class SpringConfig extends AbstractContextLoaderInitializer   {
 	}
 
 	@Bean
-	public HikariDataSource hikariDataSource() {
+	public DataSource hikariDataSource() {
 		return new HikariDataSource(new HikariConfig("/hikariConfig.properties"));
 	}
 	

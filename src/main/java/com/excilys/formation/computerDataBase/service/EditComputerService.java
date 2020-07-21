@@ -43,11 +43,7 @@ public class EditComputerService {
 	
 	public boolean editComputer (ComputerDTO computerDTO) {
 		Computer computer = ComputerDTOMapper.dtoToComputer(computerDTO);
-		return computerDAO.update(computer.getId(),
-				computer.getName(),
-				computer.getIntroduced(),
-				computer.getDiscontinued(),
-				computer.getCompanyId());
+		return computerDAO.update(computer);
 	}
 	
 }

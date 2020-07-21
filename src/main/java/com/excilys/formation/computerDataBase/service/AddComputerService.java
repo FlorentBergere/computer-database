@@ -27,10 +27,7 @@ public class AddComputerService {
 	public boolean addComputer (String name, String introduced, String discontinued, String compagnyId) {
 		ComputerDTO computerDTO = new ComputerDTO("0", name, introduced, discontinued, new CompanyDTO(compagnyId,"null"));
 		Computer computer = ComputerDTOMapper.dtoToComputer(computerDTO);
-		return computerDAO.add(computer.getName(),
-				computer.getIntroduced(),
-				computer.getDiscontinued(),
-				computer.getCompanyId());
+		return computerDAO.add(computer);
 	}
 	
 	public List<CompanyDTO> getListCompany () {		

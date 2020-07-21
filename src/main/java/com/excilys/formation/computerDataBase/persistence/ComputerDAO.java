@@ -4,6 +4,10 @@ import java.sql.Types;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -11,12 +15,14 @@ import org.springframework.stereotype.Repository;
 
 import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
+import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.service.ConnectionFactory;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Repository
+@Transactional
 public class ComputerDAO {
 	@Autowired
 	ConnectionFactory connectionFactory;
@@ -30,95 +36,100 @@ public class ComputerDAO {
     @Autowired
     NamedParameterJdbcTemplate jdbc;
     
+    @Autowired
+    SessionFactory sessionFactory;
+    
     private final static String QUERY_FIND_COMPUTER = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id";
     private final static String QUERY_WHERE_ATTRIBUTE_LIKE = " WHERE computer.name LIKE '%:like%'";
     private final static String QUERY_ORDER_BY = " ORDER BY :attribute ";
     private final static String QUERY_LIMIT_OFFSET = " LIMIT :limit OFFSET :offset" ;
-    private final static String QUERY_FINDBYID = "SELECT computer.id, computer.name as computerName, introduced, discontinued, company.id AS company_id, company.name AS company_name FROM computer LEFT JOIN company ON computer.company_id=company.id WHERE computer.id = :id";
-    private final static String QUERY_INSERT = "INSERT INTO computer (name, introduced, discontinued, company_id)" + " VALUES (:name, :introduced, :discontinued, :companyId)";
-    private final static String QUERY_UPDATE = "UPDATE computer SET name=:name, introduced=:introduced, discontinued=:discontinued, company_id=:companyId WHERE id=:computerId";
-    private final static String QUERY_DELETE = "DELETE FROM computer WHERE id=:id";
-    private final static String QUERY_COUNT_COMPUTER = "SELECT count(*) as nbComputer FROM computer";
     
     
+    private final static String QUERYHQL_FIND_COMPUTER = "FROM Computer computer";
+    private final static String QUERYHQL_FINDBYID = "FROM Computer computer where computer.id = :id";
+    private final static String QUERYHQL_DELETE_COMPUTER = "DELETE FROM Computer computer WHERE computer.id=:id";
+    private final static String QUERYHQL_COUNT_COMPUTER = "SELECT count(computer.id) FROM Computer computer";
+    private final static String QUERYHQL_UPDATE = "UPDATE Computer computer SET  computer.name = :name, computer.introduced = :introduced, computer.discontinued = :discontinued, computer.company = :company where computer.id = :id";
+    private final static String QUERYHQL_WHERE_ATTRIBUTE_LIKE = " WHERE computer.name LIKE :like";
+    private final static String QUERYHQL_ORDER_BY = " ORDER BY :attribute ";
+
     
     public List<Computer> findAll () { 	
-    	List<Computer> result;
-    	result = jdbc.query(QUERY_FIND_COMPUTER, computerMapper);
-		return result;
-		
+		TypedQuery<Computer> query = sessionFactory.getCurrentSession().createQuery(QUERYHQL_FIND_COMPUTER,Computer.class);
+		return query.getResultList();
     }
     
     public List<Computer> fingByID (int id) {
-    	List<Computer> result;
-    	MapSqlParameterSource parameters = new MapSqlParameterSource();
-    	parameters.addValue("id", id, Types.INTEGER);
-    	result = jdbc.query(QUERY_FINDBYID, parameters, computerMapper);
+    	TypedQuery<Computer> query = sessionFactory.getCurrentSession().createQuery(QUERYHQL_FINDBYID,Computer.class).setParameter("id", id);
+    	return query.getResultList();
+    }
+    
+    
+    public boolean add (Computer computer) {
+    	sessionFactory.getCurrentSession().save(computer);
+    	return true;
+    }
+    
+    
+    @SuppressWarnings("unchecked")
+	public boolean update (Computer computer) {
+    	boolean result = false;
+    	TypedQuery<Computer> query = sessionFactory.getCurrentSession().createQuery(QUERYHQL_UPDATE)
+				.setParameter("name", computer.getName())
+				.setParameter("introduced", computer.getIntroduced())
+				.setParameter("discontinued", computer.getDiscontinued())
+				.setParameter("company", computer.getCompany())
+				.setParameter("id",computer.getId());
+    	if (query.executeUpdate() > 0) {
+    		result = true;    		
+    	}
     	return result;
     }
     
-    public boolean add (String name, LocalDate introduced, LocalDate discontinued, int companyId) { 	
-    	boolean success = false;
-    	MapSqlParameterSource parameters = new MapSqlParameterSource();
-    	parameters.addValue("name", name);
-    	parameters.addValue("introduced", DateMapper.localDateTosqlDate(introduced));
-    	parameters.addValue("discontinued", DateMapper.localDateTosqlDate(discontinued));
-    	parameters.addValue("companyId", companyId);
-    	
-    	int result = jdbc.update(QUERY_INSERT, parameters);
-    	if ( result > 0) {
-    		success = true;
-    	}
-    	return success;
-    }
-    
-    public boolean update (int id, String name, LocalDate introduced, LocalDate discontinued, int companyId) {
-    	boolean success = false;
-    	int result = 0;
-    	MapSqlParameterSource parameters = new MapSqlParameterSource();
-    	parameters.addValue("computerId", id);
-    	parameters.addValue("name", name);
-    	parameters.addValue("introduced", DateMapper.localDateTosqlDate(introduced));
-    	parameters.addValue("discontinued", DateMapper.localDateTosqlDate(discontinued));
-    	parameters.addValue("companyId", companyId);
-    	
-    	result = jdbc.update(QUERY_UPDATE, parameters);
-    	if (result > 0) {
-    		success = true;
-    	}
-    	return success;
-    }
-    
+    @SuppressWarnings("unchecked")
     public void delete (int id) {
-    	MapSqlParameterSource parameters = new MapSqlParameterSource();
-    	parameters.addValue("id", id, Types.INTEGER);
-    	jdbc.update(QUERY_DELETE, parameters);
+		TypedQuery<Computer> queryDeleteComputer = sessionFactory.getCurrentSession().createQuery(QUERYHQL_DELETE_COMPUTER).setParameter("id",id);
+    	queryDeleteComputer.executeUpdate();
     }
     
     
-    public List<Computer> findAllByPage (Page page) {
-    	List<Computer> result =null;
-    	String query = QUERY_FIND_COMPUTER;
-    	if( page.getSearch() != null ) {
-    		query += QUERY_WHERE_ATTRIBUTE_LIKE.replace(":like", page.getSearch());
+//    public List<Computer> findAllByPage (Page page) {
+//    	List<Computer> result =null;
+//    	String query = QUERY_FIND_COMPUTER;
+//    	if( page.getSearch() != null ) {
+//    		query += QUERY_WHERE_ATTRIBUTE_LIKE.replace(":like", page.getSearch());
+//    	}
+//    	if( page.getAttributeToOrder() != null ) {
+//    		query += QUERY_ORDER_BY.replace(":attribute", page.getAttributeToOrder());
+//    		query += page.getCurrentOrder();
+//    	}
+//    	query += QUERY_LIMIT_OFFSET
+//    			.replace(":limit", Integer.valueOf(page.getPageLength()).toString())
+//    			.replace(":offset", Integer.valueOf(page.getOffset()).toString());
+//    	
+//    	result = jdbc.query(query, computerMapper);
+//    	return result;
+//    }
+    
+    public List<Computer> findAllByPage (Page page){
+    	String stringQuery = QUERYHQL_FIND_COMPUTER;
+    	if( page.getSearch() != null && !page.getSearch().isEmpty()) {
+    		stringQuery += QUERYHQL_WHERE_ATTRIBUTE_LIKE.replace(":like", page.getSearch());
+    		System.out.println("coucou" +page.getSearch());
     	}
     	if( page.getAttributeToOrder() != null ) {
-    		query += QUERY_ORDER_BY.replace(":attribute", page.getAttributeToOrder());
-    		query += page.getCurrentOrder();
+    		stringQuery += QUERYHQL_ORDER_BY.replace(":attribute", page.getAttributeToOrder());
+    		stringQuery += page.getCurrentOrder();
     	}
-    	query += QUERY_LIMIT_OFFSET
-    			.replace(":limit", Integer.valueOf(page.getPageLength()).toString())
-    			.replace(":offset", Integer.valueOf(page.getOffset()).toString());
-    	
-    	result = jdbc.query(query, computerMapper);
-    	return result;
+    	TypedQuery<Computer> query = sessionFactory.getCurrentSession().createQuery(stringQuery,Computer.class)
+    			.setFirstResult(page.getOffset())
+    			.setMaxResults(page.getPageLength());
+    	return query.getResultList();
     }
 
     
     public int countEntry (){
-    	int result = 0;
-    	MapSqlParameterSource parameters = new MapSqlParameterSource();
-    	result = jdbc.queryForObject(QUERY_COUNT_COMPUTER,parameters, Integer.class);
-    	return result;
+    	TypedQuery<Long> query = sessionFactory.getCurrentSession().createQuery(QUERYHQL_COUNT_COMPUTER,Long.class);
+    	return query.getSingleResult().intValue();
     }
 }
