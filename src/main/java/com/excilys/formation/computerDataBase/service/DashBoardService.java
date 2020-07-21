@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.excilys.formation.computerDataBase.mapper.ComputerDTOMapper;
-import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.model.DTO.ComputerDTO;
 import com.excilys.formation.computerDataBase.persistence.ComputerDAO;

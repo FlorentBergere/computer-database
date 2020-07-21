@@ -1,7 +1,5 @@
 package com.excilys.formation.computerDataBase.configuration;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;

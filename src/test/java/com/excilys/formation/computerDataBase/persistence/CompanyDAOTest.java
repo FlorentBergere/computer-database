@@ -1,6 +1,7 @@
 package com.excilys.formation.computerDataBase.persistence;
 
 import java.io.FileInputStream;
+import java.sql.Connection;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,7 +61,9 @@ public class CompanyDAOTest extends DBTestCase{
 	
 	@Before
 	public void setUp() throws Exception {
-		getSetUpOperation().execute(new DatabaseConnection(connectionFactory.getConnection()), getDataSet());
+		try(Connection connection = connectionFactory.getConnection()){
+			getSetUpOperation().execute(new DatabaseConnection(connection), getDataSet());
+		}
 	}
 
 	@Test

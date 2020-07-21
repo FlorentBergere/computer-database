@@ -17,8 +17,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.excilys.formation.computerDataBase.configuration.HibernateConfig;
 import com.excilys.formation.computerDataBase.configuration.SpringConfig;
 import com.excilys.formation.computerDataBase.mapper.DateMapper;
 import com.excilys.formation.computerDataBase.model.Company;
@@ -31,8 +33,8 @@ import com.excilys.formation.computerDataBase.validator.exception.computer.Compu
 import com.excilys.formation.computerDataBase.validator.exception.computer.EmptyNameException;
 import com.excilys.formation.computerDataBase.validator.exception.computer.IntroducedDateAfeterDiscontinuedException;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = SpringConfig.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {SpringConfig.class,HibernateConfig.class})
 public class ComputerValidatorTest extends DBTestCase{
 
 	@Autowired

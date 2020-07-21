@@ -3,25 +3,16 @@ package com.excilys.formation.computerDataBase.model;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
-import javax.persistence.SecondaryTables;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "computer")
-//@SecondaryTables({@SecondaryTable(name="company", pkJoinColumns={@PrimaryKeyJoinColumn(name="company_id", referencedColumnName="id")})})
 public class Computer {
 	
 	@Id
@@ -138,7 +129,7 @@ public class Computer {
 			this.name,
 			String.valueOf(this.introduced),
 			String.valueOf(this.discontinued),
-			this.company.toString());
+			company == null ? null : this.company.toString());
 		
 	}
 

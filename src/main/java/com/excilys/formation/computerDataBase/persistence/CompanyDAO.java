@@ -1,40 +1,21 @@
 package com.excilys.formation.computerDataBase.persistence;
 
-import java.sql.Types;
 import java.util.List;
 
-import javax.management.Query;
 import javax.persistence.TypedQuery;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.excilys.formation.computerDataBase.mapper.CompanyMapper;
 import com.excilys.formation.computerDataBase.model.Company;
 import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.model.Page;
-import com.excilys.formation.computerDataBase.service.ConnectionFactory;
-import com.zaxxer.hikari.HikariDataSource;
 
 @Repository
 @Transactional
-public class CompanyDAO {
-	@Autowired
-	ConnectionFactory connectionFactory;
-	
-    @Autowired
-	HikariDataSource hikariDataSource;
-    
-    @Autowired
-    CompanyMapper companyMapper;
-    
-    @Autowired
-    NamedParameterJdbcTemplate jdbc;
-    
+public class CompanyDAO {  
     @Autowired
     SessionFactory sessionFactory;
     

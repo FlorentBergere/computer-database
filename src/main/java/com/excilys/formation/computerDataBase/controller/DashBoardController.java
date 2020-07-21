@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.excilys.formation.computerDataBase.mapper.ComputerMapper;
-import com.excilys.formation.computerDataBase.model.Computer;
 import com.excilys.formation.computerDataBase.model.Page;
 import com.excilys.formation.computerDataBase.model.DTO.ComputerDTO;
 import com.excilys.formation.computerDataBase.service.DashBoardService;

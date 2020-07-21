@@ -2,8 +2,6 @@ package com.excilys.formation.computerDataBase.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.context.AbstractContextLoaderInitializer;
 import org.springframework.web.context.WebApplicationContext;
@@ -61,10 +59,6 @@ public class SpringConfig extends AbstractContextLoaderInitializer   {
 		return new NamedParameterJdbcTemplate(hikariDataSource());
 	}
 	
-//	@Bean
-//    public PlatformTransactionManager txManager() {
-//        return new DataSourceTransactionManager(hikariDataSource());
-//    }
 
 
 
