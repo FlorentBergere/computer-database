@@ -1,4 +1,4 @@
-package com.excilys.formation.computerDataBase.mapper;
+package com.excilys.mapper;
 
 import static org.junit.Assert.*;
 
@@ -6,8 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.excilys.formation.computerDataBase.model.Company;
-import com.excilys.formation.computerDataBase.model.DTO.CompanyDTO;
+import com.excilys.dto.CompanyDTO;
+import com.excilys.model.Company;
+
+
 
 public class CompanyDTOMapperTest {
 	private static final int idInt = 42;

@@ -1,4 +1,4 @@
-package com.excilys.formation.computerDataBase.persistence;
+package com.excilys.persistence;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -21,12 +21,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.excilys.formation.computerDataBase.model.Company;
-import com.excilys.formation.computerDataBase.model.Computer;
-import com.excilys.formation.computerDataBase.service.ConnectionFactory;
-import com.excilys.formation.computerDataBase.configuration.HibernateConfig;
-import com.excilys.formation.computerDataBase.configuration.SpringConfig;
-import com.excilys.formation.computerDataBase.mapper.DateMapper;
+import com.excilys.config.HibernateConfig;
+import com.excilys.config.SpringConfig;
+import com.excilys.mapper.DateMapper;
+import com.excilys.model.Company;
+import com.excilys.model.Computer;
+
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {SpringConfig.class, HibernateConfig.class})

@@ -1,4 +1,4 @@
-package com.excilys.formation.computerDataBase.mapper;
+package com.excilys.mapper;
 
 import static org.junit.Assert.*;
 
@@ -7,10 +7,12 @@ import java.time.LocalDate;
 import org.junit.After;
 import org.junit.Test;
 
-import com.excilys.formation.computerDataBase.model.Company;
-import com.excilys.formation.computerDataBase.model.Computer;
-import com.excilys.formation.computerDataBase.model.DTO.CompanyDTO;
-import com.excilys.formation.computerDataBase.model.DTO.ComputerDTO;
+import com.excilys.dto.CompanyDTO;
+import com.excilys.dto.ComputerDTO;
+import com.excilys.model.Company;
+import com.excilys.model.Computer;
+
+
 
 public class ComputerDTOMapperTest {
 	

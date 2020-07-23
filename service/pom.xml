@@ -13,19 +13,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.excilys</groupId>
-			<artifactId>core</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.excilys</groupId>
 			<artifactId>persistence</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.excilys</groupId>
-			<artifactId>binding</artifactId>
 			<version>1.0</version>
 		</dependency>
 	</dependencies>
