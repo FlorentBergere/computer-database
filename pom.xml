@@ -5,19 +5,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.excilys.formation</groupId>
+	<groupId>com.excilys</groupId>
 	<artifactId>computerDataBase</artifactId>
-	<version>1.0.0</version>
-	<packaging>war</packaging>
+	<version>1.0</version>
+	<packaging>pom</packaging>
 
 	<name>computerDataBase Maven Webapp</name>
-	<!-- FIXME change it to the project's website -->
-	<url>http://www.example.com</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>	
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<junit.Version>4.12</junit.Version>
 		<mysql.Version>8.0.21</mysql.Version>
 		<h2.Version>1.4.197</h2.Version>
@@ -32,33 +30,42 @@
 		<hibernate.Version>5.4.18.Final</hibernate.Version>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-framework-bom</artifactId>
+				<version>${spring.Version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
-	
-	<!-- Test -->
+		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.Version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-core</artifactId>
 			<version>${mockito.Version}</version>
 			<scope>test</scope>
 		</dependency>
-		
-	<!-- Base de donnée  -->
+
+		<!-- Base de donnée -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.Version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		
-		
-		
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -72,8 +79,7 @@
 			<version>${dbunit.Version}</version>
 			<scope>test</scope>
 		</dependency>
-		
-		
+
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
@@ -85,24 +91,22 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>${hibernate.Version}</version>
 		</dependency>
-		
-	<!-- Logger -->
+
+		<!-- Logger -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.Version}</version>
 		</dependency>
-		
-		
 
-	<!-- JSP -->
+		<!-- JSP -->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${jstl.Version}</version>
 			<scope>runtime</scope>
 		</dependency>
-				
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -110,34 +114,20 @@
 			<scope>provided</scope>
 		</dependency>
 
-
 		<!-- Spring -->
-		
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-web</artifactId>
-			<version>${spring.Version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.Version}</version>
-		</dependency>
-	
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.Version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
 			<version>${spring.Version}</version>
 		</dependency>
-		
-		
+
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -147,7 +137,6 @@
 	</dependencies>
 
 	<build>
-		<finalName>computerDataBase</finalName>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven 
 				defaults (may be moved to parent pom) -->
 			<plugins>
@@ -183,4 +172,13 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+
+	<modules>
+		<module>core</module>
+		<module>binding</module>
+		<module>persistence</module>
+		<module>service</module>
+		<module>console</module>
+		<module>webapp</module>
+	</modules>
 </project>
