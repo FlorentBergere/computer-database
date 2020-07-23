@@ -4,7 +4,7 @@
 
 
 ### Config Files ###
-src/main/resources/hikariConfig.properties
+persistence/src/resources/hikariConfig.properties
 
 ### Code ###
 .vscode/*
