@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.excilys.dto.ComputerDTO;
 import com.excilys.mapper.ComputerDTOMapper;
 import com.excilys.model.Page;
-import com.excilys.persistance.ComputerDAO;
+import com.excilys.persistence.ComputerDAO;
 
 @Service
 public class DashBoardService {

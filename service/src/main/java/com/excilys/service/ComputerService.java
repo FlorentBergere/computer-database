@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.excilys.model.Computer;
 import com.excilys.model.Page;
-import com.excilys.persistance.CompanyDAO;
-import com.excilys.persistance.ComputerDAO;
+import com.excilys.persistence.CompanyDAO;
+import com.excilys.persistence.ComputerDAO;
 
 @Service
 public class ComputerService {

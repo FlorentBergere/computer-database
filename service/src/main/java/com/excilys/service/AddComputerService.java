@@ -10,8 +10,8 @@ import com.excilys.dto.ComputerDTO;
 import com.excilys.mapper.CompanyDTOMapper;
 import com.excilys.mapper.ComputerDTOMapper;
 import com.excilys.model.Computer;
-import com.excilys.persistance.CompanyDAO;
-import com.excilys.persistance.ComputerDAO;
+import com.excilys.persistence.CompanyDAO;
+import com.excilys.persistence.ComputerDAO;
 
 
 @Service

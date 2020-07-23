@@ -1,4 +1,4 @@
-package com.excilys.persistance;
+package com.excilys.persistence;
 
 import java.util.List;
 

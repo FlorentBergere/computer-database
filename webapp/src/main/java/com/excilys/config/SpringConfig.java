@@ -27,7 +27,7 @@ import org.springframework.context.annotation.ComponentScan;
 		{"com.excilys.binding"
 		,"com.excilys.console"
 		,"com.excilys.core"
-		,"com.excilys.persistance"
+		,"com.excilys.persistence"
 		,"com.excilys.service"
 		,"com.excilys.controller"})
 public class SpringConfig implements WebApplicationInitializer   {

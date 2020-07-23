@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.excilys.model.Company;
 import com.excilys.model.Page;
-import com.excilys.persistance.CompanyDAO;
+import com.excilys.persistence.CompanyDAO;
 
 @Service
 public class CompanyService {

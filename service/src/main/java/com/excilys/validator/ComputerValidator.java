@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
-import com.excilys.persistance.CompanyDAO;
+import com.excilys.persistence.CompanyDAO;
 import com.excilys.validator.exception.company.CompanyException;
 import com.excilys.validator.exception.computer.CompanyDoesNotExistException;
 import com.excilys.validator.exception.computer.ComputerException;
