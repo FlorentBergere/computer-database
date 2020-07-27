@@ -15,6 +15,7 @@ import com.excilys.persistence.ComputerDAO;
 public class DashBoardService {
 	@Autowired
 	private ComputerDAO computerDAO;
+	
 	private Page pageComputer;
 	
 	
