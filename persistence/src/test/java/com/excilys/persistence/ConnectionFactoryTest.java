@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.sql.Connection;
 
+import javax.persistence.Persistence;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +13,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.excilys.config.HibernateConfig;
-import com.excilys.config.SpringConfig;
+import com.excilys.config.PersitenceConfig;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SpringConfig.class,HibernateConfig.class})
+@ContextConfiguration(classes = {PersitenceConfig.class,HibernateConfig.class})
 public class ConnectionFactoryTest {
 	@Autowired
 	private ConnectionFactory connectionFactory;

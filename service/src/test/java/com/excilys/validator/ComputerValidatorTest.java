@@ -15,7 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.excilys.config.HibernateConfig;
-import com.excilys.config.SpringConfig;
+import com.excilys.config.PersitenceConfig;
+import com.excilys.config.ServiceConfig;
 import com.excilys.mapper.DateMapper;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
@@ -28,7 +29,7 @@ import com.excilys.validator.exception.computer.IntroducedDateAfeterDiscontinued
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SpringConfig.class,HibernateConfig.class})
+@ContextConfiguration(classes = {PersitenceConfig.class,ServiceConfig.class,HibernateConfig.class})
 public class ComputerValidatorTest extends DBTestCase{
 
 	@Autowired

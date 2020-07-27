@@ -17,12 +17,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.config.HibernateConfig;
-import com.excilys.config.SpringConfig;
+import com.excilys.config.PersitenceConfig;
 import com.excilys.mapper.DateMapper;
 import com.excilys.model.Company;
 import com.excilys.model.Computer;
@@ -30,7 +28,7 @@ import com.excilys.model.Computer;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SpringConfig.class, HibernateConfig.class})
+@ContextConfiguration(classes = {PersitenceConfig.class,HibernateConfig.class})
 @Transactional
 public class ComputerDAOTest extends DBTestCase{
 	@Autowired

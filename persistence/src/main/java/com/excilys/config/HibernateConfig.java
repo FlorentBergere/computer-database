@@ -11,12 +11,20 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 @Configuration
 @EnableTransactionManagement
 public class HibernateConfig {
 	
 	@Autowired
 	private SessionFactory sessionFactory;
+	
+	@Bean
+	public DataSource hikariDataSource() {
+		return new HikariDataSource(new HikariConfig("/hikariConfig.properties"));
+	}
 	
 	@Bean
 	public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
@@ -26,7 +34,6 @@ public class HibernateConfig {
 				"com.excilys.model");
 		return sessionFactory;
 	}
-	
 	
 	@Bean
 	public HibernateTransactionManager transactionManager() {

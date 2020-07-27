@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.util.Scanner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.excilys.config.CoreConfig;
 import com.excilys.config.HibernateConfig;
-import com.excilys.config.SpringConfig;
+import com.excilys.config.PersitenceConfig;
+import com.excilys.config.ServiceConfig;
 import com.excilys.mapper.DateMapper;
 import com.excilys.service.CompanyService;
 import com.excilys.service.ComputerService;
@@ -35,7 +37,7 @@ public class CLI {
 	
 	public static void main(String[] args) {
 		@SuppressWarnings("resource")
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpringConfig.class,HibernateConfig.class);
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(CoreConfig.class,PersitenceConfig.class,ServiceConfig.class,HibernateConfig.class);
 		CLI cli = new CLI(context.getBean(ComputerService.class),context.getBean(CompanyService.class));
 		cli.showCommand();
 		

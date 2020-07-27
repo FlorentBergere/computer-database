@@ -23,13 +23,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan(basePackages = 
-		{"com.excilys.binding"
-		,"com.excilys.console"
-		,"com.excilys.core"
-		,"com.excilys.persistence"
-		,"com.excilys.service"
-		,"com.excilys.controller"})
+@ComponentScan(basePackages = {"com.excilys.controller"})
 public class SpringConfig implements WebApplicationInitializer   {
 	
 
@@ -37,7 +31,7 @@ public class SpringConfig implements WebApplicationInitializer   {
 	public void onStartup(ServletContext servletContext) throws ServletException
 	{
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(SpringConfig.class, MVCConfig.class, HibernateConfig.class);
+		context.register(CoreConfig.class,PersitenceConfig.class,ServiceConfig.class,SpringConfig.class, MVCConfig.class, HibernateConfig.class);
 		context.setServletContext(servletContext);
 		
 		ServletRegistration.Dynamic servlet = servletContext.addServlet("dynamicServlet", new DispatcherServlet(context));

@@ -19,14 +19,14 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.excilys.config.HibernateConfig;
-import com.excilys.config.SpringConfig;
+import com.excilys.config.PersitenceConfig;
 import com.excilys.model.Company;
 
 
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {SpringConfig.class, HibernateConfig.class})
+@ContextConfiguration(classes = {PersitenceConfig.class,HibernateConfig.class})
 @Transactional
 public class CompanyDAOTest extends DBTestCase{
 
