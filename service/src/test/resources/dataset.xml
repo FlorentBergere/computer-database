@@ -1,0 +1,15 @@
+<!DOCTYPE dataset SYSTEM "src/test/resources/dataset.dtd">
+<dataset>
+	<company id="1" name="Apple Inc."/>
+	<company id="2" name="Thinking Machines"/>
+	<company id="3" name="RCA"/>
+	<computer id="1" name="MacBook Pro 15.4 inch" company_id="1"/>
+	<computer id="2" name="CM-2a" company_id="2" />
+	<computer id="3" name="CM-200" introduced="1999-09-06" discontinued="2000-03-03" company_id="2"/>
+	<computer id="4" name="CM-5e" company_id="2"/>
+	<computer id="5" name="CM-5" introduced="1991-01-01" company_id="2"/>
+</dataset>
+
+
+<!-- 
+insert into computer (id,name,introduced,discontinued,company_id) values (  5,'CM-5','1991-01-01',null,2); -->
