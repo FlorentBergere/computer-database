@@ -198,5 +198,6 @@
 		<module>service</module>
 		<module>console</module>
 		<module>webapp</module>
+		<module>webservice</module>
 	</modules>
 </project>

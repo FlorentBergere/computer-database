@@ -9,6 +9,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.WebApplicationInitializer;
 
+import com.excilys.rest.controller.ComputerRestController;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -31,7 +32,7 @@ public class SpringConfig implements WebApplicationInitializer   {
 	public void onStartup(ServletContext servletContext) throws ServletException
 	{
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(CoreConfig.class,PersitenceConfig.class,ServiceConfig.class,SpringConfig.class, MVCConfig.class, HibernateConfig.class,SpringSecurityConfig.class,SpringSecurityInitializer.class);
+		context.register(CoreConfig.class,PersitenceConfig.class,ServiceConfig.class,SpringConfig.class, MVCConfig.class, HibernateConfig.class,SpringSecurityConfig.class,SpringSecurityInitializer.class,ComputerRestController.class);
 		context.setServletContext(servletContext);
 		
 		ServletRegistration.Dynamic servlet = servletContext.addServlet("dynamicServlet", new DispatcherServlet(context));
