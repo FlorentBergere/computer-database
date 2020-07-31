@@ -144,6 +144,14 @@
 			<version>${spring.Version}</version>
 			<scope>test</scope>
 		</dependency>
+
+
+		<!--  ANALYSIS -->
+		<dependency>
+			<groupId>org.sonarsource.scanner.maven</groupId>
+			<artifactId>sonar-maven-plugin</artifactId>
+			<version>3.7.0.1746</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -190,5 +198,6 @@
 		<module>service</module>
 		<module>console</module>
 		<module>webapp</module>
+		<module>webservice</module>
 	</modules>
 </project>
