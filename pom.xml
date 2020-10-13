@@ -16,7 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<junit.Version>4.12</junit.Version>
+		<junit.Version>4.13.1</junit.Version>
 		<mysql.Version>8.0.21</mysql.Version>
 		<h2.Version>1.4.197</h2.Version>
 		<dbunit.Version>2.7.0</dbunit.Version>
