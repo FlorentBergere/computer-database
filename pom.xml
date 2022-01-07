@@ -18,7 +18,7 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<junit.Version>4.12</junit.Version>
 		<mysql.Version>8.0.21</mysql.Version>
-		<h2.Version>1.4.197</h2.Version>
+		<h2.Version>2.0.206</h2.Version>
 		<dbunit.Version>2.7.0</dbunit.Version>
 		<slf4j.Version>1.7.25</slf4j.Version>
 		<log4j12.Version>1.7.30</log4j12.Version>
