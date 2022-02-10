@@ -27,7 +27,7 @@
 		<jstl.Version>1.2</jstl.Version>
 		<hikariCP.Version>3.4.5</hikariCP.Version>
 		<spring.Version>5.2.7.RELEASE</spring.Version>
-		<hibernate.Version>5.4.18.Final</hibernate.Version>
+		<hibernate.Version>5.4.24.Final</hibernate.Version>
 	</properties>
 
 	<dependencyManagement>
